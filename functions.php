@@ -445,6 +445,8 @@ require TEMPLATEPATH . '/inc/extras.php';
  */
 require TEMPLATEPATH . '/inc/customizer.php';
 
+require TEMPLATEPATH . '/inc/potted.php';
+
 /**
  * Custom walker with no <li>.
  */
