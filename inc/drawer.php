@@ -36,7 +36,7 @@ function frenchpress_process_drawer(){
 	}
 	
 	global $sidebars_widgets;
-	if ( $sidebars_widgets['drawer'] ) {
+	if ( !empty( $sidebars_widgets['drawer'] ) ) {
 	// if ( is_active_sidebar( 'drawer' ) ) {
 
 		/**
