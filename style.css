@@ -142,7 +142,7 @@ input:not([type]),/* inputs with no type specified are type=text but dont get ma
 select,
 textarea {
 	border: 1px solid;
-/*	border-radius: 0;*//*are they ever rounded by default?*/
+	border-radius: 0;/* iOS rounds these */
 	padding: .5ex;
 	/* background: #fff; */
 }
