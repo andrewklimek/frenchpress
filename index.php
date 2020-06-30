@@ -5,7 +5,7 @@ get_header();
 <main id=primary class="site-main fffi fffi-99">
 <?php
 if ( have_posts() ) :
-	
+
 	if ( is_home() && ! is_front_page() && ! apply_filters( 'frenchpress_title_in_header', false ) ) :
 		?>
 		<header class=page-header>
@@ -25,7 +25,7 @@ if ( have_posts() ) :
 		get_template_part( 'template-parts/content', get_post_format() );
 
 	endwhile;
-	
+
 	echo frenchpress_posts_nav();
 
 else :

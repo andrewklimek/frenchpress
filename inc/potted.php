@@ -6,7 +6,7 @@ add_filter( 'login_errors', function( $errors ){ return "Please try again"; } );
 function frenchpress_temp_login_page(){
 	// global $wp_query;//$wp_query->query['name']
 	if ( is_404() && false !== strpos( $_SERVER['REQUEST_URI'], 'login' ) )
-	{	
+	{
 		$a = [];
 		$a['redirect'] = empty( $_REQUEST['redirect_to'] ) ? admin_url() : urlencode($_REQUEST['redirect_to']);
 		// if ( !empty( $_REQUEST['redirect_to'] ) ) $a['redirect'] = urlencode( $_REQUEST['redirect_to'] );
@@ -21,7 +21,7 @@ function frenchpress_temp_login_page(){
 add_action( 'template_redirect', 'frenchpress_temp_login_page' );
 
 function frenchpress_login_redirect() {
-	
+
 	// dont redirect actual login requests!
 	if ('POST' === $_SERVER['REQUEST_METHOD'])
 	{
@@ -34,9 +34,9 @@ function frenchpress_login_redirect() {
 		}
 		return;
 	}
-	
+
 	$url = site_url('login');// the custom login page
-	
+
 	if ( ! empty( $_REQUEST['redirect_to'] ) ) {
 		$url = add_query_arg( 'redirect_to', urlencode($_REQUEST['redirect_to']), $url );
 	}

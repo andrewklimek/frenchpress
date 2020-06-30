@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Adds a box to the main column on the Post and Page edit screens.
  */
@@ -18,8 +17,6 @@ add_action( 'add_meta_boxes', 'frenchpress_add_meta_box' );
 
 /**
  * Prints the box content.
- * 
- * @param WP_Post $post The object for the current post/page.
  */
 function frenchpress_meta_box_callback( $post, $metabox ) {
 
@@ -43,8 +40,6 @@ function frenchpress_meta_box_callback( $post, $metabox ) {
 
 /**
  * When the post is saved, saves our custom data.
- *
- * @param int $post_id The ID of the post being saved.
  */
 function frenchpress_save_meta_box_data( $post_id ) {
 

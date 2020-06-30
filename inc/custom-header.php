@@ -21,14 +21,14 @@
  */
 function frenchpress_custom_header_setup() {
 	add_theme_support( 'custom-header', apply_filters( 'frenchpress_custom_header_args', array(
-		'default-image'          => '',
-		'default-text-color'     => '000000',
-		'width'                  => 1000,
-		'flex-width'            => true,
-		'height'                 => 250,
-		'flex-height'            => true,
-		'header-text'            => true,
-		'wp-head-callback'       => 'frenchpress_header_style',
+		'default-image'			=> '',
+		'default-text-color'	=> '000000',
+		'width'					=> 1000,
+		'flex-width'			=> true,
+		'height'				=> 250,
+		'flex-height'			=> true,
+		'header-text'			=> true,
+		'wp-head-callback'		=> 'frenchpress_header_style',
 	) ) );
 }
 add_action( 'after_setup_theme', 'frenchpress_custom_header_setup' );
@@ -45,7 +45,7 @@ function frenchpress_header_style() {
 	// get_header_textcolor() options: add_theme_support( 'custom-header' ) is default, hide text (returns 'blank') or any hex value.
 	if ( get_theme_support( 'custom-header', 'default-text-color' ) === $header_text_color ) {
 		return;
-	}	
+	}
 	// returns 'blank' if text has been hidden
 	if ( 'blank' !== $header_text_color ) {
 

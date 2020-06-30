@@ -42,7 +42,7 @@ bottom
 (flex)
 none		(0 0 auto)
 auto		(1 1 auto)
-initial     (0 1 auto)
+initial	 (0 1 auto)
 noshrink	(1 0 auto)
 magic		(1 1 auto + width:18em)
 even		(1 1 0)
@@ -65,35 +65,35 @@ add_filter( 'the_content', 'frenchpress_custom_shortcode_parsing', 9 );// Run th
 // add_filter( 'widget_custom_html_content', 'frenchpress_custom_shortcode_parsing', 9 );// Only new HTML widgets
 // add_filter( 'widget_text_content', 'frenchpress_custom_shortcode_parsing', 9 );// Only text widget
 add_filter( 'widget_text', 'frenchpress_custom_shortcode_parsing', 9 );// both, at least for now
-	
+
 function frenchpress_custom_shortcode_parsing( $c ) {
 
-    // $p = "/\[(section|grid|cell)(?!\w)([^\]]*)\] ( (?: (?: [^\[]*? | \[(?!\/\\1\]) ) | (?R) )* ) \[\/\\1\]/x";// recursive feature
+	// $p = "/\[(section|grid|cell)(?!\w)([^\]]*)\] ( (?: (?: [^\[]*? | \[(?!\/\\1\]) ) | (?R) )* ) \[\/\\1\]/x";// recursive feature
 
-    $p = "/\[((?:section|grid|cell)(?:_\w+)?)(?!\w)([^\]]*)\]((?:[^\[]*|\[(?!\/\\1\]))*)\[\/\\1\]/";// allows for nesting with _suffixes, ex: [grid][grid_2][/grid_2][/grid]
+	$p = "/\[((?:section|grid|cell)(?:_\w+)?)(?!\w)([^\]]*)\]((?:[^\[]*|\[(?!\/\\1\]))*)\[\/\\1\]/";// allows for nesting with _suffixes, ex: [grid][grid_2][/grid_2][/grid]
 
-    // recursive
-    while ( false !== strpos($c, '[/grid') || false !== strpos($c, '[/cell') || false !== strpos($c, '[/section') ) {
-    
-	    $c = preg_replace_callback( $p, function($m){
-	            return frenchpress_shortcode( shortcode_parse_atts( $m[2] ), $m[3], $m[1] );
-	        }, $c );
-    
-    }
-    return $c;
+	// recursive
+	while ( false !== strpos($c, '[/grid') || false !== strpos($c, '[/cell') || false !== strpos($c, '[/section') ) {
+
+		$c = preg_replace_callback( $p, function($m){
+				return frenchpress_shortcode( shortcode_parse_atts( $m[2] ), $m[3], $m[1] );
+			}, $c );
+
+	}
+	return $c;
 }
 
 function frenchpress_shortcode( $a, $c = '', $tag ) {
-    
+
 	if ( !empty( $a['el'] ) ) {
 		$el = $a['el'];
 	} else {
 		$el = ( false !== strpos( $tag, 'section' ) ) ? 'section' : 'div';
 	}
-	
+
 	$id = !empty( $a['id'] ) ? " id='{$a['id']}'" : "";
 	$class = !empty( $a['class'] ) ? "{$a['class']}" : "";
-	
+
 	// build Style attribute
 	if ( !empty( $a['bg'] ) ) {
 		if ( false === strpos( $a['bg'], '/' ) ) {// no slash so presume a color
@@ -108,7 +108,7 @@ function frenchpress_shortcode( $a, $c = '', $tag ) {
 	} else {// no bg
 		$style = !empty( $a['style'] ) ? " style='{$a['style']}'" : "";
 	}
-	
+
 	// Flex
 	if ( false !== strpos( $tag, 'grid' ) || !empty( $a['grid'] ) ) {
 		$class .= ' fff';
@@ -122,19 +122,19 @@ function frenchpress_shortcode( $a, $c = '', $tag ) {
 			$class .= " fffi-" . str_replace( " ", " fffi-", $a['cell'] );
 		}
 	}
-	
+
 	// final check for any classes, add attribute
 	$class = $class ? " class='". trim( $class ) ."'" : "";
-	
+
 	// process other shortcodes
-    // $c = do_shortcode($c);// not anymore cause we're in a custom early shortcode processing
-    
-    // shortcut for wrapping content in a "tray" div (param tray=1, tray='pad' or tray='pad-2')
-    if ( ! empty( $a['tray'] ) ) {
+	// $c = do_shortcode($c);// not anymore cause we're in a custom early shortcode processing
+
+	// shortcut for wrapping content in a "tray" div (param tray=1, tray='pad' or tray='pad-2')
+	if ( ! empty( $a['tray'] ) ) {
 		$tray_class = $a['tray'] === '1' ? 'tray' : 'tray ' . $a['tray'];
-        $c = "<div class='{$tray_class}'>{$c}</div>";
-    }
-	
+		$c = "<div class='{$tray_class}'>{$c}</div>";
+	}
+
 	// string it all together
 	return "<{$el}{$id}{$class}{$style}>\n{$c}</{$el}>";
 }

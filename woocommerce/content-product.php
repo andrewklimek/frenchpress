@@ -3,7 +3,6 @@
  * The template for displaying product content within loops
  *
  * replaced li with article
- * @version 2.6.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

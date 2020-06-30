@@ -11,12 +11,12 @@ get_header();
 while ( have_posts() ) : the_post();
 
 	get_template_part( 'template-parts/content', get_post_format() );
-	
+
 	if ( apply_filters( 'frenchpress_post_navigation', false ) ) :
-    	// filter the navigation args, for example to go to next post in same category:
-    	// add_filter( 'frenchpress_post_navigation_args', function() { return array( 'in_same_term' => true ); } );
-    	the_post_navigation( apply_filters( 'frenchpress_post_navigation_args', array() ) );
-    endif;
+		// filter the navigation args, for example to go to next post in same category:
+		// add_filter( 'frenchpress_post_navigation_args', function() { return array( 'in_same_term' => true ); } );
+		the_post_navigation( apply_filters( 'frenchpress_post_navigation_args', array() ) );
+	endif;
 
 	// If comments are open or we have at least one comment, load up the comment template.
 	if ( comments_open() || get_comments_number() ) :

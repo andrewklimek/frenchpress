@@ -14,7 +14,7 @@ if(!function_exists('poo')){function poo( $var, $note='', $file='_debug.txt', $t
  * Enqueue scripts and styles.
  */
 function frenchpress_scripts() {
-		
+
 	if ( SCRIPT_DEBUG )
 	{
 		wp_enqueue_style( 'p', TEMPLATE_DIR_U.'/style.css', null, filemtime( TEMPLATEPATH . '/style.css' ) );
@@ -22,26 +22,26 @@ function frenchpress_scripts() {
 		if ( apply_filters( 'frenchpress_drawer', true ) )
 		{
 			// wp_enqueue_script( 'f', TEMPLATE_DIR_U.'/js/drawer.js', null, filemtime( TEMPLATEPATH.'/a/drawer.js' ), true );
-			
+
 			// which submenu will we use if needed?
 			global $frenchpress_drawer;
 			wp_enqueue_script( 'f', TEMPLATE_DIR_U."/a/{$frenchpress_drawer['layout']}.js", null, filemtime( TEMPLATEPATH."/a/{$frenchpress_drawer['layout']}.js" ), true );
-			wp_enqueue_style( 'f', TEMPLATE_DIR_U."/a/{$frenchpress_drawer['layout']}.css", null, filemtime( TEMPLATEPATH."/a/{$frenchpress_drawer['layout']}.css" ) );	
+			wp_enqueue_style( 'f', TEMPLATE_DIR_U."/a/{$frenchpress_drawer['layout']}.css", null, filemtime( TEMPLATEPATH."/a/{$frenchpress_drawer['layout']}.css" ) );
 		}
-		
+
 		// lastly add child styles, if child theme active
 		if ( TEMPLATEPATH !== STYLESHEETPATH )
 			wp_enqueue_style( 'c', get_stylesheet_uri(), null, filemtime( STYLESHEETPATH . '/style.css' ) );
-	} 
+	}
 	else
 	{
 		if ( apply_filters( 'frenchpress_inline_css', true ) )
 			add_action( 'wp_print_styles', 'frenchpress_inline_css' );
 		else
 			wp_enqueue_style( 'p', TEMPLATE_DIR_U.'/m.css', null, null );
-		
+
 		// add_action( 'wp_print_footer_scripts', 'frenchpress_inline_js' );// any reason to do this if we can just defer the script?
-		
+
 		if ( apply_filters( 'frenchpress_drawer', true ) )
 		{
 			// wp_enqueue_script( 'f', TEMPLATE_DIR_U.'/a/drawer.min.js', null, null, true );
@@ -49,18 +49,18 @@ function frenchpress_scripts() {
 			// which submenu will we use if needed?
 			global $frenchpress_drawer;
 			wp_enqueue_script( 'f', TEMPLATE_DIR_U."/a/{$frenchpress_drawer['layout']}.min.js", null, null, true );
-			
+
 			if ( ! apply_filters( 'frenchpress_inline_css', true ) )
 				wp_enqueue_style( 'f', TEMPLATE_DIR_U."/a/{$frenchpress_drawer['layout']}.css", null, null );
 		}
-		
+
 		// lastly add child styles, if child theme active
 		if ( ! apply_filters( 'frenchpress_inline_css', true ) ) {
 			if ( TEMPLATEPATH !== STYLESHEETPATH )
 				wp_enqueue_style( 'c', get_stylesheet_uri(), null, null );
 		}
 	}
-	
+
 	// wp_enqueue_style( 'frenchpress-print',  TEMPLATE_DIR_U.'/print.css', null, null, 'print' );
 
 	// wp_enqueue_script( 'frenchpress-skip-link-focus-fix', TEMPLATE_DIR_U . '/js/skip-link-focus-fix'.$suffix.'.js', array(), null, true );
@@ -83,14 +83,14 @@ function frenchpress_inline_js(){
 function frenchpress_inline_css() {
 	// get parent styles
 	$css = file_get_contents( TEMPLATEPATH . '/style.css' );
-	
+
 	/* Remove specific Blocks from CSS
 	$remove_blocks = [ "DRAWER", "SUBMENU" ];
 	foreach ( $remove_blocks as $block ) {
 		$css = preg_replace("|\/\* {$block} \*\/[\s\S]+?\/\* END {$block} \*\/|", "", $css );
 	}
 	*/
-	
+
 	// extra CSS for drawers & submenus
 	if ( apply_filters( 'frenchpress_drawer', true ) )
 	{
@@ -98,10 +98,10 @@ function frenchpress_inline_css() {
 		global $frenchpress_drawer;
 		$css .= file_get_contents( TEMPLATEPATH . "/a/{$frenchpress_drawer['layout']}.css" );
 	}
-	
+
 	// append child styles, if child theme active
 	if ( TEMPLATEPATH !== STYLESHEETPATH ) $css .= file_get_contents( STYLESHEETPATH . '/style.css' );
-	
+
 	$css = frenchpress_minify_css( $css );
 
 	echo "<style>{$css}</style>";
@@ -132,7 +132,7 @@ add_action( 'login_enqueue_scripts', function() {
 	// wp_dequeue_style( 'open-sans' );
 	// wp_dequeue_style( 'dashicons' );
 	wp_dequeue_style( 'login' );
-	
+
 	if ( function_exists( 'frenchpress_child_enqueue_scripts' ) ) {
 		frenchpress_child_enqueue_scripts();
 	}
@@ -159,7 +159,7 @@ add_action( 'wp_print_scripts', 'frenchpress_mobile_test' );
 * There are actually core filters for using and modifying inline default CSS
 */
 function add_gallery_styling( $style_and_div ) {
-	
+
 	/*
 	* Earlier, I used some display and line-height rules to fix spacing between images.
 	* This is also an issue on images with captions, if you want the capton to be flush.
@@ -243,7 +243,7 @@ function frenchpress_setup() {
 		'gallery',
 		'caption',
 	) );
-	
+
 	/*
 	 * Enable support for Post Formats.
 	 * See https://developer.wordpress.org/themes/functionality/post-formats/
@@ -265,10 +265,10 @@ function frenchpress_setup() {
 		'default-color' => 'FFFDF8',
 		'default-image' => '',
 	) );
-	
+
 	// Custom Logo
 	add_theme_support( 'custom-logo', array( 'flex-width'	=> true ) );
-	
+
 	/*
 	 * Styles the visual editor
 	 * See https://developer.wordpress.org/reference/functions/add_editor_style/
@@ -297,24 +297,24 @@ add_action( 'after_setup_theme', 'frenchpress_content_width', 0 );
  */
 function frenchpress_widgets_init() {
 	register_sidebar( array(
-		'name'          => 'Sidebar 1',
-		'id'            => 'sidebar-1',
+		'name'		  => 'Sidebar 1',
+		'id'			=> 'sidebar-1',
 		'before_widget' => '<section id="%1$s" class="widget sidebar-widget %2$s">',
 		'after_widget'  => "</section>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Sidebar 2',
-		'id'            => 'sidebar-2',
+		'name'		  => 'Sidebar 2',
+		'id'			=> 'sidebar-2',
 		'before_widget' => '<section id="%1$s" class="widget sidebar-widget %2$s">',
 		'after_widget'  => "</section>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Header 1 (very top)',
-		'id'            => 'header-1',
+		'name'		  => 'Header 1 (very top)',
+		'id'			=> 'header-1',
 		'description'   => 'Best for secondary menus/nav bars',
 		'before_widget' => '<aside id="%1$s" class="widget header-widget %2$s">',
 		'after_widget'  => "</aside>\n",
@@ -322,16 +322,16 @@ function frenchpress_widgets_init() {
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Header 2',
-		'id'            => 'header-2',
+		'name'		  => 'Header 2',
+		'id'			=> 'header-2',
 		'before_widget' => '<div id="%1$s" class="widget header-widget fffi %2$s">',
 		'after_widget'  => "</div>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Header 3 (main)',
-		'id'            => 'header-3',
+		'name'		  => 'Header 3 (main)',
+		'id'			=> 'header-3',
 		'description'   => 'Will be in line with the site branding, typical place to put the main menu',
 		'before_widget' => '<div id="%1$s" class="widget header-widget fffi %2$s">',
 		'after_widget'  => "</div>\n",
@@ -339,16 +339,16 @@ function frenchpress_widgets_init() {
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Header 4',
-		'id'            => 'header-4',
+		'name'		  => 'Header 4',
+		'id'			=> 'header-4',
 		'before_widget' => '<div id="%1$s" class="widget header-widget fffi %2$s">',
 		'after_widget'  => "</div>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Top of Footer',
-		'id'            => 'footer-top',
+		'name'		  => 'Top of Footer',
+		'id'			=> 'footer-top',
 		'description'   => 'For some banner between content and footer',
 		'before_widget' => '',
 		'after_widget'  => "",
@@ -356,40 +356,40 @@ function frenchpress_widgets_init() {
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Footer 1',
-		'id'            => 'footer-1',
+		'name'		  => 'Footer 1',
+		'id'			=> 'footer-1',
 		'before_widget' => '<aside id="%1$s" class="widget footer-widget %2$s">',
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Footer 2',
-		'id'            => 'footer-2',
+		'name'		  => 'Footer 2',
+		'id'			=> 'footer-2',
 		'before_widget' => '<aside id="%1$s" class="widget footer-widget %2$s">',
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Footer 3',
-		'id'            => 'footer-3',
+		'name'		  => 'Footer 3',
+		'id'			=> 'footer-3',
 		'before_widget' => '<aside id="%1$s" class="widget footer-widget %2$s">',
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Footer 4',
-		'id'            => 'footer-4',
+		'name'		  => 'Footer 4',
+		'id'			=> 'footer-4',
 		'before_widget' => '<aside id="%1$s" class="widget footer-widget %2$s">',
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
 	) );
 	register_sidebar( array(
-		'name'          => 'Bottom of Footer',
-		'id'            => 'footer-bottom',
+		'name'		  => 'Bottom of Footer',
+		'id'			=> 'footer-bottom',
 		'description'   => 'Typical place for copyright, theme info, etc. Shortcode [current_year] is available for copyrights.',
 		'before_widget' => '<aside id="%1$s" class="widget footer-widget fffi %2$s">',
 		'after_widget'  => "</aside>\n",
@@ -404,7 +404,7 @@ add_action( 'widgets_init', 'frenchpress_widgets_init' );
  * Adds markup for the mobile-menu-style drawer
  */
  if ( ! wp_get_nav_menus() ) add_filter( 'frenchpress_drawer', function(){return false;} );
- 
+
  if ( apply_filters( 'frenchpress_drawer', true ) ) {
 	require TEMPLATEPATH . '/inc/drawer.php';
  } else {
@@ -412,7 +412,7 @@ add_action( 'widgets_init', 'frenchpress_widgets_init' );
 	// This is just for sites with no drawer and might even be better defined in child theme to the exact pixel width.
 	add_action('wp_print_styles',function(){echo '<style>.mnav .site-header .menu-item > a{padding:12px}</style>';});
  }
- 
+
 /**
  * [frenchpress] builder-style shortcode
  */

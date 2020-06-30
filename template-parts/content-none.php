@@ -2,7 +2,6 @@
 /**
  * Called from template files via get_template_part( 'template-parts/content', 'none' )
  */
-
 ?>
 <section class=no-results>
 	<div class=page-content>

@@ -21,7 +21,7 @@ get_header();
 do_action('frenchpress_main_bottom');
 
 echo '</main>';
-	
+
 if ( $layout === 'sidebars' ) {
 	get_sidebar();
 }

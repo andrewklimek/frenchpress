@@ -5,7 +5,7 @@ get_header();
 <main id=primary class="site-main fffi fffi-99">
 <?php
 if ( have_posts() ) :
-	
+
 	if ( ! apply_filters( 'frenchpress_title_in_header', false ) ) :
 	?>
 	<header class=page-header>
@@ -19,11 +19,11 @@ if ( have_posts() ) :
 	</header>
 	<?php
 	endif;
-	
+
 	/* Start the Loop */
 	while ( have_posts() ) : the_post();
 
-        /* specific content templates can be made like: content[-custom post type][-post format].php */
+		/* specific content templates can be made like: content[-custom post type][-post format].php */
 		$name = get_post_type();
 		if ( 'post' === $name ) $name = '';
 		$format = get_post_format();

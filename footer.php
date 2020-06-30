@@ -4,7 +4,7 @@
  */
 
 do_action('frenchpress_content_tray_bottom');
-	
+
 echo '</div>';// #content-tray
 
 do_action('frenchpress_content_bottom');
@@ -27,34 +27,34 @@ if ( is_active_sidebar( 'footer-top' ) ) : ?>
 endif;
 
 if ( is_active_sidebar( 'footer-1' ) || is_active_sidebar( 'footer-2' ) || is_active_sidebar( 'footer-3' ) || is_active_sidebar( 'footer-4' ) ) :
-	
+
 	$number_of_widget_areas = 0;
-	
+
 	ob_start();
-	
+
 	if ( is_active_sidebar( 'footer-1' ) ) {
 		++$number_of_widget_areas;
-		echo '<div id=footer-1 class="widget-area fffi" role=complementary>';		
+		echo '<div id=footer-1 class="widget-area fffi" role=complementary>';
 		dynamic_sidebar( 'footer-1' );
-		echo '</div>';	
+		echo '</div>';
 	}
 	if ( is_active_sidebar( 'footer-2' ) ) {
 		++$number_of_widget_areas;
-		echo '<div id=footer-2 class="widget-area fffi" role=complementary>';		
+		echo '<div id=footer-2 class="widget-area fffi" role=complementary>';
 		dynamic_sidebar( 'footer-2' );
-		echo '</div>';	
+		echo '</div>';
 	}
 	if ( is_active_sidebar( 'footer-3' ) ) {
 		++$number_of_widget_areas;
-		echo '<div id=footer-3 class="widget-area fffi" role=complementary>';		
+		echo '<div id=footer-3 class="widget-area fffi" role=complementary>';
 		dynamic_sidebar( 'footer-3' );
-		echo '</div>';	
+		echo '</div>';
 	}
 	if ( is_active_sidebar( 'footer-4' ) ) {
 		++$number_of_widget_areas;
-		echo '<div id=footer-4 class="widget-area fffi" role=complementary>';		
+		echo '<div id=footer-4 class="widget-area fffi" role=complementary>';
 		dynamic_sidebar( 'footer-4' );
-		echo '</div>';	
+		echo '</div>';
 	}
 	$widgets = ob_get_clean();
 
@@ -81,7 +81,7 @@ endif;
 ?>
 </footer>
 <div id=wp_footer>
-    <div id=mask></div>
+	<div id=mask></div>
 	<?php
 	wp_footer();
 	frenchpress_mini_admin_bar();

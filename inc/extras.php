@@ -7,15 +7,15 @@
 /**
  * This doesnt seem smart... makes it hard to remove more text when you want to.
  * Customize the [...] at the end of excerpts
- * but... when using the_excerpt(), manual excerpts don’t get the "more" text but auto-generated excerpts do... it’s weird.  
+ * but... when using the_excerpt(), manual excerpts don’t get the "more" text but auto-generated excerpts do... it’s weird.
  * So I am passing a blank string (or maybe ...) to the 'excerpt_more' filter and instead adding the more link via 'wp_trim_excerpt'
  */
 // add_filter( 'excerpt_more', function(){ return '&hellip;'; } );
 function frenchpress_excerpt_more( $excerpt ) {
-    return $excerpt . sprintf( ' <a class=read-more href="%1$s">%2$s</a>',
-        get_permalink( get_the_ID() ),
-        'Continue reading <span class=meta-nav>&rarr;</span>'
-    );
+	return $excerpt . sprintf( ' <a class=read-more href="%1$s">%2$s</a>',
+		get_permalink( get_the_ID() ),
+		'Continue reading <span class=meta-nav>&rarr;</span>'
+	);
 }
 // add_filter( 'wp_trim_excerpt', 'frenchpress_excerpt_more' );
 
@@ -28,10 +28,10 @@ add_filter( 'widget_text', 'do_shortcode' );
  * Wrap the archive type in archive titles with a span so they can be hidden or styled
  * Examples:
  *   hide all:
- *     span.archive-title-prefix {display: none;}
+ *	 span.archive-title-prefix {display: none;}
  * replace specific:
- *     body.archive.author header.page-header h1::before {content: "All Posts By ";}
- *     body.archive.author span.archive-title-prefix {display: none;}
+ *	 body.archive.author header.page-header h1::before {content: "All Posts By ";}
+ *	 body.archive.author span.archive-title-prefix {display: none;}
  */
 function wrap_archive_title_prefix( $title ){
 	$p = explode( ': ', $title, 2 );
@@ -102,7 +102,7 @@ add_filter( 'script_loader_tag', function( $tag ) { return str_replace( "type='t
 add_filter( 'navigation_markup_template', function($template){ return str_replace( 'class="navigation %1$s" role="navigation"', 'class="navigation %1$s"', $template ); });
 
 // remove excess markup from comment form
-add_filter( 'comment_form_fields', function($fields){ 
+add_filter( 'comment_form_fields', function($fields){
 	foreach ( $fields as $key => $field ) {
 		$fields[$key] = str_replace( array( 'aria-required="true" required="required"', "aria-required='true' required='required' /" ), 'required', $field );
 	}
@@ -116,7 +116,7 @@ add_filter( 'comment_form_fields', function($fields){
  */
 function frenchpress_nofollow_widgets($text) {
 	if ( ! is_front_page() ) {
-		
+
 		if ( false === stripos( $text, ' rel=' ) )
 		{
 			$text = str_replace( 'a href', 'a rel=nofollow href', $text);
@@ -137,7 +137,7 @@ add_filter( 'widget_text', 'frenchpress_nofollow_widgets', 99 );
 endif;// WP_CACHE
 
 // Changes <div> to <nav> for menu widget
-// This one should probably be done cache or no cache... 
+// This one should probably be done cache or no cache...
 // or else some additional rules would be needed to remove ul padding besides "nav ul"  Besides, what the heck, no indication that it's a nav!
 function frenchpress_widget_nav_menu_args( $nav_menu_args ) {
 	// if ( $args['id'] === 'top' )

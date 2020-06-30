@@ -22,11 +22,11 @@ echo '<section id=comments class=comments-area>';
 *
 */
 echo "<style>.comment-list,.children{list-style:none;padding:0}.children{padding-left:19px;border-left:5px solid rgba(165,165,165,.2)}.comment-meta{margin:0 0 12px}</style>";
-	
+
 	if ( have_comments() ) :
-		
+
 		echo '<h2 class="comments-title h3">';
-			
+
 			$comments_number = get_comments_number();
 			if ( '1' === $comments_number ) {
 				echo 'One Comment';
@@ -35,15 +35,15 @@ echo "<style>.comment-list,.children{list-style:none;padding:0}.children{padding
 			}
 		echo '</h2>
 			<ol class=comment-list>';
-		
+
 				wp_list_comments( array(
 					'callback'   => 'frenchpress_comment',// this is in inc/template-tags.php
-					'style'      => 'ol',
+					'style'	  => 'ol',
 					'short_ping' => true,
 				) );
-				
+
 		echo '</ol>';
-		
+
 		the_comments_pagination();
 
 	endif; // Check for have_comments().
@@ -55,11 +55,10 @@ echo "<style>.comment-list,.children{list-style:none;padding:0}.children{padding
 		echo '<p class=no-comments>Comments are closed.</p>';
 	}
 
-    /**
-     * You can remove the "website" field from the comment form like so:
-     * add_filter( 'comment_form_default_fields', function($fields){ unset($fields['url']); return $fields; } );
-     */
+	/**
+	 * You can remove the "website" field from the comment form like so:
+	 * add_filter( 'comment_form_default_fields', function($fields){ unset($fields['url']); return $fields; } );
+	 */
 	comment_form();
-	
+
 	echo '</section>';
-	

@@ -17,7 +17,7 @@ get_header();
 		endif;
 
 	endwhile; // End of the loop.
-	
+
 do_action('frenchpress_main_bottom');
 
 echo '</main>';

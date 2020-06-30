@@ -2,7 +2,6 @@
 /**
  * Called from template files via get_template_part( 'template-parts/content', 'page' )
  */
- 
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php

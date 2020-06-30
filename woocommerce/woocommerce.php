@@ -49,11 +49,11 @@ function woocommerce_output_content_wrapper_end() {
 // Register widget areas
 function frenchpress_woo_widgets_init() {
 	register_sidebar( array(
-		'name'          => 'Single Product',
-		'id'            => 'single-product',
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => "</aside>\n",
-		'before_title'  => '<h3 class=widgettitle>',
-		'after_title'   => "</h3>\n",
+		'name'			=> 'Single Product',
+		'id'			=> 'single-product',
+		'before_widget'	=> '<aside id="%1$s" class="widget %2$s">',
+		'after_widget'	=> "</aside>\n",
+		'before_title'	=> '<h3 class=widgettitle>',
+		'after_title'	=> "</h3>\n",
 	) );
 }
