@@ -50,10 +50,6 @@ function frenchpress_process_drawer(){
 		dynamic_sidebar( 'drawer' );
 		$frenchpress_drawer['sidebar'] = ob_get_clean();
 		remove_filter( 'wp_nav_menu_args', 'frenchpress_set_main_menu_in_drawer', 1 );
-		// poo($frenchpress_drawer['sidebar']);
-
-		// until I make a side-non-sub
-		// $frenchpress_drawer['layout'] = 'sub-side';
 	}
 	if ( ! $frenchpress_drawer['layout'] ) // normal case, not desk drawer
 	{
@@ -81,14 +77,15 @@ function frenchpress_set_main_menu_in_drawer($args){
 	add_action( 'frenchpress_header_top', 'frenchpress_print_desk_drawer' );
 	
 	// for now, I'm going to check for submenus this way still for drawer widget menus
+	// check for slug because that would mean this "drawer" menu was just added, and the previously cached 
+	// main menu was different.  This drawer menu never saves a slug because it isn't needed.
 	if ( false === ( $main_menu = get_transient( 'frenchpress_main_menu' ) ) || $main_menu['slug'] )
 	{
 		add_filter( "wp_nav_menu_items", "frenchpress_maybe_enqueue_submenu_js" );
 	}
-	elseif ( $main_menu['submenus'] )
+	else
 	{
-		global $frenchpress_drawer;
-		$frenchpress_drawer['layout'] = 'sub-side';
+		$GLOBALS['frenchpress_drawer']['layout'] = $main_menu['submenus'] ? 'sub-side' : 'side-no-sub';
 	}
 
 	$args = frenchpress_add_main_nav_args( $args );
@@ -236,9 +233,13 @@ function frenchpress_maybe_enqueue_submenu_js( $items ) {
 	if ( false !== strpos($items, "menu-item-has-children" ) )
 	{	
 		$frenchpress_drawer['layout'] = 'sub-side';
-		
 		$main_menu['submenus'] = true;
-	}		
+	}
+	else
+	{
+		$frenchpress_drawer['layout'] = 'side-no-sub';
+		$main_menu['submenus'] = false;
+	}	
 	
 	set_transient( 'frenchpress_main_menu', $main_menu );
 	
