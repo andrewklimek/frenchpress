@@ -10,7 +10,13 @@ get_header();
 <?php
 while ( have_posts() ) : the_post();
 
-	get_template_part( 'template-parts/content', get_post_format() );
+	/* specific content templates can be made like: content[-custom post type][-post format].php */
+	$name = get_post_type();
+	if ( 'post' === $name ) $name = '';
+	$format = get_post_format();
+	if ( $format ) $name = $name ? "-{$name}-{$format}" : "-{$format}";
+
+	get_template_part( 'template-parts/content', "single{$name}" );
 
 	if ( apply_filters( 'frenchpress_post_navigation', false ) ) :
 		// filter the navigation args, for example to go to next post in same category:
