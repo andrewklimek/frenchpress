@@ -587,8 +587,8 @@ body.single main {
 */
 
 /* This byline stuff might be unnecessarily clever */
-.byline,
-.updated:not(.published) {
+/* .updated:not(.published), */
+.byline {
 	display: none;
 }
 

@@ -85,11 +85,11 @@ function frenchpress_entry_meta() {
 		return;
 	}
 
-	$date = get_the_date( DATE_W3C );// PHP constant same as 'c' format
-	$modified_date = get_the_modified_date( DATE_W3C );
-
-	$time = $date === $modified_date ? '<time class="entry-date published updated" datetime="' . $date . '">' . get_the_date() . '</time>'
-		: '<time class="entry-date published" datetime="' . $date . '">' . get_the_date() . '</time><time class=updated datetime="' . $modified_date . '">' . get_the_modified_date() . '</time>';
+	if ( $GLOBALS['post']->post_date !==  $GLOBALS['post']->post_modified ) {
+		$time = '<time class=updated datetime="' . get_the_modified_date( DATE_W3C ) . '">' . get_the_modified_date() . '</time>';
+	} else {
+		$time = '<time class=published datetime="' .  get_the_date( DATE_W3C ) . '">' . get_the_date() . '</time>';// DATE_W3C is a PHP constant same as 'c' format
+	}
 
 	if ( apply_filters( 'frenchpress_entry_meta_link_time', false ) ) {
 		$time = '<a href="' . esc_url( get_permalink() ) . '" rel=bookmark>' . $time . '</a>';
