@@ -11,6 +11,7 @@
 
 			the_title( '<div><h2 class=title><a href="' . esc_url( get_permalink() ) . '" rel=bookmark>', '</a></h2></div>' );
 
+			// add entry meta header?  TODO: make a way to enable date and author separately
 			if ( apply_filters( 'frenchpress_entry_meta_non_single', false ) ) frenchpress_entry_meta();
 
 			// Filter for displaying featured image. 2nd arg is bool for "is_singular"

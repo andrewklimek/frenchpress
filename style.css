@@ -44,7 +44,7 @@ a {
 	/* -webkit-text-decoration-skip: ink; */
 	/* text-decoration-skip: ink; */
 	-webkit-tap-highlight-color: transparent;/* background color on active links in mobile browsers */
-	transition: .4s;
+	/* transition: color .4s; */
 }
 p a {
 	text-decoration: underline;
@@ -84,18 +84,18 @@ pre {
 /*	font-family: monospace;*/
 /*}*/
 
+iframe,
+object,
+/*img,*/
+/*embed {*/
+	/* display: block; why make them blocks? ppl arent sure how to center say a spotify embed */
+	/* max-width: 100%; */
+/* } */
 video,
 img {
   height: auto;
   max-width: 100%;
   /*border-style: none;*//* Remove the border on images inside links in IE10 */
-}
-/*img,*/
-/*embed,*/
-iframe,
-object {
-	/* display: block; why make them blocks? ppl arent sure how to center say a spotify embed */
-	max-width: 100%;
 }
 /*if most img should be block, add this*/
 /*.custom-logo {
@@ -107,15 +107,15 @@ object {
 /*	quotes: "\201C""\201D""\2018""\2019";*/
 /*}*/
 
-table {
-	border-collapse: collapse;
+/* table { */
+	/* border-collapse: collapse; */
 /*	border-spacing: 0;*//* only comes into play when border-collapse = seperate */
-}
+/* } */
 
-td, th {
-	padding: .5ex 1ex;
-	text-align: left;
-}
+/* td, th { */
+	/* padding: .5ex 1ex; */
+	/* text-align: left; */
+/* } */
 
 cite,
 address,/* cite & address used to be on their own line with just font-style inherit */
@@ -156,11 +156,11 @@ textarea {
   /*-webkit-appearance: none;*//* Remove inner padding in Chrome & Safari on mac */
 /* } */
 
-textarea {
-	width: 100%;/* maybe not */
-	display: block;/* maybe not */
+/* textarea { */
+	/* width: 100%; */
+	/* display: block; */
 	/*overflow: auto;*//* Remove scrollbar in IE */
-}
+/* } */
 
 
 /* svg { */
@@ -256,7 +256,7 @@ html {
 p,/* top & bottom margin in blink */
 .p {
   margin: 24px 0;
-  line-height: 24px;/* works oddly well */
+  /* line-height: 24px;*//*works fairly well */
   line-height: calc(2ex + 9px);
 }
 /* don't need this while only <p> gets margin
@@ -298,10 +298,11 @@ h3,
 h4 {
 	margin: 3ex 0 1ex;
 	/* margin: calc(6ex - 45px) 0 0; */
-/*	font-weight: inherit;*/
-/*	line-height: 2.4ex;*//* disable for now since setting 1.2 at html element */
-/*	padding-top: 24px;*//* no bottom margin so you can write top margin rules like h2 > h3: margin-top 0; and have the lines close (there's no h3 < h2 selector) */
+	/* font-weight: inherit;*/
+	/* line-height: 2.4ex;*//* disable for now since setting 1.2 at html element */
+	/* padding-top: 24px;*//* no bottom margin so you can write top margin rules like h2 > h3: margin-top 0; and have the lines close (there's no h3 < h2 selector) */
 	/* margin: 4.8ex 0 2.4ex; */
+	/* clear: both;*//* just as a way to escape from alignleft and alignright images? */
 }
 
 /* h1:first-child, *//* I suspect h1 will almost always need custom margins */
@@ -338,14 +339,11 @@ h3,
 figure {
 	display: inline-block;
 }
-figure img {
-	display: block;
-}
 figcaption {
     font-size: 88%;
-    /* line-height: 1; */
+    /* line-height: 1; *//* if adding hieght 0 to .wp-caption, .gallery-item to avoid inline space between image and caption */
 	text-align: center;
-    padding: 12px;
+    /* padding: 7px 0 12px; *//* may need padding somewhere else like figure of gallery-item */
 }
 
 /*--------------------------------------------------------------
@@ -355,8 +353,8 @@ figcaption {
 body {
 	margin: 0;
 	min-height: 100vh;
-	/*	height: 100%;*/
-	/*overflow-x: hidden;*/
+	/* height: 100%; */
+	/* overflow-x: hidden; */
 }
 
 /* stuff specific to IE 10 & 11 */
@@ -395,10 +393,10 @@ main,
 
 /* this is only for bigger screens to auto size main content against sidebars
  * without this, we should be bale to disable all flex stuff and have phones render fine with everything just stacked */
-@media (min-width:500px) {
+@supports(display:flex) {
 	#primary {
 		width: 500px;
-	/* 	max-width: 100%; *//* still needed? */
+	/*  max-width: 100%; *//* still needed? */
 	}
 }
 
@@ -416,15 +414,14 @@ aside ul {
 .content-tray {
 	padding-top: 48px;
 }*/
+
+.entry-content,/* :not(:last-child) */
+#primary,
 #header,
 .sidebar-widget,
-#secondary,
-#primary,
 article,/* was .hentry,*/
-.page-header,
-.entry-content {
+.page-header {
 	margin-bottom: 48px;
-/*	padding-bottom: 60px;*/
 }
 
 /*--------------------------------------------------------------
@@ -444,10 +441,10 @@ article,/* was .hentry,*/
 	transition: inherit;
 }
 
-.mnav .main-nav .menu-item {
+/* .mnav .main-nav .menu-item { */
 /*	padding: 0;*/
 /*	margin: 12px 0 12px 12px;*/
-}
+/* } */
 
 /* for toggle arrows, so they can be centered to the parent, not the whole ul in the li */
 .menu-item > a {
@@ -512,9 +509,9 @@ article,/* was .hentry,*/
 *  Positioning Tweaks that might not belong in the parent theme
 --------------------------------------------------------------*/
 
-body.single main {
+/* body.single main { */
 	/*line-height: 1.8;*//* 3.5ex */
-}
+/* } */
 
 /*blockquote footer cite {*/
 	/*display: block;*/
@@ -529,9 +526,9 @@ body.single main {
 /*}*/
 
 /* This is to remove frustrating space below logo.	Might be a problem with header widgets too */
-#logo {
-	line-height: 0;
-}
+/* #logo { */
+	/* line-height: 0; */
+/* } */
 
 /*.site-title,*/
 /*.site-description {*/
@@ -540,9 +537,9 @@ body.single main {
 /*}*/
 
 
-.widget:not(.widget_nav_menu) ul {
+/* .widget:not(.widget_nav_menu) ul { */
 	/*	padding-left: 24px;*/
-}
+/* } */
 
 /*--------------------------------------------------------------
 *  Accessibility
@@ -586,16 +583,16 @@ body.single main {
 }
 */
 
-/* This byline stuff might be unnecessarily clever */
+/* This byline stuff can be decided along with the filter to print meta header on non-single pages  */
 /* .updated:not(.published), */
-.byline {
+/* .byline {
 	display: none;
 }
 
 .single .byline,
 .group-blog .byline {
  	display: inline;
-}
+} */
 
 /*.blog .format-aside .title,*/
 /*.archive .format-aside .title {*/
@@ -624,20 +621,21 @@ body.single main {
 }
 
 .alignleft {
-	display: inline;
 	float: left;
-	margin: 0 1.6em .5ex 0;/* should the bottom be applied more generally to p > img or something? */
+	margin: 0 24px .5ex 0;/* should the bottom be applied more generally to p > img or something? */
 }
 
 .alignright {
-	display: inline;
 	float: right;
-	margin: 0 0 .5ex 1.6em;
+	margin: 0 0 .5ex 24px;
 }
-
+/* this would just be a weird thing to do anyhow
 .alignleft + .alignright {
 	margin-left: 0;
-}
+} */
+/* footer {
+	clear: both;
+} */
 
 
 /*--------------------------------------------------------------
@@ -763,7 +761,7 @@ but I just seem to only use none/initial or auto/magic */
 }*/
 
 /* growth ratios */
-.fffi-0.fffi{flex-grow:0;}
+/* .fffi-0.fffi{flex-grow:0;}
 .fffi-1.fffi{flex-grow:1;}
 .fffi-2.fffi{flex-grow:2;}
 .fffi-3.fffi{flex-grow:3;}
@@ -771,7 +769,7 @@ but I just seem to only use none/initial or auto/magic */
 .fffi-5.fffi{flex-grow:5;}
 .fffi-6.fffi{flex-grow:6;}
 .fffi-7.fffi{flex-grow:7;}
-.fffi-8.fffi{flex-grow:8;}
+.fffi-8.fffi{flex-grow:8;} */
 .fffi-9.fffi{flex-grow:9;}
 /*.fffi-10.fffi{-ms-flex-positive:10;flex-grow:10;}*/
 /*.fffi-11.fffi{-ms-flex-positive:11;flex-grow:11;}*//* up to 11 emulates the typical 12-column grid, but I doubt anythign will ever be 1/12 */
@@ -779,24 +777,24 @@ but I just seem to only use none/initial or auto/magic */
 /* percentage based */
 /* Due to IE 10 & 11 we need to use flex:none + width:50% instead of flex:0 0 50%; */
 /* using the "none" block above, tho perhaps it's goofy to avoid some characters this way */
-[class*='fffi-x'].fffi,
+/* [class*='fffi-x'].fffi,
 [class*='fff-x'] > .fffi,
 .fffi-x1.fffi,
-.fff-x1 > .fffi{width:100%;}
+.fff-x1 > .fffi{width:100%;} */
 
-@media (min-width:50em){
+@media(min-width:50em) {
 	
-	.fffi-x2.fffi,
+	/* .fffi-x2.fffi, */
 	.fff-x2 > .fffi {
 		width: 50%;
 	}
 	
-	.fffi-x3.fffi,
+	/* .fffi-x3.fffi, */
 	.fff-x3 > .fffi {
-		width:33.3333%;
+		width:33.333%;
 	}
 
-	.fffi-x4.fffi,
+	/* .fffi-x4.fffi, */
 	.fff-x4 > .fffi {
 		width:25%;
 	}
