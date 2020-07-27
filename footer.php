@@ -18,7 +18,7 @@ echo '<footer id=footer class="site-footer fffi">';
 do_action('frenchpress_footer_top');
 
 if ( is_active_sidebar( 'footer-top' ) ) : ?>
-	<div id=footer-top class=widget-area role=complementary>
+	<div id=footer-top class=widget-area>
 		<div class="tray footer-top-tray">
 			<?php dynamic_sidebar( 'footer-top' ); ?>
 		</div>
@@ -34,25 +34,25 @@ if ( is_active_sidebar( 'footer-1' ) || is_active_sidebar( 'footer-2' ) || is_ac
 
 	if ( is_active_sidebar( 'footer-1' ) ) {
 		++$number_of_widget_areas;
-		echo '<div id=footer-1 class="widget-area fffi" role=complementary>';
+		echo '<div id=footer-1 class="widget-area fffi">';
 		dynamic_sidebar( 'footer-1' );
 		echo '</div>';
 	}
 	if ( is_active_sidebar( 'footer-2' ) ) {
 		++$number_of_widget_areas;
-		echo '<div id=footer-2 class="widget-area fffi" role=complementary>';
+		echo '<div id=footer-2 class="widget-area fffi">';
 		dynamic_sidebar( 'footer-2' );
 		echo '</div>';
 	}
 	if ( is_active_sidebar( 'footer-3' ) ) {
 		++$number_of_widget_areas;
-		echo '<div id=footer-3 class="widget-area fffi" role=complementary>';
+		echo '<div id=footer-3 class="widget-area fffi">';
 		dynamic_sidebar( 'footer-3' );
 		echo '</div>';
 	}
 	if ( is_active_sidebar( 'footer-4' ) ) {
 		++$number_of_widget_areas;
-		echo '<div id=footer-4 class="widget-area fffi" role=complementary>';
+		echo '<div id=footer-4 class="widget-area fffi">';
 		dynamic_sidebar( 'footer-4' );
 		echo '</div>';
 	}

@@ -23,7 +23,7 @@ wp_head();
 	<?php do_action( 'frenchpress_header_top' ); ?>
 	<?php
 	if ( is_active_sidebar( 'header-1' ) ) : ?>
-		<div id=header-1 class=widget-area role=complementary>
+		<div id=header-1 class=widget-area>
 			<div class=tray>
 				<?php dynamic_sidebar( 'header-1' ); ?>
 			</div>
@@ -31,7 +31,7 @@ wp_head();
 	<?php
 	endif;
 	if ( is_active_sidebar( 'header-2' ) ) : ?>
-		<div id=header-2 class=widget-area role=complementary>
+		<div id=header-2 class=widget-area>
 			<div class="tray fff">
 				<?php dynamic_sidebar( 'header-2' ); ?>
 			</div>
@@ -121,7 +121,7 @@ echo '</div>';//.site-header-main
 // if ( is_active_sidebar( 'header-4' ) ) :
 global $sidebars_widgets;
 if ( !empty( $sidebars_widgets['header-4'] ) ) : ?>
-	<div id=header-4 class=widget-area role=complementary>
+	<div id=header-4 class=widget-area>
 		<div class="tray<?php if( isset( $sidebars_widgets['header-4'][1] ) ) echo ' fff fff-middle fff-spacebetween fff-pad'; ?>">
 			<?php dynamic_sidebar( 'header-4' ); ?>
 		</div>

@@ -31,7 +31,7 @@ add_action( 'woocommerce_sidebar', 'frenchpress_sidebar_widgets', 10 );
 function frenchpress_sidebar_widgets() {
 	if ( is_single() && is_active_sidebar( 'single-product' ) ) {
 	?>
-	<aside id=secondary class=widget-area role=complementary>
+	<aside id=secondary class=widget-area>
 		<?php dynamic_sidebar( "single-product" ); ?>
 	</aside>
 	<?php
