@@ -11,9 +11,11 @@ function frenchpress_temp_login_page(){
 		$a['redirect'] = empty( $_REQUEST['redirect_to'] ) ? admin_url() : urlencode($_REQUEST['redirect_to']);
 		// if ( !empty( $_REQUEST['redirect_to'] ) ) $a['redirect'] = urlencode( $_REQUEST['redirect_to'] );
 		echo get_header();
-		echo "<style>#login{width:320px;padding:8% 0 0;margin:auto;color:#333;text-shadow:#ccc 1px 1px 0;}</style><div id=login>";
+		echo "<style>" . frenchpress_minify_css( file_get_contents( TEMPLATEPATH . "/login.css" ) ) . "</style>";
+		echo "<div id=login>";
 		wp_login_form($a);
 		echo '<a href="' . wp_lostpassword_url( get_permalink() ) . '" title="Lost Password">Lost Password</a></div>';
+		echo "</div>";
 		echo get_footer();
 		exit;
 	}
