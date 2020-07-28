@@ -100,6 +100,41 @@
 	display: none;
 }
 
+/* END DRAWER COMMON CSS */
+
+/* HORIZONTAL HEADER SUBMENU */
+
+.dnav .header-widget .sub-menu {
+	top: 100%;
+	left: 0;
+/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
+/*	right: -16em;*/
+/*	margin: 0  auto;*/
+/*	width: 16em;*/
+	white-space: pre;/* instead of specifying a width */
+	min-width: 12em;
+	position: absolute;
+	z-index: 99;/* need anymore cause of parent z-index? */
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 250ms;
+	padding: 12px 0;/* makes consistent spacing at top and bottom of submenus */
+}
+
+.dnav .header-widget .menu-item:hover > ul,
+.dnav .header-widget .menu-item.focus > ul {
+	visibility: visible;
+	opacity: 1;
+}
+
+.dnav .header-widget .sub-menu ul {
+	top: 0;
+	left: 99%;
+/*	width: 100%;*/
+}
+
+/* END HORIZONTAL HEADER SUBMENU */
+
 /* SUBMENU */
 /* sliding nav sets height attribute via JS. This is to override if resizing browser to desktop size */
 .dnav .main-nav {
@@ -179,5 +214,3 @@
 /*    background: rgba(255, 255, 255, 0.1);*/
 /*	-webkit-font-smoothing: antialiased;*/
 }
-
-/* END SLIDING SUBMENU */
