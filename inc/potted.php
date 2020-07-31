@@ -28,7 +28,7 @@ function frenchpress_login_redirect() {
 	if ('POST' === $_SERVER['REQUEST_METHOD'])
 	{
 		// Interesting chance to detect for spam logins. Too bad "WP Cookie Check" already ran, so spammers may know it's a WP install
-		if ( $_SERVER['HTTP_HOST'] !== parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) )
+		if ( empty( $_SERVER['HTTP_REFERER'] ) || $_SERVER['HTTP_HOST'] !== parse_url( $_SERVER['HTTP_REFERER'], PHP_URL_HOST ) )
 		{
 			// error_log( "Spam login attempted from {$_SERVER['REMOTE_ADDR']} (referer: {$_SERVER['HTTP_REFERER']})" );
 			header( "{$_SERVER['SERVER_PROTOCOL']} 404 Not Found" );
