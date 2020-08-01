@@ -741,10 +741,10 @@ but I just seem to only use none/initial or auto/magic */
 /* percentage based */
 /* Due to IE 10 & 11 we need to use flex:none + width:50% instead of flex:0 0 50%; */
 /* using the "none" block above, tho perhaps it's goofy to avoid some characters this way */
-/* [class*='fffi-x'].fffi,
-[class*='fff-x'] > .fffi,
-.fffi-x1.fffi,
-.fff-x1 > .fffi{width:100%;} */
+/* .fffi-x1.fffi, */
+/* .fff-x1 > .fffi */
+/* [class*='fffi-x'].fffi, */
+[class*='fff-x'] > .fffi {width:100%;}
 
 @media(min-width:50em) {
 	
