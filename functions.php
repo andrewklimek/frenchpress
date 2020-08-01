@@ -160,21 +160,12 @@ add_action( 'wp_print_scripts', 'frenchpress_mobile_test' );
 */
 function add_gallery_styling( $style_and_div ) {
 
-	/*
-	* Earlier, I used some display and line-height rules to fix spacing between images.
-	* This is also an issue on images with captions, if you want the capton to be flush.
-	* For now I'm trying a site-wide rule: figure img{display:block}
-	* Also I have figure: display: inline-block so that is disabled for now as well.
-	*
-	* Rules were:
-		gallery-caption { display: block; line-height: 1; }
-		.gallery-item { line-height: 0; display: inline-block; }
-	*/
 	$css = frenchpress_minify_css( "<style>
 .gallery-item {
 	margin: 0;
 	text-align: center;
 	vertical-align: top;
+	display: inline-block;
 }
 .gallery-columns-1 .gallery-item {width: 100%;}
 .gallery-columns-2 .gallery-item, .gallery-item{width: 50%;}

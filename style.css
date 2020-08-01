@@ -336,9 +336,6 @@ h3,
 }
 
 /* Generalized markup that was needed in WP galleries and images with captions. Seems good. */
-figure {
-	display: inline-block;
-}
 figcaption {
     font-size: 88%;
     /* line-height: 1; *//* if adding hieght 0 to .wp-caption, .gallery-item to avoid inline space between image and caption */
@@ -353,16 +350,15 @@ figcaption {
 body {
 	margin: 0;
 	min-height: 100vh;
-	/* height: 100%; */
 	/* overflow-x: hidden; */
 }
 
 /* stuff specific to IE 10 & 11 */
-@media (-ms-high-contrast: none), (-ms-high-contrast: active) {
-	html, body { height: 100%; }/* 100vh definitely doesn't work in IE11 */
+/* @media (-ms-high-contrast: none), (-ms-high-contrast: active) { */
+	/*html, body { height: 100%; }*//* 100vh definitely doesn't work in IE11 */
 	/* svg { height: initial; } *//* height auto doesn’t work, IE defaults to 150px, but this doesnt seem to help */
 	/* * { -ms-flex: 0 1 auto; }*//* flex default is wrong in IE10 */
-}
+/* } */
 
 /* hopefully this is the answer for side padding. might want a better way of removing padding from fullwidth */
 main,
@@ -396,7 +392,7 @@ main,
 @supports(display:flex) {
 	#primary {
 		width: 500px;
-	/*  max-width: 100%; *//* still needed? */
+		max-width: 100%;/* if not specified on all fffi or similar */
 	}
 }
 
@@ -609,10 +605,9 @@ article,/* was .hentry,*/
 
 /* FLEX GRID IMPLEMENTATION "fff" for "frenchpress flexbox framework" */
 /* display: block on flex item comes first so that flex-items can also be flex containers and the display:block will be overruled */
-.fffi {
+/* .fffi { */
 	/*display: block;*//* Inline elements are not treated as flex items in IE 10. IE 11 fixed this with regular inline elements, but not ::before / ::after pseudo-elements */
-	max-width: 100%;/* had issues with #content and main... is it universal? */
-}
+/* } */
 
 .feat,
 .fff {
@@ -624,10 +619,10 @@ article,/* was .hentry,*/
 .fff-column {
     flex-direction: column;
 }
-
-.fff-column > .fffi {
-	max-width: 100%;/* main wasn't shrinking in safari */
-}
+/* main wasn't shrinking in safari... is this still relevant?  there's a max-width on all fffi */
+/* .fff-column > .fffi {
+	max-width: 100%;
+} */
 
 .fff-column,/* if I remove this, have to add nowrap to body */
 .fff-nowrap {
@@ -681,10 +676,11 @@ article,/* was .hentry,*/
 	align-self: flex-end;
 }
 
-.fffi,
+.fffi,/* default */
 .fff-initial > .fffi,
 .fff > .fffi-initial.fffi {
-    flex: initial;/* shorthand initial needs to be spelled out 0 1 auto for IE10 */
+	flex: initial;/* shorthand initial needs to be spelled out 0 1 auto for IE10 */
+	/* max-width: 100%;*//*this could be here instead of on #primary with the witdh 500px. This would also help an IE bug "Column flex items set to align-items: center overflow their container" which is exacly what the .feat class is... so it'd have to be on feat > * unfortunately */
 }
 
 /* [class*='fffi-x'].fffi, [class*='fff-x'] > .fffi, *//* prob don’t need this madness if “initial” is default */
