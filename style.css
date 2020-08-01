@@ -392,7 +392,6 @@ main,
 @supports(display:flex) {
 	#primary {
 		width: 500px;
-		max-width: 100%;/* if not specified on all fffi or similar */
 	}
 }
 
@@ -615,7 +614,7 @@ article,/* was .hentry,*/
 	flex-wrap: wrap;
 }
 
-.feat,
+.feat,/* I'm not sure this "feat" class will work in IE11 because of this bug: https://github.com/philipwalton/flexbugs#flexbug-2 which would require .feat > * { max-width:100% } */
 .fff-column {
     flex-direction: column;
 }
@@ -680,17 +679,16 @@ article,/* was .hentry,*/
 .fff-initial > .fffi,
 .fff > .fffi-initial.fffi {
 	flex: initial;/* shorthand initial needs to be spelled out 0 1 auto for IE10 */
-	/* max-width: 100%;*//*this could be here instead of on #primary with the witdh 500px. This would also help an IE bug "Column flex items set to align-items: center overflow their container" which is exacly what the .feat class is... so it'd have to be on feat > * unfortunately */
 }
 
 /* [class*='fffi-x'].fffi, [class*='fff-x'] > .fffi, *//* prob don’t need this madness if “initial” is default */
 .fff-none > .fffi,
 .fff > .fffi-none.fffi {
-    flex: none;/* 0 0 auto */
+	flex: none;/* 0 0 auto */
 }
 
 /* I had thought this (below) was the best default b/c IE fails to auto size nested flex containers 
-	and flex-basis 0% is a work around (https://github.com/philipwalton/flexbugs/issues/71), 
+and flex-basis 0% is a work around (https://github.com/philipwalton/flexbugs/issues/71), 
 but I just seem to only use none/initial or auto/magic */
 .fff-even > .fffi,
 .fff > .fffi-even.fffi {
@@ -706,12 +704,13 @@ but I just seem to only use none/initial or auto/magic */
 
 .fff-noshrink > .fffi,
 .fff > .fffi-noshrink.fffi {
-	flex: 1 0 auto;/* See https://github.com/philipwalton/flexbugs#1-minimum-content-sizing-of-flex-items-not-honored */
+	flex: 1 0 auto;/* See https://github.com/philipwalton/flexbugs#flexbug-1 */
 }
 
 .fff-magic > .fffi,
 .fffi-magic {
 	width: 18em;
+	max-width: 100%;/* this seems to be needed on #primary I think only because of my weird auto + width:18em concept */
 }
 
 /* eg missing pictues on archive page */
