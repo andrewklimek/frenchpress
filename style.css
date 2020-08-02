@@ -84,19 +84,22 @@ pre {
 /*	font-family: monospace;*/
 /*}*/
 
-iframe,
-object,
 /*img,*/
-/*embed {*/
+/*embed,*/
+video,
+img,
+iframe,
+object {
 	/* display: block; why make them blocks? ppl arent sure how to center say a spotify embed */
-	/* max-width: 100%; */
-/* } */
+	max-width: 100%;
+}
 video,
 img {
-  height: auto;
-  max-width: 100%;
+  height: auto;/* can't also be on iframes (above) b/c it overrides height attributes and makes them 150px high  */
+  /* max-width: 100%; */
   /*border-style: none;*//* Remove the border on images inside links in IE10 */
 }
+
 /*if most img should be block, add this*/
 /*.custom-logo {
     display: inline-block;
