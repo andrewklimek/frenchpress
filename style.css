@@ -1,14 +1,14 @@
 /*
-Theme Name:	 FrenchPress
-Plugin URI:	 https://github.com/andrewklimek/frenchpress/
-Description: a very light framework-style WordPress theme featuring flexbox CSS
-Author:		 Andrew J Klimek
-Author URI:	 https://github.com/andrewklimek
-Version:	 1.3.1
-License:	 GPLv2
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Theme Name:		FrenchPress
+Plugin URI:		https://github.com/andrewklimek/frenchpress/
+Description:	a very light framework-style WordPress theme
+Author:			Andrew J Klimek
+Author URI:		https://github.com/andrewklimek
+Version:		1.4
+License:		GPLv2
+License URI:	http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain:	frenchpress
 Tags:
-Text Domain: frenchpress
 
 Recently changed margins again for p and h's.  If it breaks a site, add this to child theme:
 
@@ -508,9 +508,10 @@ article,/* was .hentry,*/
 --------------------------------------------------------------*/
 /* Text meant only for screen readers. */
 .screen-reader-text {
-	clip: rect(1px, 1px, 1px, 1px);
-	position: absolute !important;
-	word-wrap: normal !important;/* Many screen reader and browser combinations announce broken words as they would appear visually. */
+	/* clip: rect(1px, 1px, 1px, 1px); */
+	/* clip-path: inset(50%); */
+	position: absolute;/* !important */
+	word-wrap: normal;/* !important *//* Many screen reader and browser combinations announce broken words as they would appear visually. */
 	height: 1px;
 	width: 1px;
 	overflow: hidden;
@@ -521,15 +522,17 @@ article,/* was .hentry,*/
 }
 
 .screen-reader-text:focus {
-	background-color: #fff;
+	background: #fff;
 	color: #000;
-	display: block;
+	/* clip: auto; */
+	/* clip-path: none; */
+	/* display: block; */
 	padding: 1em;
 	height: auto;
 	width: auto;
 	left: 5px;
-	top: 5px;
-	z-index: 100000;/* Above WP toolbar. */
+	top: 50px;/* try below WP toolbar instead of z-index stuff */
+	/* z-index: 100000; *//* Above WP toolbar (99999) */
 }
 
 /*--------------------------------------------------------------
