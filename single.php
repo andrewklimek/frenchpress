@@ -12,9 +12,9 @@ while ( have_posts() ) : the_post();
 
 	/* specific content templates can be made like: content[-custom post type][-post format].php */
 	$name = get_post_type();
-	if ( 'post' === $name ) $name = '';
+	$name = 'post' !== $name ? "-{$name}" : "";
 	$format = get_post_format();
-	if ( $format ) $name = $name ? "-{$name}-{$format}" : "-{$format}";
+	$name = $format ? "{$name}-{$format}" : $name;
 
 	get_template_part( 'template-parts/content', "single{$name}" );
 
