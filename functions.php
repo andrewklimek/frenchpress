@@ -442,11 +442,3 @@ require TEMPLATEPATH . '/inc/potted.php';
  * Custom walker with no <li>.
  */
 // require TEMPLATEPATH . '/inc/walker_no_list.php';
-
-
-/**
- * WooCommerce Support
- */
-if ( class_exists( 'WooCommerce' ) ) {
-	require TEMPLATEPATH . '/woocommerce/woocommerce.php';
-}
