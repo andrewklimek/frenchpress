@@ -11,8 +11,8 @@ get_header();
 while ( have_posts() ) : the_post();
 
 	/* specific content templates can be made like: content[-custom post type][-post format].php */
-	$name = get_post_type();
-	$name = 'post' !== $name ? "-{$name}" : "";
+	$type = get_post_type();
+	$name = 'post' !== $type ? "-{$type}" : "";
 	$format = get_post_format();
 	$name = $format ? "{$name}-{$format}" : $name;
 
@@ -25,7 +25,7 @@ while ( have_posts() ) : the_post();
 	endif;
 
 	// If comments are open or we have at least one comment, load up the comment template.
-	if ( comments_open() || get_comments_number() ) :
+	if ( $type !== "attachment" && comments_open() || get_comments_number() ) :
 		comments_template();
 	endif;
 
