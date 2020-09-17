@@ -6,6 +6,13 @@
  */
 
 
+ /**
+  * Disable xml sitemap added in WP 5.5.  If you want it, see below example to remove the user sitemap at least.
+  */
+add_filter( 'wp_sitemaps_enabled', '__return_false' );
+// to just remove the user  sitemap:
+// add_filter( 'wp_sitemaps_add_provider', function($prov,$name){ return 'users' === $name ? false : $prov; }, 10, 2 );
+
 /**
  * Remove link to Windows Live Writer manifest file <link rel="wlwmanifest" type="application/wlwmanifest+xml">
  */
