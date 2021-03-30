@@ -37,10 +37,12 @@ wp_head();
 		</div>
 	<?php
 	endif;
-	?>
-<div id=site-header-main>
-	<div class="<?php echo apply_filters( 'frenchpress_class_header_main', "tray fff fff-middle fff-spacebetween fff-nowrap fff-pad" ); ?>">
-	<?php
+
+	$header_main_classes = "tray";
+	if ( is_active_sidebar( 'header-3' ) ) $header_main_classes .= " fff fff-middle fff-spacebetween fff-nowrap fff-pad";
+	$header_main_classes = apply_filters( 'frenchpress_class_header_main', $header_main_classes );
+
+	echo "<div id=site-header-main><div class='{$header_main_classes}'>";
 
 	/* BRANDING */
 	// start building .site-branding.  Keep track of if anything is displayed so I can remove padding if not
