@@ -4,6 +4,12 @@
  */
 
 
+ /**
+  *  WP adds a style attribute with width to figures when using captions shortcode and I don't get why.
+  * _s adds max-width:100% to .wp-caption to fix it, but can't I just remove this?
+  */
+add_filter( 'img_caption_shortcode_width', '__return_false');
+
 /**
  * This doesnt seem smart... makes it hard to remove more text when you want to.
  * Customize the [...] at the end of excerpts

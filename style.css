@@ -86,6 +86,7 @@ pre {
 
 /*img,*/
 /*embed,*/
+/* figure, WP adds a style attribute with width to figures when using captions shortcode and I don't get why. For now I'm using a hook img_caption_shortcode_width in extras.php to disable that */
 video,
 img,
 iframe,
