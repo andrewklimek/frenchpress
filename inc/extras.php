@@ -38,15 +38,18 @@ add_filter( 'widget_text', 'do_shortcode' );
  * replace specific:
  *	 body.archive.author header.page-header h1::before {content: "All Posts By ";}
  *	 body.archive.author span.archive-title-prefix {display: none;}
- */
-function wrap_archive_title_prefix( $title ){
-	$p = explode( ': ', $title, 2 );
-	if ( !empty( $p[1] ) ) {
-		$title = "<span class=archive-title-prefix>". $p[0] .": </span>". $p[1];
+ function wrap_archive_title_prefix( $title ){
+	 $p = explode( ': ', $title, 2 );
+	 if ( !empty( $p[1] ) ) {
+		 $title = "<span class=archive-title-prefix>". $p[0] .": </span>". $p[1];
+		}
+		return $title;
 	}
-	return $title;
-}
-add_filter( 'get_the_archive_title', 'wrap_archive_title_prefix' );
+	add_filter( 'get_the_archive_title', 'wrap_archive_title_prefix' );
+*/
+
+// as of 5.5 you can modify the prefix with this hook
+add_filter('get_the_archive_title_prefix','__return_false');
 
 
 /**
