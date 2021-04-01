@@ -414,6 +414,7 @@ aside ul {
 	padding-top: 48px;
 }*/
 
+.entry-header,
 .entry-content,/* :not(:last-child) */
 #primary,
 #header,
@@ -588,12 +589,12 @@ article,/* was .hentry,*/
 
 .alignleft {
 	float: left;
-	margin: 0 24px .5ex 0;/* should the bottom be applied more generally to p > img or something? */
+	margin: 0 24px 6px 0;/* should the bottom be applied more generally to p > img or something? */
 }
 
 .alignright {
 	float: right;
-	margin: 0 0 .5ex 24px;
+	margin: 0 0 6px 24px;
 }
 /* this would just be a weird thing to do anyhow
 .alignleft + .alignright {
