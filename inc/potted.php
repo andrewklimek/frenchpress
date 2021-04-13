@@ -7,6 +7,7 @@ function frenchpress_temp_login_page(){
 	// global $wp_query;//$wp_query->query['name']
 	if ( is_404() && false !== strpos( $_SERVER['REQUEST_URI'], 'login' ) )
 	{
+		add_filter('pre_get_document_title', function(){ return get_bloginfo( 'name', 'display' ); });
 		$a = [];
 		$a['redirect'] = empty( $_REQUEST['redirect_to'] ) ? admin_url() : urlencode($_REQUEST['redirect_to']);
 		// if ( !empty( $_REQUEST['redirect_to'] ) ) $a['redirect'] = urlencode( $_REQUEST['redirect_to'] );
