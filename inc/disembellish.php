@@ -7,6 +7,14 @@
 
 
  /**
+  * Remove the default WP logo favicon
+  * see https://github.com/WordPress/WordPress/blob/270f2011f8ec7265c3f4ddce39c77ef5b496ed1c/wp-includes/functions.php#L1694
+  */
+ add_filter( 'get_site_icon_url', function($url) { return false === strpos( $url, 'w-logo-blue' ) ?  $url : ''; } );
+
+ 
+
+ /**
   * Disable xml sitemap added in WP 5.5.  If you want it, see below example to remove the user sitemap at least.
   */
 add_filter( 'wp_sitemaps_enabled', '__return_false' );
