@@ -1,0 +1,188 @@
+/* SLIDING SUBMENU */
+#mask {
+	position: fixed;
+	background-color: transparent;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	visibility: hidden;
+	transition: background-color .4s;
+}
+
+.mnav .drawer,
+.desk-drawer {
+	z-index: 99999;
+	/*	height: calc(100% + 60px);*/
+	height: 100%;
+	position: fixed;
+/* 	bottom: 0; */
+    top: 0;
+	left: 0;
+	width: 222px;
+	margin: 0 0 0 -222px;
+/*	padding: .8em;*/
+	transition: transform .4s;
+/*	display: block;*/
+	background: #fff;
+	color: #333;
+	text-align: left;
+	-webkit-overflow-scrolling: touch;
+	will-change: transform;
+}
+
+.dopen .drawer {
+	max-width: 90%;
+	-webkit-transform: translateX(222px);
+	transform: translateX(222px);
+	box-shadow: 0 0 4px rgba(0,0,0,0.1);
+	overflow: auto;
+}
+
+/* not sure which of these are needed */
+/* .site-header li, */
+.mnav .drawer .menu,/* this one overrides the negative margin on horizontal header navs in preceding rule */
+.desk-drawer .menu,
+.main-nav .menu-item {
+	display: block;
+	margin: 0;
+}
+
+#menu-close,
+#menu-open {
+	display: inline-block;
+	padding: 14px 0;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+
+#menu-close {
+/*    position: absolute;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*	font: 100 24px/.7 sans-serif;*/
+/*    padding: 12px 24px;*/
+ 	display: none;
+}
+
+.menubun {
+	background: currentColor;
+	width: 18px;
+	height: 1px;
+	margin: 4px;
+}
+
+/* Allow drawer menu to scroll, but not on bigger screens cause fixed headers shift when you hide desktop scrollbars */
+/*@media (max-height:770px) {*/
+	.mnav.dopen {
+		overflow: hidden;
+	}
+
+/*}*/
+
+/* only mobile screens */
+.mnav.dopen #mask {
+	background-color: rgba(0,0,0,.5);
+	visibility: visible;
+}
+.mnav #menu-close {
+    display: none;
+}
+
+/* END DRAWER COMMON CSS */
+
+/* DESK DRAWER */
+
+/* .dnav.dopen #header, *//* I think you wouldnt have much in the header but a centered logo and that shouldnt need to shift */
+.dnav.dopen #content,
+.dnav.dopen #footer {
+	margin-left: 222px;
+}
+#header,
+#content,
+#footer {
+    transition: margin .4s;
+}
+/* probably will always want to center the logo with side nav? */
+.snav .site-branding {
+    text-align: center;
+    margin-left: 26px;/* accounts for menu open button */
+}
+/* END DESK DRAWER */
+
+/* SUBMENU */
+.menutog {
+	padding: 12px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+}
+.menuback::before,
+.menutog::after {
+	content: "";
+	border-right: 1px solid currentColor;
+	border-top: 1px solid currentColor;
+    vertical-align: middle;
+    display: inline-block;
+	width: 6px;
+	height: 6px;
+    cursor: pointer;
+	transform: rotate(45deg);
+}
+.menuback::before {
+    transform: rotate(225deg);
+    margin: 0 3px 0 2px;
+}
+.desk-drawer .sub-menu {
+    position: absolute;
+    top: 0;
+	left: 0;
+    margin-left: 100%;
+    width: 100%;
+}
+.mnav .main-nav ul {
+    transition: opacity .3s, transform .3s;
+}
+.main-nav ul ul {
+    /* transition: .3s; */
+    visibility: hidden;
+	opacity: 0;
+}
+.desk-drawer .main-nav ul.focus {
+    transform: translate(-100%);
+}
+/* .main-nav .menu, */
+.main-nav .focus > ul {
+    visibility:visible;
+	opacity:1;
+}
+.desk-drawer .main-nav {
+    overflow: hidden;
+	position: relative;
+	transition: height .3s;
+	margin: 12px 0;/* makes consistent spacing at top and bottom of nav drawer */
+}
+.desk-drawer .menu-item {
+	position: static;
+	display: -ms-flexbox;
+	display: flex;
+/*    justify-content: stretch;*/
+/*    align-items: stretch;*/
+}
+.menuback {
+    cursor: pointer;
+    padding: 12px;
+    display: block;
+}
+
+/*.current-menu-item:not(.seperate-tog),*/
+/*.current-menu-item.seperate-tog > a,*/
+.menuback:hover,
+.menu-item:not(.seperate-tog):hover,
+.seperate-tog > a:hover,
+.seperate-tog > .menutog:hover {
+/*    background: rgba(255, 255, 255, 0.1);*/
+/*	-webkit-font-smoothing: antialiased;*/
+}
+
+/* END SLIDING SUBMENU */

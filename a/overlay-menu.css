@@ -1,0 +1,92 @@
+/* This really shouldnt be of the whole header... need a way to specifiy main nav */
+#main-menu .menu-item {
+    display: block;
+}
+#main-menu {
+    display: flex;
+}
+.mnav #main-menu {
+	background-color: #fff; /*This shouldnt be hard-coded*/
+	overflow: auto;
+	position: fixed;
+	z-index: 99999;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	flex-flow: column wrap;
+	/* align-items: center; */
+	justify-content: center;
+	text-align: center;
+	margin: 0;
+	-webkit-overflow-scrolling: touch;/* ??? */
+}
+.mnav:not(.dopen) #main-menu {
+    display: none;
+}
+#menu-open {
+	/* position: fixed; */
+	/* right: 12px; */
+    z-index: 999999;
+	display: inline-block;
+	padding: 14px 0;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.menubun {
+	background: currentColor;
+	width: 18px;
+	height: 1px;
+	margin: 4px;
+	transform-origin: 12%;
+    /* transition: .2s; */
+}
+.dopen .menubun:first-of-type {
+    transform: rotate(45deg);
+}
+.dopen .menubun:nth-of-type(2) {
+    opacity: 0;
+}
+.dopen .menubun:last-of-type {
+    transform: rotate(-45deg);
+}
+
+.mnav.dopen {
+	overflow: hidden;
+}
+
+
+.dnav #menu-open {
+	display: none;
+}
+
+
+.dnav #main-menu .sub-menu {
+	/* top: 100%; */
+	/* left: 0; */
+/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
+/*	right: -16em;*/
+/*	margin: 0  auto;*/
+	width: 17em;
+	/* white-space: pre; *//* instead of specifying a width */
+	/* min-width: 12em; */
+	position: absolute;
+	z-index: 99;/* need anymore cause of parent z-index? */
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 250ms;
+	padding: 0 0 4px;
+}
+
+.dnav #main-menu .menu-item:hover > ul,
+.dnav #main-menu .menu-item.focus > ul {
+	visibility: visible;
+	opacity: 1;
+}
+
+.dnav #main-menu .sub-menu ul {
+	top: 0;
+	left: 99%;
+/*	width: 100%;*/
+}

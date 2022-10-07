@@ -1,0 +1,177 @@
+/* TREE SUBMENU */
+#mask {
+	position: fixed;
+	background-color: transparent;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	visibility: hidden;
+	transition: background-color .4s;
+}
+
+.mnav .drawer,
+.desk-drawer {
+	z-index: 99999;
+	/*	height: calc(100% + 60px);*/
+	height: 100%;
+	position: fixed;
+/* 	bottom: 0; */
+    top: 0;
+	left: 0;
+	width: 222px;
+	margin: 0 0 0 -222px;
+/*	padding: .8em;*/
+	transition: transform .4s;
+/*	display: block;*/
+	background: #fff;
+	color: #333;
+	text-align: left;
+	-webkit-overflow-scrolling: touch;
+	will-change: transform;
+}
+
+.dopen .drawer {
+	max-width: 90%;
+	-webkit-transform: translateX(222px);
+	transform: translateX(222px);
+	box-shadow: 0 0 4px rgba(0,0,0,0.1);
+	overflow: auto;
+}
+
+/* not sure which of these are needed */
+/* .site-header li, */
+.mnav .drawer .menu,/* this one overrides the negative margin on horizontal header navs in preceding rule */
+.desk-drawer .menu,
+.main-nav .menu-item {
+	display: block;
+	margin: 0;
+}
+
+#menu-close,
+#menu-open {
+	display: inline-block;
+	padding: 14px 0;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+
+#menu-close {
+/*    position: absolute;*/
+/*    bottom: 0;*/
+/*    left: 0;*/
+/*	font: 100 24px/.7 sans-serif;*/
+/*    padding: 12px 24px;*/
+ 	display: none;
+}
+
+.menubun {
+	background: currentColor;
+	width: 18px;
+	height: 1px;
+	margin: 4px;
+}
+
+/* Allow drawer menu to scroll, but not on bigger screens cause fixed headers shift when you hide desktop scrollbars */
+/*@media (max-height:770px) {*/
+	.mnav.dopen {
+		overflow: hidden;
+	}
+
+/*}*/
+
+/* only mobile screens */
+.mnav.dopen #mask {
+	background-color: rgba(0,0,0,.5);
+	visibility: visible;
+}
+.mnav #menu-close {
+    display: none;
+}
+
+
+/* HORIZONTAL MAIN NAV */
+
+/* .dnav #menu-close, */
+.dnav #menu-open,
+.dnav .menutog,
+.dnav .menuback,
+.dnav .drawer-widget {
+	display: none;
+}
+
+/* END DRAWER COMMON CSS */
+
+/* HORIZONTAL HEADER SUBMENU */
+
+.dnav .site-header .sub-menu {
+	/* top: 100%; */
+	/* left: 0; */
+/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
+/*	right: -16em;*/
+/*	margin: 0  auto;*/
+	width: 17em;
+	/*white-space: pre;*//* instead of specifying a width */
+	/* min-width: 12em; */
+	position: absolute;
+	z-index: 99;/* need anymore cause of parent z-index? */
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity 250ms;
+	padding: 0 0 4px;
+}
+.dnav .site-header .sub-menu > li {
+	font-size: .9em;
+    /* border-top: 1px solid #ddd; */
+}
+
+.dnav .site-header .menu-item:hover > ul,
+.dnav .site-header .menu-item.focus > ul {
+	visibility: visible;
+	opacity: 1;
+}
+
+.dnav .site-header .sub-menu ul {
+	top: 0;
+	left: 99%;
+/*	width: 100%;*/
+}
+
+/* END HORIZONTAL HEADER SUBMENU */
+
+/* SUBMENU TREE */
+/* may need this, which I disabled above
+.menu-item > a {
+	display: block;
+	position: relative;
+}
+*/
+
+.menutog {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 24px;
+	padding: 12px;
+    cursor: pointer;
+}
+.menu-item.focus > .menutog {
+    transform: rotate(180deg);
+}
+.menutog::after {
+    content: "";
+    border: .6ex solid transparent;
+    border-top-color: currentColor;
+    vertical-align: middle;
+    display: inline-block;
+}
+.mnav .drawer .sub-menu,
+.desk-drawer .sub-menu {
+     max-height: 0;
+     overflow: hidden;
+     transition: max-height cubic-bezier(1,0,0,1) 99ms;
+}
+.mnav .focus > .sub-menu,
+.desk-drawer .focus > .sub-menu {
+    max-height: 50em;
+}

@@ -1,0 +1,87 @@
+body.login {
+    margin: 8% 0 0;/* instead of adding it to #login b/c this will only load ont he wp-login.php not on login forms on other pages */
+}
+#login {
+	background: #fff;
+	margin: 0 auto;
+	padding: 20px;
+	width: 400px;
+	max-width: 100%;
+	box-sizing: border-box;
+}
+#login a {
+	text-decoration: none;
+	color: inherit;
+}
+#login a:hover {
+	text-decoration: underline;
+}
+#login .message {
+	background: #f5f5f5;
+	padding: 1em;
+}
+#login h1 {
+	text-align: center;
+	margin: 0 0 40px;
+	font-size: 24px;
+}
+#login h1 a {
+	text-decoration: none
+}
+#login form {
+	overflow: hidden
+}
+#login .input {
+	font-size: 24px;
+	width: 100%;
+	border: 0;
+	border-bottom: 1px solid #444;
+	border-radius: 0;
+	text-align: center;
+	padding: 1em 0 0;
+	box-sizing: border-box;
+	height: 53px;
+}
+.login-remember,
+#login .forgetmenot {
+	float: left
+}
+.login-submit,
+#login .submit {
+	float: right
+}
+#login .button-primary {
+	line-height: 3;
+	padding: 0 3ex;
+	margin: 0;
+}
+.dashicons-visibility:before {
+	content: "show"
+}
+.dashicons-hidden:before {
+	content: "hide"
+}
+#login .wp-hide-pw {
+	background: none;
+	border: none;
+	position: absolute;
+	right: 0;
+	top: 0;
+	color: #000;
+}
+.wp-pwd {
+	position: relative
+}
+#user_pass[type=text] {
+    font-size: 13px;
+}
+#pass1-text,.pw-weak,.show-password #pass1 {
+	display: none
+}
+#pass-strength-result {
+	text-align: center;
+	box-sizing: border-box;
+}
+.indicator-hint {
+	padding-top: 8px
+}

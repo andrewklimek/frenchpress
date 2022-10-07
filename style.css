@@ -1,0 +1,680 @@
+/*
+Theme Name:	FrenchPress
+Plugin URI:	https://github.com/andrewklimek/frenchpress/
+Description:a very light framework-style WordPress theme
+Author:		Andrew J Klimek
+Author URI:	https://github.com/andrewklimek
+Version:	2.0
+License:	GPLv2
+*/
+
+
+/*--------------------------------------------------------------
+*  Normalisation
+--------------------------------------------------------------*/
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	border: 0;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+	-webkit-tap-highlight-color: transparent;/* background color on active links in mobile browsers */
+}
+p a {
+	text-decoration: underline;
+	/* word-wrap: break-word; */
+}
+/*h1 a,
+h2 a,
+h3 a,
+h4 a,
+#header a,
+nav a,
+aside a,
+#comments a {
+	text-decoration: none;
+}*/
+
+pre {
+	/*max-width: 100%;*/
+	overflow: auto;
+}
+
+/*pre, code, kbd, samp, var {*/
+/*	font-family: monospace;*/
+/*}*/
+
+/*embed,*/
+/* figure, WP adds fixed width to figures when using captions shortcode, to contain long captions.  Currently using a weird function on img_caption_shortcode_width in extras.php to make it max-width instead */
+img,
+video,
+iframe,
+object {
+	/* display: block; why make them blocks? ppl arent sure how to center say a spotify embed */
+	max-width: 100%;
+}
+/*video,*/
+img {
+  height: auto;/* can't also be on iframes (above) b/c it overrides height attributes and makes them 150px high  */
+}
+
+/*blockquote,*/
+/*q {*/
+/*	quotes: "\201C""\201D""\2018""\2019";*/
+/*}*/
+
+/* table { */
+	/* border-collapse: collapse; */
+/*	border-spacing: 0;*//* only comes into play when border-collapse = seperate */
+/* } */
+
+/* td, th { */
+	/* padding: .5ex 1ex; */
+	/* text-align: left; */
+/* } */
+
+cite,
+address,/* cite & address used to be on their own line with just font-style inherit */
+button,
+input,
+select,
+/*optgroup,*/
+/*keygen,*/
+textarea {
+	color: inherit;
+	font: inherit;
+/*	margin: 0;*//* for FF & Safari... but is it really a big deal? */
+}
+
+input:not([type=file]):not([type=range]),
+/*:not([type=radio]) true, but it doesn't seem to affect these */
+/*:not([type=checkbox]) true, but it doesn't seem to affect these. may need margin added back though */
+/*:not([type=color]) needs border but padding isn't ideal. But who will use this? */
+/*:not([type=image]) true, but who will use this? */
+select,
+textarea {
+	border: 1px solid;
+	border-radius: 0;/* iOS rounds these */
+	padding: .5ex;
+	/* background: #fff; */
+}
+
+/* [type=search] { */
+	/*-webkit-appearance: textfield;*//* Correct odd appearance in Chrome & Safari */
+	/*outline-offset: -2px;*//* Correct outline style in Safari */
+/* } */
+
+/* [type=search]::-webkit-search-decoration { */
+  /*-webkit-appearance: none;*//* Remove inner padding in Chrome & Safari on mac */
+/* } */
+
+/* textarea { */
+	/* width: 100%; */
+	/* display: block; */
+	/*overflow: auto;*//* Remove scrollbar in IE */
+/* } */
+
+/* svg { */
+	/* fill: currentColor;*//* not sure how often this will come up really, and it overrides "fill" attribute color definitions */
+	/*overflow: hidden;*//* sanitize.css says to Hide the overflow in IE using svg:not(:root) */
+/* } */
+
+/* Correct inability to style clickable types in iOS & Safari */
+button,
+[type=button],
+/*[type=reset],*//* so rarely used I don't care */
+[type=submit] {
+  -webkit-appearance: button;
+}
+
+/* seemed useful once
+:disabled,
+:disabled:hover {
+	color: #888;
+    background: #ccc;
+    border-color: #ccc;
+}
+*/
+
+::placeholder {
+	color: inherit;
+	opacity: .5;
+}
+
+/*--------------------------------------------------------------
+# Main Sizing & Spacing
+--------------------------------------------------------------*/
+html {
+	line-height: 1.5;
+	word-wrap: break-word;/* should it just be on p a ?*/
+	-webkit-text-size-adjust: 100%;/* Prevent font size adjustments after orientation changes in IE and iOS */
+	text-rendering: geometricprecision;
+}
+
+pre,
+p {
+  margin: 24px 0;
+  /*line-height: max(24px,1.5em);*/
+  /*line-height: calc(2ex + 9px);*/
+}
+/* don't need this while only <p> gets margin
+li ul,
+li ol,
+.margin-0 {
+	margin: 0;
+}
+*/
+
+/* browsers default to to 40px, why not use it?
+ul,
+ol,
+dd {
+	padding-left: 2em;
+}
+*/
+
+/* hard to know whats expected behaviour for this, but it helps in post/rss widgets */
+/*li {*/
+/*   margin: 12px 0;*/
+/*}*/
+
+/* not always wanted. and quotes almost always need custom styling. body of quote might have diff bg color from footer so then you need no padding around both
+blockquote {
+	padding: .8em 1.6em;
+}
+*/
+
+hr {
+	background: currentColor;
+	height: 1px;
+	margin: 24px 0;
+	/* clear: both;*//* just as a way to escape from alignleft and alignright images? */
+}
+
+/* h1, *//* I suspect h1 will almost always need custom margins */
+h2,
+h3,
+h4 {
+	margin: 3ex 0 1ex;
+	line-height: 1.2;/* or should this only be on h1-h3 */
+	/* margin: calc(6ex - 45px) 0 0; */
+	/* font-weight: inherit;*/
+	/* padding-top: 24px;*//* no bottom margin so you can write top margin rules like h2 > h3: margin-top 0; and have the lines close (there's no h3 < h2 selector) */
+	/* margin: 4.8ex 0 2.4ex; */
+	/* clear: both;*//* just as a way to escape from alignleft and alignright images? */
+}
+
+/* h1:first-child, *//* I suspect h1 will almost always need custom margins */
+h2:first-child,
+h3:first-child,
+h4:first-child,
+p:first-child {
+	margin-top: 0;
+}
+/* h1:last-child, *//* I suspect h1 will almost always need custom margins */
+h2:last-child,
+h3:last-child,
+h4:last-child,
+p:last-child {
+	margin-bottom: 0;
+}
+
+h1,
+.h1 {
+	font-size: 40px;/* 1.4*h2 & 2*h3 & 2.5rem @ 16px; provey 39 (front page 45) SS 40 */
+}
+
+h2,
+.h2 {
+	font-size: 28px;/* 1.4*h3 & 1.75rem @ 16px; provey 28 SS 20? */
+}
+
+h3,
+.h3 {
+	font-size: 20px;/* 1.25rem @ 16px; provey 20 SS 20 */
+}
+
+/* Generalized markup that was needed in WP galleries and images with captions. Seems good. */
+figcaption {
+    font-size: 88%;
+    /* line-height: 1; *//* if adding hieght 0 to .wp-caption, .gallery-item to avoid inline space between image and caption */
+	/*text-align: center;*/
+    /* padding: 7px 0 12px; *//* may need padding somewhere else like figure of gallery-item */
+}
+
+/*--------------------------------------------------------------
+*  Page Layout
+--------------------------------------------------------------*/
+
+body {
+	/* margin: 0; */
+	min-height: 100vh;
+	/* overflow-x: hidden; */
+}
+
+/* hopefully this is the answer for side padding. might want a better way of removing padding from fullwidth */
+main,
+.tray {
+	padding: 0 24px;
+}
+
+.main-full-width,
+.content-tray {
+	padding: 0;
+}
+
+/*.main-full-width .tray {*/
+	/*padding: 24px;*//* this was to add padding to top and bottom of full width page sections, but i'm thinking it's better to use .pad and .pad-2  below */
+/*}*/
+
+/* need to find a way to handle padding that should appear on mobile */
+#content-tray.tray article .tray {
+	padding-left: 24px;
+	padding-right: 24px;
+}
+
+.tray {
+	width: 100%;
+	/*max-width placeholder*/
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* this is only for bigger screens to auto size main content against sidebars
+ * without this, we should be bale to disable all flex stuff and have phones render fine with everything just stacked */
+@supports(display:flex) {
+	#primary {
+		width: 500px;
+	}
+}
+
+nav ul,
+aside ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	/*line-height: 24px;*/
+}
+
+/* general template whitespace... probably not good in parent theme, often overriding on designed sites
+.entry-header,
+.entry-content,
+#primary,
+#header,
+.sidebar-widget,
+article,
+.page-header {
+	margin-bottom: 48px;
+}
+*/
+
+/*--------------------------------------------------------------
+*  Navigation
+--------------------------------------------------------------*/
+
+/* I think the main nav should probably respond to typical "text-align" CSS, unless I go with an option in the theme for left, right, center and modify the fff-right class that way */
+/* well maybe not b/c you prob dont want submenus to be align right or center */
+/* .dnav .main-nav {
+	display: inline-block;
+} */
+
+.site-header .menu-item {
+	margin: 0;/* might need to be on nav li */
+	/*padding: 12px;*//* Moved to .menu-item > a for sliding submenus ... is it neede tho on horizontal navs? */
+	position: relative;/* Allows better submenu absolute positioning like: nav ul ul {top: 100%;} li.menu-item-has-children:nth-last-child(-n+3) ul {right: 24px;} */
+	display: inline-block;
+	transition: inherit;
+}
+
+/* .mnav .main-nav .menu-item { */
+/*	padding: 0;*/
+/*	margin: 12px 0 12px 12px;*/
+/* } */
+
+/* for toggle arrows, so they can be centered to the parent, not the whole ul in the li */
+.site-header .menu-item > a {
+	display: block;
+	/* position: relative; *//* may only have served the toggle tree nav */
+	flex-grow: 1;
+	padding: 12px 24px;
+}
+/* could this be redone with gap? */
+.site-header .menu {
+    margin: 0 -24px;/* align flush with sides of header. must be overriden for side nav */
+}
+
+
+/* NO DRAWER */
+
+/* only for menus that stay horizontal on mobile, reduce padding
+* inlined in functions.php at include drawer conditional... for now
+.mnav .site-header .menu-item > a {
+    padding: 12px;
+}*/
+/* END NO DRAWER */
+
+
+/*--------------------------------------------------------------
+*  Accessibility
+--------------------------------------------------------------*/
+/* Text meant only for screen readers. */
+.screen-reader-text {
+	position: absolute;/* !important */
+	word-wrap: normal;/* !important *//* Many screen reader and browser combinations announce broken words as they would appear visually. */
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
+.screen-reader-text:focus {
+	background: #fff;
+	color: #000;
+	/* clip: auto; */
+	/* clip-path: none; */
+	/* display: block; */
+	padding: 1em;
+	height: auto;
+	width: auto;
+	left: 5px;
+	top: 50px;/* try below WP toolbar instead of z-index stuff */
+	/* z-index: 100000; *//* Above WP toolbar (99999) */
+}
+
+
+/*--------------------------------------------------------------
+*  WordPress Specific stuff: Alignments - Required
+--------------------------------------------------------------*/
+/* also using this on costom header image to get rid of space below, and centering */
+.aligncenter {
+	display: block;
+	/*clear: both;*//* it would be strange to do a layout that need this */
+	margin: 0 auto;
+}
+
+.alignleft {
+	float: left;
+	margin: 0 24px 6px 0;/* should the bottom be applied more generally to p > img or something? */
+}
+
+.alignright {
+	float: right;
+	margin: 0 0 6px 24px;
+}
+/* this would just be a weird thing to do anyhow
+.alignleft + .alignright {
+	margin-left: 0;
+} */
+/* footer {
+	clear: both;
+} */
+
+
+/*--------------------------------------------------------------
+*  CSS Framework-type stuff.
+*  Avoids massive child theme stylesheets, esp given the flexbox prefixes
+--------------------------------------------------------------*/
+
+/* FLEX GRID IMPLEMENTATION "fff" for "frenchpress flexbox framework" */
+/* display: block on flex item comes first so that flex-items can also be flex containers and the display:block will be overruled */
+/* .fffi { */
+	/*display: block;*//* Inline elements are not treated as flex items in IE 10. IE 11 fixed this with regular inline elements, but not ::before / ::after pseudo-elements */
+/* } */
+
+.feat,
+body,
+.fff {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.feat,/* I'm not sure this "feat" class will work in IE11 because of this bug: https://github.com/philipwalton/flexbugs#flexbug-2 which would require .feat > * { max-width:100% } */
+body,
+.fff-column {
+    flex-flow: column;/* this should reset wrap to intitial (nowrap) */
+}
+/* main wasn't shrinking in safari... is this still relevant?  there's a max-width on all fffi */
+/* .fff-column > .fffi {
+	max-width: 100%;
+} */
+
+.fff-nowrap {
+	flex-wrap: nowrap;
+}
+
+/* .feat, *//* opting for text-align so it can be more intuitively overridden */
+.fff-middle {
+    align-items: center;
+}
+
+/* .feat { *//* might be needed if even using this feat thing */
+	/* height: 100%; */
+/* } */
+
+.fff-top {
+    align-items: flex-start;
+}
+
+.fff-bottom {
+    align-items: flex-end;
+}
+
+.fff-left {
+    justify-content: flex-start;
+}
+
+.fff-center {
+    justify-content: center;
+}
+
+.fff-right {
+    justify-content: flex-end;
+}
+
+.feat,
+.fff-spacebetween {
+    justify-content: space-between;
+}
+
+.fff-spacearound {
+	justify-content: space-around;
+}
+
+.fffi-top {
+	align-self: flex-start;
+}
+
+.fffi-middle {
+ -ms-grid-row-align: center;
+	 align-self: center;
+}
+
+.fffi-bottom {
+	align-self: flex-end;
+}
+
+.fffi,/* default */
+.fff-initial > .fffi,
+.fff > .fffi-initial.fffi {
+	flex: initial;/* shorthand initial needs to be spelled out 0 1 auto for IE10 */
+}
+
+/* [class*='fffi-x'].fffi, [class*='fff-x'] > .fffi, *//* prob don’t need this madness if “initial” is default */
+.fff-none > .fffi,
+.fff > .fffi-none.fffi {
+	flex: none;/* 0 0 auto */
+}
+
+/* I had thought this (below) was the best default b/c IE fails to auto size nested flex containers 
+and flex-basis 0% is a work around (https://github.com/philipwalton/flexbugs/issues/71), 
+but I just seem to only use none/initial or auto/magic */
+.fff-even > .fffi,
+.fff > .fffi-even.fffi {
+	flex: 1;/* shorthand 1 needs to be spelled out 1 1 0% for IE10 & can’t have unitless flex-basis */
+}
+
+#content,
+.fff-auto > .fffi,
+.fff > .fffi-auto.fffi {
+	flex: auto;/* shorthand auto needs to be spelled out 1 1 auto for IE10 */
+}
+
+/* I don't see using this. mainly for bug fixed 2019 https://github.com/philipwalton/flexbugs#flexbug-1
+.fff-noshrink > .fffi,
+.fff > .fffi-noshrink.fffi {
+	flex: 1 0 auto;
+}
+*/
+
+.fff-magic > .fffi,
+.fff > .fffi-magic.fffi {
+	flex: auto;
+	width: 18em;
+	max-width: 100%;/* this seems to be needed on #primary I think only because of my weird auto + width:18em concept */
+}
+
+/* eg missing pictues on archive page */
+/*.fff-magic > .fffi:empty,
+.fff > .fffi-magic.fffi:empty {
+	display: none;
+}*/
+
+/* growth ratios */
+/* .fffi-0.fffi{flex-grow:0;}
+.fffi-1.fffi{flex-grow:1;}
+.fffi-2.fffi{flex-grow:2;}
+.fffi-3.fffi{flex-grow:3;}
+.fffi-4.fffi{flex-grow:4;}
+.fffi-5.fffi{flex-grow:5;}
+.fffi-6.fffi{flex-grow:6;}
+.fffi-7.fffi{flex-grow:7;}
+.fffi-8.fffi{flex-grow:8;} */
+.fffi-9.fffi{flex-grow:9;}
+/*.fffi-10.fffi{-ms-flex-positive:10;flex-grow:10;}*/
+/*.fffi-11.fffi{-ms-flex-positive:11;flex-grow:11;}*//* up to 11 emulates the typical 12-column grid, but I doubt anythign will ever be 1/12 */
+.fffi-99.fffi{flex-grow:99;}/* use 99 to make one cell eat up virtually all the extra space (while still allowing other cells to grow once they're on their own line (on a smaller screen)) */
+/* percentage based */
+/* Due to IE 10 & 11 we need to use flex:none + width:50% instead of flex:0 0 50%; */
+/* using the "none" block above, tho perhaps it's goofy to avoid some characters this way */
+/* .fffi-x1.fffi, */
+/* .fff-x1 > .fffi */
+/* [class*='fffi-x'].fffi, */
+[class*='fff-x'] > .fffi {width:100%;}
+
+@media(min-width:50em) {
+	
+	/* .fffi-x2.fffi, */
+	.fff-x2 > .fffi {
+		width: 50%;
+	}
+	
+	/* .fffi-x3.fffi, */
+	.fff-x3 > .fffi {
+		width:33.333%;
+	}
+
+	/* .fffi-x4.fffi, */
+	.fff-x4 > .fffi {
+		width:25%;
+	}
+}
+
+.fff-pad > .fffi,
+.tray.fff-pad {
+	padding: 12px;/* margin would be ideal for the inner divs if they have images or a bg color but then %-based widths don't work (since margin isn't part of width). padding is also better for borders inbetween...  */
+}
+/* ... so here's for adding margin */
+.fff-margin > .fffi {
+	margin: 12px;
+	padding: 0;
+}
+
+.fff-pad:not(.tray) {/* this breaks trays on full width pages cause the margin auto is ruined */
+	margin: -12px;
+}
+
+.pad-0 {
+	padding: 0;
+}
+
+.pad {
+	padding: 24px;
+}
+
+.pad-l,
+.pad-x {
+	padding-left: 24px;
+}
+
+.pad-r,
+.pad-x {
+	padding-right: 24px;
+}
+
+.pad-y {
+	padding-top: 24px;
+	padding-bottom: 24px;
+}
+
+.pad-2 {
+  padding: 48px 24px;/* 2*base 1*base */
+}
+
+.pad-2.tray.fff-pad {
+	padding: 36px 12px;/* 1.5*base .5*base */
+}
+
+.pad-3 {
+  padding: 72px 24px;/* 3*base 1*base */
+}
+
+.pad-3.tray.fff-pad {
+	padding: 60px 12px;/* 2.5*base .5*base */
+}
+
+.margin-0 {
+	margin: 0;
+}
+
+.margin {
+	margin: 24px;
+}
+
+hr.double {
+	margin-top: 48px;
+	margin-bottom: 48px;
+}
+
+hr.spacer {
+	background: none;
+}
+
+.feat,
+.c {
+	text-align: center;
+}
+
+.r {
+	text-align: right;
+}
+
+.l {
+	text-align: left;
+}
+
+/* better off in child theme if ever used
+.round {
+	border-radius: 50%;
+}
+
+@media screen and (max-width: 600px) {
+	#content .breakout {
+		margin: 0 -24px;
+		max-width: calc( 100% + 24px + 24px );
+	}
+
+}
+*/
