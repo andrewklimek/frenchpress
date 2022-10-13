@@ -124,28 +124,6 @@ add_filter( 'comment_form_fields', function($fields){
 });
 
 
-/**
- * Add no-follow links to text widgets except on home page
- * because avoiding site-wide links is supposed to be SEO best practice
- */
-function frenchpress_nofollow_widgets($text) {
-	if ( ! is_front_page() ) {
-
-		if ( false === stripos( $text, ' rel=' ) )
-		{
-			$text = str_replace( 'a href', 'a rel=nofollow href', $text);
-		}
-		elseif ( false === stripos( $text, 'nofollow' ) )
-		{
-			$text = preg_replace(
-			array('/ rel="([ \w]+?)"/', '/ rel=\\\'([ \w]+?)\\\' /', '/ rel=(\w+?)([ >])/' ),
-			array(' rel="${1} nofollow"', ' rel=\'${1} nofollow\' ', ' rel="${1} nofollow"${2}' ),
-			$text );
-		}
-	}
-	return $text;
-}
-add_filter( 'widget_text', 'frenchpress_nofollow_widgets', 99 );
 
 
 endif;// WP_CACHE
