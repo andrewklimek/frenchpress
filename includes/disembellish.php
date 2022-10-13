@@ -21,6 +21,10 @@ remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
  add_filter( 'get_site_icon_url', function($url) { return false === strpos( $url, 'w-logo-blue' ) ?  $url : ''; } );
 
  
+ /**
+  * Remove hAtom class.. not exactly worth it if not caching
+  */
+//  if ( WP_CACHE ) add_filter( 'post_class', function($classes){ return array_diff( $classes, ['hentry'] ); } );
 
  /**
   * Disable xml sitemap added in WP 5.5.  If you want it, see below example to remove the user sitemap at least.

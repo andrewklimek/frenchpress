@@ -22,18 +22,6 @@ function frenchpress_img_caption_width_to_max_width( $width ){
 
 
 /**
- * Below are a waste of PHP processing if pages aren't cached,
- * so at least check for WP_CACHE which is generally defined at the top of wp-config
- */
-if ( WP_CACHE ) :
-
-	// Remove hAtom class.. not exactly worth it if not caching
-	add_filter( 'post_class', function($classes){ return array_diff( $classes, ['hentry'] ); } );
-	
-endif;// WP_CACHE
-
-
-/**
  * Wrap the archive type in archive titles with a span so they can be hidden or styled
  * Examples:
  *   hide all:
@@ -53,16 +41,3 @@ endif;// WP_CACHE
 
 // as of 5.5 you can modify the prefix with this hook
 add_filter('get_the_archive_title_prefix','__return_false');// SHOULD BE AN OPTION
-
-
-
-/**
- * Below are a waste of PHP processing if pages aren't cached,
- * so at least check for WP_CACHE which is generally defined at the top of wp-config
- */
-if ( WP_CACHE ) :
-
-	// Remove hAtom class.. not exactly worth it if not caching
-	add_filter( 'post_class', function($classes){ return array_diff( $classes, ['hentry'] ); } );
-		
-endif;// WP_CACHE
