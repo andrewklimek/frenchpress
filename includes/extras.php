@@ -34,10 +34,6 @@ function frenchpress_excerpt_more( $excerpt ) {
 // add_filter( 'wp_trim_excerpt', 'frenchpress_excerpt_more' );
 
 
-// Enable the use of shortcodes in text widgets.
-add_filter( 'widget_text', 'do_shortcode' );
-
-
 /**
  * Wrap the archive type in archive titles with a span so they can be hidden or styled
  * Examples:
