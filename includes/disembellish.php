@@ -83,7 +83,7 @@ add_filter('wp_mail_from_name', function($name){
  * Disable capital P
  */
 
-foreach ( array( 'the_content', 'the_title', 'wp_title', 'comment_text', 'widget_text_content' ) as $filter ) {
+foreach( ['the_content', 'the_title', 'wp_title', 'comment_text', 'document_title', 'widget_text_content'] as $filter ) {
 	$priority = has_filter( $filter, 'capital_P_dangit' );
 	if ( $priority !== FALSE ) {
 		remove_filter( $filter, 'capital_P_dangit', $priority );
