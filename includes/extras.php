@@ -56,15 +56,6 @@ function frenchpress_excerpt_more( $excerpt ) {
 add_filter('get_the_archive_title_prefix','__return_false');
 
 
-/**
- * Add a pingback url auto-discovery header for singularly identifiable articles... Do I want this??
- */
-function frenchpress_pingback_header() {
-	if ( is_singular() && pings_open() ) {
-		echo '<link rel=pingback href="', esc_url( get_bloginfo( 'pingback_url' ) ), '">';
-	}
-}
-// add_action( 'wp_head', 'frenchpress_pingback_header' );
 
 
 /**
