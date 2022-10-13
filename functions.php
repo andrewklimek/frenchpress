@@ -196,7 +196,7 @@ function frenchpress_setup() {
 	add_filter( 'post_thumbnail_size', function($size){ return 'post-thumbnail' !== $size || has_image_size($size) ? $size : 'large'; } );
 
 	// finally removes type attribute from script and styles: https://make.wordpress.org/core/2019/10/15/miscellaneous-developer-focused-changes-in-5-3/
-	add_theme_support( 'html5', ['comment-list','comment-form','search-form','gallery','caption','style','script'] );
+	add_theme_support( 'html5', ['comment-list','comment-form','search-form','gallery','caption','style','script','navigation-widgets'] );
 
 	// Enable support for Post Formats. https://developer.wordpress.org/themes/functionality/post-formats/
 	// add_theme_support( 'post-formats', ['chat','aside','gallery','image','video','audio','quote','link','status'] );

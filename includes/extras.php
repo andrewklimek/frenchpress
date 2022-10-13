@@ -110,13 +110,3 @@ add_filter( 'post_class', 'frenchpress_post_classes' );
 
 
 endif;// WP_CACHE
-
-// Changes <div> to <nav> for menu widget
-// This one should probably be done cache or no cache...
-// or else some additional rules would be needed to remove ul padding besides "nav ul"  Besides, what the heck, no indication that it's a nav!
-function frenchpress_widget_nav_menu_args( $nav_menu_args ) {
-	// if ( $args['id'] === 'top' )
-	$nav_menu_args['container'] = 'nav';
-	return $nav_menu_args;
-}
-add_filter( 'widget_nav_menu_args', 'frenchpress_widget_nav_menu_args' );
