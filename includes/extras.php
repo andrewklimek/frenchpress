@@ -72,23 +72,6 @@ function frenchpress_pingback_header() {
 
 
 /**
- * Body classes
- *
- * @param array $classes Classes for the body element.
- * @return array
- */
-function frenchpress_body_classes( $classes ) {
-	// Adds a class of group-blog to blogs with more than 1 published author.
-	if ( is_multi_author() ) {
-		$classes[] = 'group-blog';
-	}
-
-	return $classes;
-}
-add_filter( 'body_class', 'frenchpress_body_classes' );
-
-
-/**
  * Below are a waste of PHP processing if pages aren't cached,
  * so at least check for WP_CACHE which is generally defined at the top of wp-config
  */
