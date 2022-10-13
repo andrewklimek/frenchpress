@@ -119,10 +119,6 @@ foreach ( array( 'the_content', 'the_excerpt', 'the_post_thumbnail_caption', 'co
 // register_deactivation_hook( __FILE__, function(){ update_option( 'use_smilies', true ); } );
 
 
-// Don't use role="navigation" on nav elements.  Moving this to my theme since it's actually something that would show up on an html validator
-// add_filter( 'navigation_markup_template', function($template){ return str_replace( ' role="navigation"', '', $template ); });
-
-
 /**
  * Disable auto <p> insertion
  */

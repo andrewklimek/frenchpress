@@ -108,12 +108,6 @@ function frenchpress_post_classes( $classes ) {
 }
 add_filter( 'post_class', 'frenchpress_post_classes' );
 
-/**
- * Various tweaks to add HTML5 semantics or remove markup that HTML5 does not need and would throw warnings in validators
- */
-
-// remove role=navigation from nav elements
-add_filter( 'navigation_markup_template', function($template){ return str_replace( 'class="navigation %1$s" role="navigation"', 'class="navigation %1$s"', $template ); });
 
 // remove excess markup from comment form
 add_filter( 'comment_form_fields', function($fields){
