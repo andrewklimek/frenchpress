@@ -109,17 +109,6 @@ function frenchpress_post_classes( $classes ) {
 add_filter( 'post_class', 'frenchpress_post_classes' );
 
 
-// remove excess markup from comment form
-add_filter( 'comment_form_fields', function($fields){
-	foreach ( $fields as $key => $field ) {
-		$fields[$key] = str_replace( array( 'aria-required="true" required="required"', "aria-required='true' required='required' /" ), 'required', $field );
-	}
-	return $fields;
-});
-
-
-
-
 endif;// WP_CACHE
 
 // Changes <div> to <nav> for menu widget
