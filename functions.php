@@ -306,28 +306,7 @@ require TEMPLATEPATH . '/includes/options.php';
 require TEMPLATEPATH . '/includes/shortcodes.php';
 
 /**
- * Remove core bull
- */
-if ( ! function_exists( 'mnml_disable_embeds_code_init' ) ) {
-	require TEMPLATEPATH . '/includes/disembellish.php';
-}
-
-/**
- * Side Menu Drawer
- */
-if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mobile_nav === 'fullscreen' ) {
-	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav #main-menu{padding-top:32px!important} @media(max-width:782px){.mnav #main-menu{padding-top:46px!important}}</style>';});
-} elseif ( $GLOBALS['frenchpress']->mobile_nav === 'none' ) {
-	// this won't be the long-term solution I'm sure.
-	// This is just for sites with no drawer and might even be better defined in child theme to the exact pixel width.
-	add_action('wp_print_styles',function(){echo '<style>.mnav .site-header .menu-item > a{padding:12px}</style>';});
-} else {//if ( in_array( $GLOBALS['frenchpress']->mobile_nav, ['slide','tree'] ) ) {
-	// require TEMPLATEPATH . '/includes/drawer.php';
-	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav .drawer,.desk-drawer{padding-top:32px!important} @media(max-width:782px){.mnav .drawer{padding-top:46px!important}}</style>';});
-}
-
-/**
- * Implement the Custom Header feature... only because it gives the checkbox to hide tite title and description.  Images won't even be displayed atm.
+ * Implement the Custom Header feature... if only because it gives the checkbox to hide tite title and description
  */
 require TEMPLATEPATH . '/includes/custom-header.php';
 
@@ -342,16 +321,26 @@ require TEMPLATEPATH . '/includes/template-tags.php';
 require TEMPLATEPATH . '/includes/customizer.php';
 
 /**
- * Custom walker with no <li>.
+ * Remove core bull
  */
-// require TEMPLATEPATH . '/includes/walker-no-list.php';
-// use it:
-// function frenchpress_walker($args){
-// 	$args['walker'] = new Walker_No_List;
-// 	$args['items_wrap'] = '%3$s';
-// 	return $args;
-// }
-// add_filter('wp_nav_menu_args','frenchpress_walker');
+if ( ! function_exists( 'mnml_disable_embeds_code_init' ) ) {
+	require TEMPLATEPATH . '/includes/disembellish.php';
+}
+
+
+/**
+ * Side Menu Drawer
+ */
+if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mobile_nav === 'fullscreen' ) {
+	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav #main-menu{padding-top:32px!important} @media(max-width:782px){.mnav #main-menu{padding-top:46px!important}}</style>';});
+} elseif ( $GLOBALS['frenchpress']->mobile_nav === 'none' ) {
+	// this won't be the long-term solution I'm sure.
+	// This is just for sites with no drawer and might even be better defined in child theme to the exact pixel width.
+	add_action('wp_print_styles',function(){echo '<style>.mnav .site-header .menu-item > a{padding:12px}</style>';});
+} else {//if ( in_array( $GLOBALS['frenchpress']->mobile_nav, ['slide','tree'] ) ) {
+	// require TEMPLATEPATH . '/includes/drawer.php';
+	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav .drawer,.desk-drawer{padding-top:32px!important} @media(max-width:782px){.mnav .drawer{padding-top:46px!important}}</style>';});
+}
 
 
 add_action('wp_update_nav_menu', 'frenchpress_check_submenu_on_menu_update', 10, 2 );
