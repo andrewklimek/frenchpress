@@ -332,14 +332,9 @@ if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mo
 require TEMPLATEPATH . '/includes/custom-header.php';
 
 /**
- * Custom template tags for this theme.
+ * Custom template tags and shortcode mods
  */
 require TEMPLATEPATH . '/includes/template-tags.php';
-
-/**
- * HTML5 Cleanup and various other goodies
- */
-require TEMPLATEPATH . '/includes/extras.php';
 
 /**
  * Customizer additions.
