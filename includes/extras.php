@@ -4,22 +4,6 @@
  */
 
 
- /**
-  * WP adds a style attribute with width to figures when using captions shortcode to contain long captions.
-  * either live with adding "figure" to the list of things getting max-width:100% or use this weird filter:
-  *
-  * should be changed in core shouldnt it? https://github.com/WordPress/WordPress/blob/c488a71e1196594088723a5753ed886a6b84d017/wp-includes/media.php#L2289
-  */
-add_filter( 'img_caption_shortcode_width', 'frenchpress_img_caption_width_to_max_width' );
-function frenchpress_img_caption_width_to_max_width( $width ){
-    add_filter('do_shortcode_tag', function( $out, $tag ) {
-        if ( $tag === 'caption' || $tag === 'wp_caption' )
-            $out = str_replace( 'style="width', 'style="max-width', $out );
-        return $out;
-    }, 10, 2 );
-    return $width;
-}
-
 
 /**
  * Wrap the archive type in archive titles with a span so they can be hidden or styled
