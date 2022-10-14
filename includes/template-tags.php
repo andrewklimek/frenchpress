@@ -111,7 +111,7 @@ function frenchpress_entry_footer() {
 
 		$separate_meta = ", ";
 
-		if ( frenchpress_categorized_blog() && $categories_list = get_the_category_list( $separate_meta ) ) {
+		if ( $categories_list = get_the_category_list( $separate_meta ) ) {
 
 			echo '<p class=cat-links>Filed under ' . $categories_list;
 
@@ -207,41 +207,3 @@ function add_gallery_styling( $style_and_div ) {
 	return  $css . $style_and_div;
 }
 add_filter( 'gallery_style', 'add_gallery_styling' );
-
-
-/**
- * Returns true if a blog has more than 1 category.
- *
- * @return bool
- */
-function frenchpress_categorized_blog() {
-
-	if ( false === ( $cats = get_transient( 'frenchpress_categories' ) ) ) {
-
-		$cats = get_categories( array(
-			'fields'	 => 'ids',
-			'hide_empty' => 1,
-			'number'	 => 2,// We only need to know if there is more than one category.
-		) );
-
-		$cats = count( $cats );
-
-		set_transient( 'frenchpress_categories', $cats );
-	}
-
-	if ( $cats > 1 ) return true;// This blog has more than 1 category
-
-	else return false;// This blog has only 1 category
-
-}
-
-/**
- * Flush out the transients used in frenchpress_categorized_blog.
- */
-function frenchpress_category_transient_flusher() {
-
-	if ( ! defined( 'DOING_AUTOSAVE' ) || ! DOING_AUTOSAVE ) delete_transient( 'frenchpress_categories' );
-
-}
-add_action( 'edit_category', 'frenchpress_category_transient_flusher' );
-add_action( 'save_post',	 'frenchpress_category_transient_flusher' );
