@@ -23,5 +23,3 @@
 	add_filter( 'get_the_archive_title', 'wrap_archive_title_prefix' );
 */
 
-// as of 5.5 you can modify the prefix with this hook
-add_filter('get_the_archive_title_prefix','__return_false');// SHOULD BE AN OPTION

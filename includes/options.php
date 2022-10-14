@@ -35,7 +35,7 @@ function frenchpress_options_page() {
 		'content_width',
 		'menu_breakpoint',
 		'inline_css',
-		'page_titles',
+		'page_titles','hide_archive_prefix',
 		'fulltext_archive','fulltext_blog',
 		'entry_meta','entry_meta_time','entry_meta_byline',
 		'entry_footer',
@@ -229,6 +229,14 @@ if ( !empty( $GLOBALS['frenchpress']->mini_toolbar ) ) {
 			echo '</span>';
 		}
 	}
+}
+
+
+/**
+ * remove archive page prefix in title
+ */
+if ( !empty( $GLOBALS['frenchpress']->hide_archive_prefix ) ) {
+	add_filter( 'get_the_archive_title_prefix', '__return_false' );// WP 5.5
 }
 
 
