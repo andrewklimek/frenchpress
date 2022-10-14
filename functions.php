@@ -306,17 +306,12 @@ require TEMPLATEPATH . '/includes/options.php';
 require TEMPLATEPATH . '/includes/shortcodes.php';
 
 /**
- * Implement the Custom Header feature... if only because it gives the checkbox to hide tite title and description
- */
-require TEMPLATEPATH . '/includes/custom-header.php';
-
-/**
  * Custom template tags and shortcode mods
  */
 require TEMPLATEPATH . '/includes/template-tags.php';
 
 /**
- * Customizer additions.
+ * Customizer / header image
  */
 require TEMPLATEPATH . '/includes/customizer.php';
 
