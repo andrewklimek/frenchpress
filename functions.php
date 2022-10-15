@@ -25,7 +25,7 @@ function frenchpress_scripts() {
 
 	if ( SCRIPT_DEBUG )
 	{
-		wp_enqueue_style( 'frenchpress', TEMPLATE_DIR_U.'/style.css', null, filemtime( TEMPLATEPATH . '/style.css' ) );
+		wp_enqueue_style( 'frenchpress', TEMPLATE_DIR_U.'/style.css', null, filemtime( TEMPLATEPATH . '/style.css' ) . '-fp' );
 
 		if ( $frenchpress->mobile_nav === 'fullscreen' )
 		{
