@@ -6,6 +6,8 @@ get_header();
 <?php
 if ( have_posts() ) :
 
+	/* This block is for the Posts page as selected in the settings > reading 
+	 * it displays the content and title of the page, so you can use that page for intro text to the blog section if you want */
 	if ( is_home() && ! is_front_page() ) :
 		echo "<header class=page-header>";
 		
