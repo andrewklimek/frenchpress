@@ -223,21 +223,6 @@ p:last-child {
 	margin-bottom: 0;
 }
 
-h1,
-.h1 {
-	font-size: 40px;/* 1.4*h2 & 2*h3 & 2.5rem @ 16px; provey 39 (front page 45) SS 40 */
-}
-
-h2,
-.h2 {
-	font-size: 28px;/* 1.4*h3 & 1.75rem @ 16px; provey 28 SS 20? */
-}
-
-h3,
-.h3 {
-	font-size: 20px;/* 1.25rem @ 16px; provey 20 SS 20 */
-}
-
 /* Generalized markup that was needed in WP galleries and images with captions. Seems good. */
 figcaption {
     font-size: 88%;
