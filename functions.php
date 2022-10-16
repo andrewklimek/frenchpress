@@ -306,9 +306,14 @@ require TEMPLATEPATH . '/includes/options.php';
 require TEMPLATEPATH . '/includes/shortcodes.php';
 
 /**
- * Custom template tags and shortcode mods
+ * Custom template tags
  */
 require TEMPLATEPATH . '/includes/template-tags.php';
+
+/**
+ * CSS that only needs to be inserted for certain templates and shortcodes
+ */
+require TEMPLATEPATH . '/includes/styling.php';
 
 /**
  * Customizer / header image
