@@ -36,7 +36,7 @@ function frenchpress_options_page() {
 		'menu_breakpoint',
 		'inline_css',
 		'page_titles','hide_archive_prefix',
-		'fulltext_archive','fulltext_blog',
+		'blog_excerpt',
 		'entry_meta','entry_meta_time','entry_meta_byline',
 		'entry_footer',
 		'feat_image_bg', 'feat_image_bg_location', 'title_in_header',
@@ -54,6 +54,9 @@ function frenchpress_options_page() {
 		'full_width_nav', 'full_width_branding',
 	],
 	[ 'type' => 'checkbox' ]);// default
+
+	$fields['blog_excerpt']['type'] = 'radio';
+	$fields['blog_excerpt']['options'] = ["excerpt","fulltext","none"];
 
 	$fields['feat_image_bg_location']['type'] = 'text';
 	$fields['feat_image_bg_location']['show'] = 'feat_image_bg';

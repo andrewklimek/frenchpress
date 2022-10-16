@@ -19,19 +19,23 @@
 
 		if ( apply_filters( 'frenchpress_entry_meta_non_single', false ) ) frenchpress_entry_meta();
 
-    if ( (is_home() && empty( $GLOBALS['frenchpress']->fulltext_blog )) || (is_archive() && empty( $GLOBALS['frenchpress']->fulltext_archive )) ) {
-        echo "<div class=entry-summary>";
-        // add_filter( 'the_excerpt', function($excerpt){ return "{$excerpt}<p><a class=button href='" . esc_url( get_permalink() ) . "'>Read More</a></p>"; } );// could be an option but what about class
-        // also the [...] is modified here https://developer.wordpress.org/reference/hooks/excerpt_more/
-		the_excerpt();
-		
-	} else {
-	    echo "<div class=entry-content>";
-	    
-	    the_content( 'Continue reading <span class=meta-nav>&rarr;</span>' );
+		$excerpt_type = !empty( $GLOBALS['frenchpress']->blog_excerpt ) ? $GLOBALS['frenchpress']->blog_excerpt : 'excerpt';
 
-		wp_link_pages( ['before' => '<div class=page-links>Pages:', 'after' => '</div>'] );
-	}
+		if ( $excerpt_type === 'excerpt' ) {
+			echo "<div class=entry-summary>";
+			// add_filter( 'the_excerpt', function($excerpt){ return "{$excerpt}<p><a class=button href='" . esc_url( get_permalink() ) . "'>Read More</a></p>"; } );// could be an option but what about class
+			// also the [...] is modified here https://developer.wordpress.org/reference/hooks/excerpt_more/
+			the_excerpt();
+			echo "</div>";
+			
+		} elseif ( $excerpt_type === 'fulltext' ) {
+			echo "<div class=entry-content>";
+			
+			the_content( 'Continue reading <span class=meta-nav>&rarr;</span>' );
+
+			wp_link_pages( ['before' => '<div class=page-links>Pages:', 'after' => '</div>'] );
+			echo "</div>";
+		}
 	?>
-	</div></div>
+	</div>
 </article>
