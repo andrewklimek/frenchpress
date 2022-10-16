@@ -17,7 +17,7 @@
 
 		the_title( '<h2 class=title><a href="' . esc_url( get_permalink() ) . '" rel=bookmark>', '</a></h2>' );
 
-		if ( apply_filters( 'frenchpress_entry_meta_non_single', false ) ) frenchpress_entry_meta();
+		frenchpress_entry_meta();// Maybe add a option to disable meta on index separately form single post
 
 		$excerpt_type = !empty( $GLOBALS['frenchpress']->blog_excerpt ) ? $GLOBALS['frenchpress']->blog_excerpt : 'excerpt';
 
@@ -27,7 +27,7 @@
 			// also the [...] is modified here https://developer.wordpress.org/reference/hooks/excerpt_more/
 			the_excerpt();
 			echo "</div>";
-			
+
 		} elseif ( $excerpt_type === 'fulltext' ) {
 			echo "<div class=entry-content>";
 			
