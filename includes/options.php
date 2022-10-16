@@ -53,9 +53,8 @@ function frenchpress_options_page() {
 		'add_custom_code_right_of_branding', 'custom_code_right_of_branding',
 		'full_width_nav', 'full_width_branding',
 	],
-	[ 'type' => 'checkbox' ]);// default
+	[ 'type' => '' ]);// default
 
-	$fields['blog_excerpt']['type'] = 'radio';
 	$fields['blog_excerpt']['options'] = ["excerpt","fulltext","none"];
 
 	$fields['feat_image_bg_location']['type'] = 'text';
@@ -70,9 +69,7 @@ function frenchpress_options_page() {
 	$fields['comment_form_website_field']['show'] = ['disable_comments' => 'empty'];
 
 	$fields['nav_position']['before'] = '<h2>Header Layout</h2>';
-	$fields['nav_position']['type'] = 'radio';
 	$fields['nav_position']['options'] = ["right","top","bottom"];
-	$fields['nav_align']['type'] = 'radio';
 	$fields['nav_align']['options'] = ["left","right","justified","center"];
 
 	$fields['logo']['type'] = 'text';
@@ -88,7 +85,6 @@ function frenchpress_options_page() {
 
 	$fields['menu_breakpoint']['type'] = 'number';
 	$fields['content_width']['type'] = 'number';
-	$fields['mobile_nav']['type'] = 'radio';
 	$fields['mobile_nav']['options'] = ["fullscreen","slide","tree","none"];// tree not implemented yet.
 	$fields['avatar_size']['type'] = 'number';
 	$fields['avatar_size']['desc'] = 'in pixels. 0 disables avatars.';
@@ -132,12 +128,10 @@ function frenchpress_options_page() {
 				}
 			}
 			echo "<tr id=tr-{$g}-{$k} {$hide}><th>";
+			if ( empty( $f['type'] ) ) $f['type'] = !empty( $f['options'] ) ? 'radio' : 'checkbox';// checkbox is default
 			switch ( $f['type'] ) {
 				case 'textarea':
 					echo "<label for='{$g}-{$k}'>{$l}</label><td><textarea id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='' rows=8 class={$size}-text>{$v}</textarea>";
-					break;
-				case 'checkbox':
-					echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]'"; if ( $v ) echo " checked"; echo " type=checkbox >";
 					break;
 				case 'number':
 					$size = !empty( $f['size'] ) ? $f['size'] : 'small';
@@ -151,8 +145,11 @@ function frenchpress_options_page() {
 					}
 					break;
 				case 'text':
-				default:
 					echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='' value='{$v}' class={$size}-text>";
+					break;
+				case 'checkbox':
+				default:
+					echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]'"; if ( $v ) echo " checked"; echo " type=checkbox >";
 					break;
 			}
 			if ( !empty( $f['desc'] ) ) echo "&nbsp; " . $f['desc'];
