@@ -60,7 +60,7 @@ wp_head();
 	if ( $frenchpress->nav_position === "top" ) echo $nav;
 
 	if ( $header_url = get_header_image() ) {
-		echo "<div id=header-image><a href='" . home_url() . "' rel=home><img src='{$header_url}' class=aligncenter></a></div>";// or should the class be tray?
+		echo "<div id=header-image><a href='" . home_url() . "'><img src='{$header_url}' class=aligncenter></a></div>";// or should the class be tray?
 	}
 
 	/* BRANDING */
@@ -98,7 +98,7 @@ wp_head();
 	if ( $logo && false === strpos( $logo, "</a>" ) ) {
 		// add home link if a link was not supplied at the filter.
 		// get_custom_logo() adds class=custom-logo-link but I won't for now.
-		$logo = "<a href='" . home_url() . "' rel=home>{$logo}</a>";
+		$logo = "<a href='" . home_url() . "'>{$logo}</a>";
 	}
 	elseif ( ! $logo ) {
 		$logo = get_custom_logo();
@@ -112,7 +112,7 @@ wp_head();
 
 	if ( ! $hide || is_customize_preview() ) {// For now I am not even going to bother with hidden elements, homepages probably want custom and/or visible h1
 
-		$home_link = '<a href="'. home_url() .'" rel=home>'. get_bloginfo( 'name' ) .'</a>';
+		$home_link = '<a href="'. home_url() .'">'. get_bloginfo( 'name' ) .'</a>';
 
 		$site_branding_html .= is_front_page() ? "<h1 class='site-title{$hide}'>{$home_link}</h1>" : "<div class='site-title h2{$hide}'>{$home_link}</div>";
 

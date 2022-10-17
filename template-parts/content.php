@@ -15,7 +15,7 @@
         
         echo "<div class=post-text>";
 
-		the_title( '<h2 class=title><a href="' . esc_url( get_permalink() ) . '" rel=bookmark>', '</a></h2>' );
+		the_title( '<h2 class=title><a href="' . esc_url( get_permalink() ) . '">', '</a></h2>' );
 
 		frenchpress_entry_meta();// Maybe add a option to disable meta on index separately form single post
 

@@ -78,7 +78,7 @@ function frenchpress_entry_meta() {
 		}
 
 		if ( apply_filters( 'frenchpress_entry_meta_link_time', false ) ) {
-			$time = '<a href="' . esc_url( get_permalink() ) . '" rel=bookmark>' . $time . '</a>';
+			$time = '<a href="' . esc_url( get_permalink() ) . '">' . $time . '</a>';
 		}
 		$time = "<span class=posted-on>{$time}</span>";
 	}
