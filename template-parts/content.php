@@ -8,7 +8,7 @@
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<?php
 	    // Filter for displaying featured image. 2nd arg is bool for "is_singular"
-		if ( empty( $_GLOBALS['frenchpress']->hide_post_thumbnail ) && apply_filters( 'frenchpress_featured_image', 'show it', false ) && has_post_thumbnail() ) {
+		if ( empty( $GLOBALS['frenchpress']->no_blog_thumbnails ) && has_post_thumbnail() ) {
 			// 	echo get_the_post_thumbnail( null, 'thumb', ['class' => 'featured-image'] );
 			echo '<figure class=featured-image>' . get_the_post_thumbnail( null, 'thumb' ) . '</figure>';
         }

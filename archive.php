@@ -1,5 +1,7 @@
 <?php
 
+add_action( 'wp_enqueue_scripts', function(){ wp_add_inline_style('frenchpress', frenchpress_style_loop() ); });
+
 get_header();
 ?>
 <main id=primary class="site-main fffi fffi-99">
@@ -20,7 +22,6 @@ if ( have_posts() ) :
 	<?php
 	endif;
 
-	echo "<style>.post{margin-bottom:48px}</style>";
     echo "<div class=loop>";
 	/* Start the Loop */
 	while ( have_posts() ) : the_post();
@@ -32,10 +33,14 @@ if ( have_posts() ) :
 
 	endwhile;
 
+	if ( empty( $GLOBALS['frenchpress']->no_blog_thumbnails ) &&	 $GLOBALS['frenchpress']->blog_layout_desktop === "grid" ) {	
+		echo "<div class=post></div><div class=post></div><div class=post></div>";// placeholder divs to make the grid uniform (flex stretches last row when its not full)
+	}
+
+    echo "</div>";// loop
+
 	echo frenchpress_posts_nav();
 	
-	echo "</div>";// loop
-
 else :
 
 	get_template_part( 'template-parts/content', 'none' );

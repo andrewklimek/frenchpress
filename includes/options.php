@@ -36,6 +36,7 @@ function frenchpress_options_page() {
 		'menu_breakpoint',
 		'inline_css',
 		'page_titles','hide_archive_prefix',
+		'no_blog_thumbnails', 'blog_layout_desktop', 'blog_layout_mobile',
 		'blog_excerpt',
 		'entry_meta','entry_meta_time','entry_meta_byline',
 		'entry_footer',
@@ -54,6 +55,11 @@ function frenchpress_options_page() {
 		'full_width_nav', 'full_width_branding',
 	],
 	[ 'type' => '' ]);// default
+
+	$fields['blog_layout_desktop']['options'] = ["list","grid"];
+	$fields['blog_layout_mobile']['options'] = ["list","grid"];
+	$fields['blog_layout_desktop']['show'] = ['no_blog_thumbnails' => 'empty'];
+	$fields['blog_layout_mobile']['show'] = ['no_blog_thumbnails' => 'empty'];
 
 	$fields['blog_excerpt']['options'] = ["excerpt","fulltext","none"];
 

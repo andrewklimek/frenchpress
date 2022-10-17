@@ -3,6 +3,31 @@
  * CSS that only needs to be inserted for certain templates and shortcodes
  */
 
+function frenchpress_style_loop(){
+
+	global $frenchpress;
+	if ( !empty( $frenchpress->no_blog_thumbnails ) ) {
+		return ".loop .post{margin-bottom:48px}";
+	}
+	$desktop = !empty( $frenchpress->blog_layout_desktop ) ? $frenchpress->blog_layout_desktop : "list";
+	$mobile = !empty( $frenchpress->blog_layout_mobile ) ? $frenchpress->blog_layout_mobile : $desktop;
+	$breakpoint = 600;
+	$grid = ".loop{display:flex;flex-wrap:wrap;gap:48px}.loop .post{width:250px;flex:auto}";
+	$list = ".loop .post{display:flex;gap:24px;margin-bottom:48px}.loop .featured-image{order:1;max-width:25%;flex:none}.loop .post-text{flex:1}";
+	$css = "";
+	
+	if ( $desktop === $mobile ) {
+		$css .= $desktop === "grid" ? $grid : $list;
+	} else {
+		$css .= "@media(max-width:" . $breakpoint ."px){";
+		$css .= $mobile === "grid" ? $grid : $list;
+		$css .= "} @media(min-width:" . ++$breakpoint . "px){";
+		$css .= $desktop === "grid" ? $grid : $list;
+		$css .= "}";
+	}
+
+	return $css;
+}
 
 /**
  * WP adds a style attribute with width to figures when using captions shortcode to contain long captions.
