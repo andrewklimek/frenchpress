@@ -91,6 +91,7 @@ function frenchpress_posts_nav( $before='', $after='.' ) {
 if ( ! function_exists( 'frenchpress_entry_meta' ) ) :
 function frenchpress_entry_meta() {
 	global $frenchpress;
+	$time = $byline = '';
 	// Disable or do a custom meta
 	// eg, to only show meta on 'posts' (not cutom post types): function( $skip ){ return 'post' === get_post_type() ? $skip : true; }
 	// eg, to customize meta for archives only, the first line in the filter could be "if ( !is_archive() ) return $skip_the_rest;"
