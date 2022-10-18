@@ -6,6 +6,33 @@
 add_shortcode( 'current_year', function(){ return date('Y'); } );
 
 /**
+* quick shortcode / function for displaying a post loop
+*/
+function frenchpress_loop( $a=[], $c='', $tag='' ){
+
+	$query = new WP_Query([
+		'category_name' => isset($a['cat']) ? $a['cat'] : '',
+		'posts_per_page' => isset($a['num']) ? $a['num'] : '4',
+		'order' => isset($a['order']) ? $a['order'] : 'DESC',
+		'post_type' => isset($a['type']) ? $a['type'] : 'post',
+	]);
+	if ( $tag ) ob_start();// tag = used as shortcode, so return instead of print.
+	if ( $query->have_posts() ) {
+		echo '<div class="loop shortcode-loop">';
+		echo "<style>" . frenchpress_style_loop() . "</style>";
+		while ( $query->have_posts() ) {
+			$query->the_post();
+			get_template_part( 'template-parts/content' );
+		}
+		echo '</div>';
+	}
+	wp_reset_postdata();
+	if ( $tag ) return ob_get_clean();
+}
+add_shortcode( 'frenchpress_loop', 'frenchpress_loop');
+
+
+/**
  * Custom posts nav function because I'm insane
  */
 function frenchpress_posts_nav( $before='', $after='.' ) {

@@ -4,6 +4,8 @@
 *
 Main FrenchPress building-block Shortcode
 *
+(some other small normal shortcodes in template-tags.php)
+*
 *
 attributes:
 el (element, default "div")
