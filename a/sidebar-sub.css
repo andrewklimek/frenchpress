@@ -164,7 +164,6 @@
 }
 .desk-drawer .menu-item {
 	position: static;
-	display: -ms-flexbox;
 	display: flex;
 /*    justify-content: stretch;*/
 /*    align-items: stretch;*/
