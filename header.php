@@ -70,7 +70,7 @@ wp_head();
 
 	if ( !empty( $frenchpress->use_custom_code_for_branding ) && !empty( $frenchpress->branding_custom_code ) ) :
 
-		$site_branding_html = "<div class='site-branding fffi'>" . do_shortcode( $frenchpress->branding_custom_code ) . "</div>";
+		$site_branding_html = "<div class='site-branding fffi fffi-9'>" . do_shortcode( $frenchpress->branding_custom_code ) . "</div>";
 
 	else :
 
