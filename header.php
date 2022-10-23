@@ -31,6 +31,8 @@ wp_head();
 
 	if ( !empty( $frenchpress->add_custom_code_right_of_menu ) || ( $frenchpress->nav_position === "right" && $frenchpress->nav_align !== "right" ) ) {
 		$grow = "fffi fffi-9";
+	} elseif ( $frenchpress->nav_position === "right" ) {// $frenchpress->nav_align === "right" implied.  I think this is right...
+		$grow = "fffi";
 	} else {
 		$grow = "";
 	}
@@ -134,9 +136,12 @@ wp_head();
 	endif;// branding vs custom code
 
 	$header_main_classes = empty( $frenchpress->full_width_branding ) ? "tray" : "";
-	if ( $site_branding_html && ( $frenchpress->mobile_nav !== "none" || $frenchpress->add_custom_code_right_of_branding ) ) {
-		$header_main_classes .= " fff fff-middle fff-nowrap fff-pad fff-spacebetween";
-		// if ( $frenchpress->nav_align === "right" ) $header_main_classes .= " fff-spacebetween";
+	if ( $site_branding_html ) {
+		if ( $frenchpress->mobile_nav !== "none" || $frenchpress->add_custom_code_right_of_branding ) {
+			$header_main_classes .= " fff fff-middle fff-spacebetween fff-pad fff-nowrap";
+		} elseif ( $frenchpress->mobile_nav === "none" && $frenchpress->nav_position === "right" ) {// edge case...
+			$header_main_classes .= " fff fff-middle fff-spacebetween fff-pad";
+		}
 	}
 	$header_main_classes = apply_filters( 'frenchpress_class_header_main', $header_main_classes );
 
