@@ -126,18 +126,20 @@ wp_head();
 
 	}
 
+	// dont even need the fff stuff if using no moblie menu
 	if ( $site_branding_html ) {
 		
-		$pad = $logo || !$hide ? '' : ' pad-0';
-		
-		$site_branding_html = "<div class='site-branding fffi{$pad}'>{$site_branding_html}</div>";
+		$pad = $logo || !$hide ? '' : ' pad-0';// TODO when is padding even applied? Might need padding on branding only rows.
+		$fff =  $frenchpress->mobile_nav === "none" ? '' : ' fffi fffi-auto';
+		$site_branding_html = "<div class='site-branding{$fff}{$pad}'>{$site_branding_html}</div>";
+		// TODO: also if centering, hamburger should have position: absolute; right: 12px;
 	}
 
 	endif;// branding vs custom code
 
 	$header_main_classes = empty( $frenchpress->full_width_branding ) ? "tray" : "";
 	if ( $site_branding_html ) {
-		if ( $frenchpress->mobile_nav !== "none" || $frenchpress->add_custom_code_right_of_branding ) {
+		if ( $frenchpress->mobile_nav !== "none" || !empty( $frenchpress->add_custom_code_right_of_branding ) ) {
 			$header_main_classes .= " fff fff-middle fff-spacebetween fff-pad fff-nowrap";
 		} elseif ( $frenchpress->mobile_nav === "none" && $frenchpress->nav_position === "right" ) {// edge case...
 			$header_main_classes .= " fff fff-middle fff-spacebetween fff-pad";
@@ -151,7 +153,7 @@ wp_head();
 
 	if ( $frenchpress->nav_position === "right" ) echo $nav;
 
-	elseif( $frenchpress->add_custom_code_right_of_branding ) echo "<div class=fffi>{$frenchpress->custom_code_right_of_branding}</div>";
+	elseif( !empty( $frenchpress->add_custom_code_right_of_branding ) ) echo "<div class=fffi>{$frenchpress->custom_code_right_of_branding}</div>";
 
 	/**
 	* Menu Drawer Button
