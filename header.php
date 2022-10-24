@@ -130,7 +130,7 @@ wp_head();
 	if ( $site_branding_html ) {
 		
 		$pad = $logo || !$hide ? '' : ' pad-0';// TODO when is padding even applied? Might need padding on branding only rows.
-		$fff =  $frenchpress->mobile_nav === "none" ? '' : ' fffi fffi-auto';
+		$fff =  $frenchpress->mobile_nav === "none" && $frenchpress->nav_position !== "right" ? '' : ' fffi fffi-auto';
 		$site_branding_html = "<div class='site-branding{$fff}{$pad}'>{$site_branding_html}</div>";
 		// TODO: also if centering, hamburger should have position: absolute; right: 12px;
 	}
