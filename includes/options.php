@@ -90,6 +90,7 @@ function frenchpress_options_page() {
 	$fields['custom_code_right_of_branding']['type'] = 'textarea';
 	$fields['custom_code_right_of_branding']['show'] = 'add_custom_code_right_of_branding';
 	$fields['add_custom_code_right_of_branding']['show'] = ['nav_position' => ['top','bottom']];
+	$fields['full_width_nav']['show'] = ['nav_position' => ['top','bottom']];
 
 	$fields['menu_breakpoint']['type'] = 'number';
 	$fields['content_width']['type'] = 'number';
