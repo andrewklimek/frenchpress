@@ -40,7 +40,7 @@ function frenchpress_options_page() {
 		'blog_excerpt',
 		'entry_meta','entry_meta_time','entry_meta_byline',
 		'entry_footer',
-		'feat_image_bg', 'feat_image_bg_location', 'title_in_header',
+		'feat_image_bg', 'feat_image_bg_location', 'feat_image_bg_color_overlay', 'title_in_header',
 		'disable_comments','avatar_size','comment_form_unstyle','comment_form_website_field',
 		'mini_toolbar',
 		'boring_404',
@@ -66,7 +66,9 @@ function frenchpress_options_page() {
 	$fields['feat_image_bg_location']['type'] = 'text';
 	$fields['feat_image_bg_location']['show'] = 'feat_image_bg';
 	$fields['feat_image_bg_location']['desc'] = 'CSS selector to apply the bg image, eg: body, #header, or #header-title (if option below is checked)';
-
+	$fields['feat_image_bg_color_overlay']['type'] = 'text';
+	$fields['feat_image_bg_color_overlay']['show'] = 'feat_image_bg';
+	$fields['feat_image_bg_color_overlay']['desc'] = 'any CSS color, but use something with opacity value, like: rgba(46,30,47,.9)';
 	$fields['entry_meta_time']['show'] = 'entry_meta';
 	$fields['entry_meta_byline']['show'] = 'entry_meta';
 
@@ -257,20 +259,26 @@ if ( !empty( $GLOBALS['frenchpress']->title_in_header ) ) {
  *  Featured image as bg image
  */
 if ( !empty( $GLOBALS['frenchpress']->feat_image_bg ) ) {
-	add_action('wp_footer', 'frenchpress_feat_image_bg');
+	add_action( 'wp_head', 'frenchpress_feat_image_bg' );
 	function frenchpress_feat_image_bg(){
-			
+				
 		global $wp_query;
 		if ( empty($wp_query->queried_object_id) ) return;// or get_queried_object_id() with no global needed.. returns 0 if no id
-
+		
 		$id = $wp_query->queried_object_id;
 		
 		// $image_url = $image_url ? $image_url[0] : '/wp-content/uploads/2016/08/london-slim-dark-1024x172.jpg';// default pic moved to CSS
 		if ( $image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $id ), 'large' ) ) {
 			$el = !empty( $GLOBALS['frenchpress']->feat_image_bg_location ) ? $GLOBALS['frenchpress']->feat_image_bg_location : "body";
-			echo "<style>{$el}{background-image:url({$image_url[0]})}</style>";
+			$style = "{$el}{background-image:url({$image_url[0]})}";
+
+			if ( !empty( $GLOBALS['frenchpress']->feat_image_bg_color_overlay ) ) {
+				$color = esc_attr( $GLOBALS['frenchpress']->feat_image_bg_color_overlay );
+				$style = "{$el}{background:linear-gradient(0deg,{$color},{$color}),url({$image_url[0]}) center/cover}";
+			}
+			echo "<style>{$style}</style>";
+			// wp_add_inline_style( 'frenchpress', $style );
 		}
-		
 	}
 }
 
