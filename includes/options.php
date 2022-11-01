@@ -29,7 +29,7 @@ function frenchpress_options_page() {
 	<h1>Frenchpress Theme Options</h1>
 	<form onsubmit="event.preventDefault();var t=this,b=t.querySelector('button'),x=new XMLHttpRequest;x.open('POST','<?php echo $url.'s'; ?>'),<?php echo $nonce; ?>,x.onload=function(){b.innerHTML=JSON.parse(x.response)},x.send(new FormData(t))">
 	<?php
-	
+
 	$fields = array_fill_keys([
 		// 'no_drawer',
 		'content_width',
@@ -90,7 +90,6 @@ function frenchpress_options_page() {
 	$fields['custom_code_right_of_branding']['type'] = 'textarea';
 	$fields['custom_code_right_of_branding']['show'] = 'add_custom_code_right_of_branding';
 	$fields['add_custom_code_right_of_branding']['show'] = ['nav_position' => ['top','bottom']];
-	$fields['full_width_nav']['show'] = ['nav_position' => ['top','bottom']];
 
 	$fields['menu_breakpoint']['type'] = 'number';
 	$fields['content_width']['type'] = 'number';
@@ -100,13 +99,18 @@ function frenchpress_options_page() {
 
 	$fields['logo']['desc'] = 'URL to logo. SVGs will be inlined so the fill color can be manipulated.';
 
-		
+
 	$options = [ 'frenchpress' => $fields ];// can add additional options groups to save as their own array in the options table
+
+	$values = [];
+	foreach ( $options as $g => $fields ) {
+		$values += get_option( $g, [] );
+	}
 	
 	$script = '';
 	echo '<table class=form-table>';
 	foreach ( $options as $g => $fields ) {
-		$values = get_option($g);
+		// $values = get_option($g);
 		echo "<input type=hidden name='{$g}[x]' value=1>";// hidden field to make sure things still update if all options are empty (defaults)
 		foreach ( $fields as $k => $f ) {
 			if ( !empty( $f['before'] ) ) echo "<tr><th>" . $f['before'];
@@ -118,7 +122,7 @@ function frenchpress_options_page() {
 				if ( is_string( $f['show'] ) ) $f['show'] = [ $f['show'] => 'any' ];
 				foreach( $f['show'] as $target => $cond ) {
 					$hide = " style='display:none'";
-					$script .= "\ndocument.querySelector('#tr-{$g}-{$target}').addEventListener('change', function(e){";
+					$script .= "\ndocument.querySelector('#tr-{$target}').addEventListener('change', function(e){";
 					if ( $cond === 'any' ) {
 						$script .= "if( e.target.checked !== false && e.target.value )";
 						if ( !empty( $values[$target] ) ) $hide = "";
@@ -131,35 +135,56 @@ function frenchpress_options_page() {
 						$script .= "if( !!~['". implode( "','", (array) $cond ) ."'].indexOf(e.target.value) && e.target.checked!==false)";
 						if ( !empty( $values[$target] ) && in_array( $values[$target], (array) $cond ) ) $hide = "";
 					}
-					$script .= "{document.querySelector('#tr-{$g}-{$k}').style.display='revert'}";
-					$script .= "else{document.querySelector('#tr-{$g}-{$k}').style.display='none'}";
+					$script .= "{document.querySelector('#tr-{$k}').style.display='revert'}";
+					$script .= "else{document.querySelector('#tr-{$k}').style.display='none'}";
 					$script .= "});";
 				}
 			}
-			echo "<tr id=tr-{$g}-{$k} {$hide}><th>";
 			if ( empty( $f['type'] ) ) $f['type'] = !empty( $f['options'] ) ? 'radio' : 'checkbox';// checkbox is default
-			switch ( $f['type'] ) {
-				case 'textarea':
-					echo "<label for='{$g}-{$k}'>{$l}</label><td><textarea id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='' rows=8 class={$size}-text>{$v}</textarea>";
-					break;
-				case 'number':
-					$size = !empty( $f['size'] ) ? $f['size'] : 'small';
-					echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='' value='{$v}' class={$size}-text type=number>";
-					break;
-				case 'radio':
-					echo "{$l}<td>";
-					foreach ( $f['options'] as $ov => $ol ) {
-						if ( ! is_string( $ov ) ) $ov = $ol;
-						echo "<label><input name='{$g}[{$k}]' value='{$ov}'"; if ( $v == $ov ) echo " checked"; echo " type=radio>{$ol}</label> ";
-					}
-					break;
-				case 'text':
-					echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='' value='{$v}' class={$size}-text>";
-					break;
-				case 'checkbox':
-				default:
-					echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]'"; if ( $v ) echo " checked"; echo " type=checkbox >";
-					break;
+
+			if ( $f['type'] === 'section' ) { echo "<tbody id='tr-{$k}' {$hide}>"; continue; }
+			elseif ( $f['type'] === 'section_end' ) { echo "</tbody>"; continue; }
+			else echo "<tr id=tr-{$k} {$hide}><th>";
+			
+			if ( !empty( $f['callback'] ) && function_exists( __NAMESPACE__ .'\\'. $f['callback'] ) ) {
+				echo "<label for='{$g}-{$k}'>{$l}</label><td>";
+				call_user_func( __NAMESPACE__ .'\\'. $f['callback'], $g, $k, $v, $f );
+	        } else {
+				switch ( $f['type'] ) {
+					case 'textarea':
+						echo "<label for='{$g}-{$k}'>{$l}</label><td><textarea id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='' rows=8 class={$size}-text>{$v}</textarea>";
+						break;
+					case 'number':
+						$size = !empty( $f['size'] ) ? $f['size'] : 'small';
+						echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='' value='{$v}' class={$size}-text type=number>";
+						break;
+					case 'radio':
+						if ( !empty( $f['options'] ) && is_array( $f['options'] ) ) {
+							echo "{$l}<td>";
+							foreach ( $f['options'] as $ov => $ol ) {
+								if ( ! is_string( $ov ) ) $ov = $ol;
+								echo "<label><input name='{$g}[{$k}]' value='{$ov}'"; if ( $v == $ov ) echo " checked"; echo " type=radio>{$ol}</label> ";
+							}
+						}
+						break;
+					case 'select':
+						if ( !empty( $f['options'] ) && is_array( $f['options'] ) ) {
+							echo "<label for='{$g}-{$k}'>{$l}</label><td><select id='{$g}-{$k}' name='{$g}[{$k}]'>";
+							echo "<option value=''></option>";// placeholder
+							foreach ( $f['options'] as $key => $value ) {
+								echo "<option value='{$key}'" . selected( $v, $key, false ) . ">{$value}</option>";
+							}
+							echo "</select>";
+						}
+						break;
+					case 'text':
+						echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='' value='{$v}' class={$size}-text>";
+						break;
+					case 'checkbox':
+					default:
+						echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]'"; if ( $v ) echo " checked"; echo " type=checkbox >";
+						break;
+				}
 			}
 			if ( !empty( $f['desc'] ) ) echo "&nbsp; " . $f['desc'];
 		}
@@ -262,12 +287,12 @@ if ( !empty( $GLOBALS['frenchpress']->title_in_header ) ) {
 if ( !empty( $GLOBALS['frenchpress']->feat_image_bg ) ) {
 	add_action( 'wp_head', 'frenchpress_feat_image_bg' );
 	function frenchpress_feat_image_bg(){
-				
+
 		global $wp_query;
 		if ( empty($wp_query->queried_object_id) ) return;// or get_queried_object_id() with no global needed.. returns 0 if no id
-		
+
 		$id = $wp_query->queried_object_id;
-		
+
 		// $image_url = $image_url ? $image_url[0] : '/wp-content/uploads/2016/08/london-slim-dark-1024x172.jpg';// default pic moved to CSS
 		if ( $image_url = wp_get_attachment_image_src( get_post_thumbnail_id( $id ), 'large' ) ) {
 			$el = !empty( $GLOBALS['frenchpress']->feat_image_bg_location ) ? $GLOBALS['frenchpress']->feat_image_bg_location : "body";
@@ -291,18 +316,18 @@ if ( empty( $GLOBALS['frenchpress']->comment_form_unstyle ) )
 	function frenchpress_comment_form_fields( $fields ){
 
 		$req = false === strpos( $fields['email'], 'required' ) ? '' : '*';
-		
-		$fields['author'] = '<div class="fff fff-magic fff-pad">' 
-			. str_replace( 
-			['p class="', '</p>', 'label', 'size="30"'], 
-			['span class="fffi ', '</span>', 'label class="screen-reader-text"', "placeholder='Name{$req}' style='width:100%'"], 
-			$fields['author'] 
+
+		$fields['author'] = '<div class="fff fff-magic fff-pad">'
+			. str_replace(
+			['p class="', '</p>', 'label', 'size="30"'],
+			['span class="fffi ', '</span>', 'label class="screen-reader-text"', "placeholder='Name{$req}' style='width:100%'"],
+			$fields['author']
 			);
-		
-		$fields['email'] = str_replace( 
-			['p class="', '</p>', 'label', 'size="30"'], 
-			['span class="fffi ', '</span>', 'label class="screen-reader-text"', "placeholder='Email{$req}' style='width:100%'"], 
-			$fields['email'] 
+
+		$fields['email'] = str_replace(
+			['p class="', '</p>', 'label', 'size="30"'],
+			['span class="fffi ', '</span>', 'label class="screen-reader-text"', "placeholder='Email{$req}' style='width:100%'"],
+			$fields['email']
 			);
 
 		if ( empty( $GLOBALS['frenchpress']->comment_form_website_field ) ) {
@@ -312,14 +337,14 @@ if ( empty( $GLOBALS['frenchpress']->comment_form_unstyle ) )
 				$fields['cookies'] = str_replace( 'name, email, and website', 'name and email', $fields['cookies'] );
 			}
 		} else {
-			$fields['url'] = str_replace( 
-				['p class="', '</p>', 'label', 'size="30"'], 
-				['span class="fffi ', '</span>', 'label class="screen-reader-text"', "placeholder='Website' style='width:100%'"], 
-				$fields['url'] 
+			$fields['url'] = str_replace(
+				['p class="', '</p>', 'label', 'size="30"'],
+				['span class="fffi ', '</span>', 'label class="screen-reader-text"', "placeholder='Website' style='width:100%'"],
+				$fields['url']
 				) . '</div>';
-		}		
+		}
 		$fields['comment'] = str_replace( ['label', 'cols="45"'], ['label class="screen-reader-text"', "placeholder='Comment' style='width:100%'"], $fields['comment'] );
-		
+
 		return $fields;
 	}
 	add_filter( 'comment_form_fields', 'frenchpress_comment_form_fields' );
