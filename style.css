@@ -215,8 +215,9 @@ blockquote {
 */
 
 hr {
-	background: currentColor;
-	height: 1px;
+	border: .5px solid currentColor;
+	/* background: currentColor; */
+	/* height: 1px; */
 	margin: 24px 0;
 	/* clear: both;*//* just as a way to escape from alignleft and alignright images? */
 }
@@ -663,7 +664,8 @@ hr.double {
 }
 
 hr.spacer {
-	background: none;
+	/* background: none; */
+	border: 0;
 }
 
 .feat,
