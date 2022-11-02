@@ -30,7 +30,7 @@ iframe - border - mainly gross since it's inset
 * {
 	box-sizing: border-box;
 	/* margin: 0; */
-	border: 0;
+	/* border: 0; */
 }
 
 a {
@@ -70,6 +70,7 @@ iframe,
 img {
 	/* display: block; why make them blocks? ppl arent sure how to center say a spotify embed */
 	max-width: 100%;
+	border: 0;/* only for iframe that has a 2px inset border */
 }
 /*video,*/
 img {
@@ -104,18 +105,19 @@ textarea {
 /*	margin: 0;*//* for FF & Safari... but is it really a big deal? */
 }
 
-input:not([type=file]):not([type=range]),
+/* input, */
+/* :not([type=file]):not([type=range]), */
 /*:not([type=radio]) true, but it doesn't seem to affect these */
 /*:not([type=checkbox]) true, but it doesn't seem to affect these. may need margin added back though */
 /*:not([type=color]) needs border but padding isn't ideal. But who will use this? */
 /*:not([type=image]) true, but who will use this? */
-select,
-textarea {
-	border: 1px solid;
-	border-radius: 0;/* iOS rounds these */
-	padding: .5ex;
+/* select, */
+/* textarea { */
+	/* border: 1px solid; */
+	/*border-radius: 0;*//* iOS rounds these */
+	/* padding: .5ex; */
 	/* background: #fff; */
-}
+/* } */
 
 /* [type=search] { */
 	/*-webkit-appearance: textfield;*//* Correct odd appearance in Chrome & Safari */
@@ -154,10 +156,11 @@ button,
 }
 */
 
-::placeholder {
+/* FF already does this.  Chrome sets to a grey so conceivably bad if input background is a dark color... but then you're customizing anyhow */
+/* ::placeholder {
 	color: inherit;
 	opacity: .5;
-}
+} */
 
 /*--------------------------------------------------------------
 # Main Sizing & Spacing
