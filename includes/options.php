@@ -27,7 +27,7 @@ function frenchpress_options_page() {
 	?>
 <div class=wrap>
 	<h1>Frenchpress Theme Options</h1>
-	<form onsubmit="event.preventDefault();var t=this,b=t.querySelector('button'),x=new XMLHttpRequest;x.open('POST','<?php echo $url.'s'; ?>'),<?php echo $nonce; ?>,x.onload=function(){b.innerHTML=JSON.parse(x.response)},x.send(new FormData(t))">
+	<form onsubmit="event.preventDefault();var t=this,b=t.querySelector('.button-primary'),x=new XMLHttpRequest;x.open('POST','<?php echo $url.'s'; ?>'),<?php echo $nonce; ?>,x.onload=function(){b.innerText=JSON.parse(x.response);setTimeout(function(){b.innerText='Save Changes'},9000)},x.send(new FormData(t))">
 	<?php
 
 	$fields = array_fill_keys([
