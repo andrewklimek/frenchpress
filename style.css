@@ -12,10 +12,24 @@ License:	GPLv2
 /*--------------------------------------------------------------
 *  Normalisation
 --------------------------------------------------------------*/
-
+/* 
+body - margin
+p - margin
+pre - margin
+dl - margin
+dd - margin left
+ol - margin + left padding
+ul - margin + left padding
+menu - margin + left padding (same as ul... who uses it)
+blockquote - margin all sides
+figure - margin all sides (same as blockquote)
+fieldset - margin l/r + padding all sides + border
+legend - padding 2px
+iframe - border - mainly gross since it's inset
+*/
 * {
 	box-sizing: border-box;
-	margin: 0;
+	/* margin: 0; */
 	border: 0;
 }
 
@@ -50,10 +64,10 @@ pre {
 
 /*embed,*/
 /* figure, WP adds fixed width to figures when using captions shortcode, to contain long captions.  Currently using a weird function on img_caption_shortcode_width in extras.php to make it max-width instead */
-img,
+/* object, wen use */
 video,
 iframe,
-object {
+img {
 	/* display: block; why make them blocks? ppl arent sure how to center say a spotify embed */
 	max-width: 100%;
 }
@@ -155,9 +169,18 @@ html {
 	text-rendering: geometricprecision;
 }
 
+h1,h2,h3,h4,
+dl,/* margin */
+dd,/* margin left */
+ol,/* margin + left padding */
+ul,/* margin + left padding */
+/* menu,margin + left padding (same as ul... who uses it) */
+blockquote,/* margin all sides */
+figure,/* margin all sides (same as blockquote) */
+/* fieldset,margin l/r + padding all sides + border */
 pre,
 p {
-  margin: 24px 0;
+  margin: 0 0 24px;
   /*line-height: max(24px,1.5em);*/
   /*line-height: calc(2ex + 9px);*/
 }
@@ -196,32 +219,32 @@ hr {
 }
 
 /* h1, *//* I suspect h1 will almost always need custom margins */
-h2,
-h3,
-h4 {
-	margin: 3ex 0 1ex;
-	line-height: 1.2;/* or should this only be on h1-h3 */
+/* h2, */
+/* h3, */
+/* h4 { */
+	/* margin: 3ex 0 1ex; */
+	/* line-height: 1.2;or should this only be on h1-h3 */
 	/* margin: calc(6ex - 45px) 0 0; */
 	/* font-weight: inherit;*/
 	/* padding-top: 24px;*//* no bottom margin so you can write top margin rules like h2 > h3: margin-top 0; and have the lines close (there's no h3 < h2 selector) */
 	/* margin: 4.8ex 0 2.4ex; */
 	/* clear: both;*//* just as a way to escape from alignleft and alignright images? */
-}
+/* } */
 
 /* h1:first-child, *//* I suspect h1 will almost always need custom margins */
-h2:first-child,
+/* h2:first-child,
 h3:first-child,
 h4:first-child,
 p:first-child {
 	margin-top: 0;
-}
+} */
 /* h1:last-child, *//* I suspect h1 will almost always need custom margins */
-h2:last-child,
+/* h2:last-child,
 h3:last-child,
 h4:last-child,
 p:last-child {
 	margin-bottom: 0;
-}
+} */
 
 /* Generalized markup that was needed in WP galleries and images with captions. Seems good. */
 figcaption {
@@ -236,7 +259,7 @@ figcaption {
 --------------------------------------------------------------*/
 
 body {
-	/* margin: 0; */
+	margin: 0;
 	min-height: 100vh;
 	/* overflow-x: hidden; */
 }
@@ -587,6 +610,9 @@ but I just seem to only use none/initial or auto/magic */
 
 .pad {
 	padding: 24px;
+}
+.pad > :last-child {
+    margin-bottom: 0;
 }
 
 .pad-l,
