@@ -651,19 +651,6 @@ but I just seem to only use none/initial or auto/magic */
 	padding: 60px 12px;/* 2.5*base .5*base */
 }
 
-.margin-0 {
-	margin: 0;
-}
-
-.margin {
-	margin: 24px;
-}
-
-hr.double {
-	margin-top: 48px;
-	margin-bottom: 48px;
-}
-
 hr.spacer {
 	/* background: none; */
 	border: 0;
@@ -678,9 +665,9 @@ hr.spacer {
 	text-align: right;
 }
 
-.l {
+/* .l {
 	text-align: left;
-}
+} */
 
 /* better off in child theme if ever used
 .round {
