@@ -615,6 +615,7 @@ but I just seem to only use none/initial or auto/magic */
 .pad {
 	padding: 24px;
 }
+.fff-pad > .fffi > :last-child,
 .pad > :last-child {
     margin-bottom: 0;
 }
