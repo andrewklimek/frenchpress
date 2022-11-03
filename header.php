@@ -86,6 +86,7 @@ wp_head();
 			// $logo = explode( '//', $logo );
 			// $logo = !empty($logo[1]) ? str_replace( explode( '//', get_option('siteurl') )[1], '', $logo[1] ) : $logo[0];
 			$logo = file_get_contents( ABSPATH . ltrim( $logo, '/') );
+			if ( ! strpos( $logo, 'style=' ) ) $logo = str_replace( '<svg', '<svg style="display:block"', $logo );// TODO: this could handle stuff with styles...
 		}
 	} else {
 		/**
