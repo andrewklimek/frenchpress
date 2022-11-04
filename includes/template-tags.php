@@ -8,7 +8,7 @@ add_shortcode( 'current_year', function(){ return date('Y'); } );
 /**
 * quick shortcode / function for displaying a post loop
 */
-function frenchpress_loop( $a=[], $c='', $tag='' ){
+function frenchpress_loop( $a=[] ){
 
 	$query = new WP_Query([
 		'category_name' => isset($a['cat']) ? $a['cat'] : '',
@@ -16,7 +16,7 @@ function frenchpress_loop( $a=[], $c='', $tag='' ){
 		'order' => isset($a['order']) ? $a['order'] : 'DESC',
 		'post_type' => isset($a['type']) ? $a['type'] : 'post',
 	]);
-	if ( $tag ) ob_start();// tag = used as shortcode, so return instead of print.
+	ob_start();
 	if ( $query->have_posts() ) {
 		echo '<div class="loop shortcode-loop">';
 		echo "<style>" . frenchpress_style_loop() . "</style>";
@@ -27,7 +27,7 @@ function frenchpress_loop( $a=[], $c='', $tag='' ){
 		echo '</div>';
 	}
 	wp_reset_postdata();
-	if ( $tag ) return ob_get_clean();
+	return str_replace( ['<h2','</h2'], ['<h3','</h3'], ob_get_clean() );
 }
 add_shortcode( 'frenchpress_loop', 'frenchpress_loop');
 
