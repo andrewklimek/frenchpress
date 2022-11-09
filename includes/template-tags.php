@@ -208,7 +208,7 @@ function frenchpress_comment( $comment, $args, $depth ) {
 add_filter('comment_class', 'frenchpress_remove_username_from_comments' );
 function frenchpress_remove_username_from_comments( $classes ){
 	$k = array_search( 'byuser', $classes );
-	if ( $index !== false ) {
+	if ( $k !== false ) {
 		if ( 'comment-author-' === substr( $classes[ 1 + $k ], 0, 15 ) ) {
 			unset( $classes[ 1 + $k ] );
 		}
