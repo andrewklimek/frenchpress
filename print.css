@@ -1,4 +1,4 @@
 #footer,#header,#respond,#wpadminbar,.dont-print,.edit-link,.widget-area,video[loop]{display:none!important}
-#content,#content-tray,#main,#primary{margin:0!important;padding:0!important;width:100%!important;max-width:100%!important}
+#content,#main{margin:0!important;padding:0!important;width:100%!important;max-width:100%!important}
 *{color:#000!important;background:none!important;box-shadow:none!important;text-shadow:none!important}
 p a[href]:after{content:" (" attr(href) ") "}

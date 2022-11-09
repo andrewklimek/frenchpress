@@ -161,6 +161,7 @@ endif;
  * Custom Comment Callback
  */
 function frenchpress_comment( $comment, $args, $depth ) {
+	// echo "<pre>"; print_r($comment); echo "</pre>";
 	?>
 	<li id="comment-<?php comment_ID(); ?>" <?php comment_class( !empty( $args['has_children'] ) ? 'parent' : '', $comment ); ?>>
 		<article id="div-comment-<?php comment_ID(); ?>" class=comment-body>
@@ -172,7 +173,8 @@ function frenchpress_comment( $comment, $args, $depth ) {
 				<div class="comment-metadata fffi">
 					<a class=comment-permalink href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
 						<time datetime="<?php comment_time( 'c' ); ?>"><?php
-							echo mysql2date( get_option('date_format') .' '. get_option('time_format'), $comment->comment_date );// could use $comment->comment_date_gmt
+							echo mysql2date( get_option('date_format'), $comment->comment_date );
+							// echo mysql2date( get_option('date_format') .' '. get_option('time_format'), $comment->comment_date );// could use $comment->comment_date_gmt
 						?></time>
 					</a>
 					<?php

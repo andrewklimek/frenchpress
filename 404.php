@@ -20,7 +20,7 @@ if ( $short_circuit_404 === true )
 get_header();
 
 ?>
-<main id=primary class="site-main fffi fffi-99">
+<main id=main class=site-main>
 	<article><?php
 
 	if ( $short_circuit_404 === true ) :

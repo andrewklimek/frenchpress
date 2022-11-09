@@ -3,10 +3,6 @@
  * Called via get_footer()
  */
 
-do_action('frenchpress_content_tray_bottom');
-
-echo '</div>';// #content-tray
-
 do_action('frenchpress_content_bottom');
 
 echo '</div>';// #content
@@ -71,7 +67,7 @@ do_action('frenchpress_footer_bottom');
 global $sidebars_widgets;
 if ( !empty( $sidebars_widgets['footer-bottom'] ) ) : ?>
 	<div id=footer-bottom>
-		<div class="tray footer-bottom-tray<?php if( isset( $sidebars_widgets['header-4'][1] ) ) echo ' fff fff-middle fff-spacebetween'; ?> fff-pad">
+		<div class="tray footer-bottom-tray<?php if( isset( $sidebars_widgets['footer-bottom'][1] ) ) echo ' fff fff-middle fff-spacebetween fff-nowrap'; ?> fff-pad">
 			<?php dynamic_sidebar( 'footer-bottom' ); ?>
 		</div>
 	</div>

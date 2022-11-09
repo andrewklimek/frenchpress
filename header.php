@@ -6,8 +6,27 @@
  * html lang= should use language_attributes() or bloginfo('language') and maybe meta charset= bloginfo('charset')
  */
 global $frenchpress;
-if ( empty( $frenchpress->nav_position ) ) $frenchpress->nav_position = "right";
-if ( empty( $frenchpress->nav_align ) ) $frenchpress->nav_align = $frenchpress->nav_position === "right" ? "right" : "center";
+
+/**
+ * this block of PHP is for determining the layout
+ */
+if ( empty( $frenchpress->layout ) ) {
+	$frenchpress->layout = is_singular() ? ( is_page() ? $frenchpress->page_layout : $frenchpress->post_layout ) : $frenchpress->index_layout;
+	$frenchpress->layout = apply_filters( 'frenchpress_layout', $frenchpress->layout );
+}
+if ( $frenchpress->layout === 'sidebars' ) {
+	ob_start();// need to run sidebar.php to see if sidebar is available, so I store it to global for insert later.
+	get_sidebar();
+	$frenchpress->sidebar = ob_get_clean();
+	if ( ! $frenchpress->sidebar ) {
+		if ( $frenchpress->page_layout !== 'sidebars' ) $frenchpress->layout = $frenchpress->page_layout;// most likely
+		elseif ( $frenchpress->post_layout !== 'sidebars' ) $frenchpress->layout = $frenchpress->post_layout;// 2nd choice
+		else $frenchpress->layout = '';// fallback if both were set to sidebar
+	}
+}
+if ( empty( $frenchpress->layout ) ) {
+	$frenchpress->layout = is_single() ? 'content-width' : 'site-width';// last chance, set defaults if still empty
+}
 
 ?><!doctype html>
 <html lang=en class=dnav>
@@ -199,7 +218,13 @@ if ( !is_front_page() && apply_filters( 'frenchpress_title_in_header', false ) )
 
 do_action( 'frenchpress_header_bottom' );
 
-?>
-</header>
-<div id=content class="<?php echo apply_filters( 'frenchpress_class_content', "site-content" ); ?>">
-	<div class="content-tray <?php echo ( apply_filters( 'frenchpress_full_width', false ) ) ? "tray--full-width " : "tray "; echo apply_filters( 'frenchpress_class_content_tray', "fff fff-spacearound fff-magic" ); ?>">
+echo "</header>";
+
+
+if ( $frenchpress->layout === 'full-width' ) $content_class = "full-width";
+elseif ( $frenchpress->layout === 'content-width' ) $content_class = "tray content-width";
+else $content_class = "tray site-width";
+
+$content_class = apply_filters( 'frenchpress_class_content', "site-content $content_class" );
+
+echo "<div id=content class='{$content_class}'>";

@@ -1,6 +1,23 @@
 <?php
 
+
+add_filter( 'option_frenchpress', 'frenchpress_options_defaults' );
+function frenchpress_options_defaults( $values ) {
+	$defaults = [
+		'site_width' => 1050,
+		'content_width' => 700,
+		'sidebar_width' => 350,
+		'menu_breakpoint' => 787,
+		'sidebar_position_desktop' => 'right',
+		'sidebar_position_mobile' => 'bottom',
+		'nav_position' => 'right',
+		'nav_align' => 'right',
+	];
+	if ( is_array( $values ) ) return array_merge( $defaults, $values );
+	else return $defaults;
+}
 $frenchpress = (object) get_option('frenchpress');
+
 // could add a filter to this global on the 'wp' action hook, (when conditional tags are ready) or just at the top of header.php
 
 
@@ -44,10 +61,9 @@ function frenchpress_scripts() {
 	}
 	else
 	{
-		if ( empty( $frenchpress->inline_css ) )
+		if ( empty( $frenchpress->inline_css ) ) {
 			wp_enqueue_style( 'frenchpress', TEMPLATE_DIR_U.'/m.css', null, filemtime( TEMPLATEPATH."/m.css" ) );
-		else
-			add_action( 'wp_print_styles', 'frenchpress_inline_css' );
+		}
 
 		if ( $frenchpress->mobile_nav === 'fullscreen' )
 		{
@@ -71,15 +87,16 @@ function frenchpress_scripts() {
 		}
 	}
 
-	// set max width based on $GLOBALS['content_width'] which can be set on the options page and defaults to 1080
-	wp_add_inline_style('frenchpress',".tray{max-width:". 24 * 2 + $GLOBALS['content_width'] ."px}");// tray margin is hardcoaded at 24px for now.
+	add_action( 'wp_head', 'frenchpress_inline_css', 102 );// just after wp_custom_css_cb
+	add_action( 'wp_footer', 'frenchpress_inline_css_footer', 19 );// just before wp_print_footer_scripts
+
+	frenchpress_add_inline_style(".tray,.site-width{max-width:". 24 * 2 + $frenchpress->site_width ."px}.content-width{max-width:{$frenchpress->content_width}px}");
 
 	// wp_enqueue_style( 'frenchpress-print',  TEMPLATE_DIR_U.'/print.css', null, null, 'print' );
 
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );
+	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' );// TODO dont i have a setting for this?
 
 }
-
 
 add_filter('script_loader_tag', function($tag, $handle) {
 	return ( 0 !== strpos( $handle, 'frenchpress' ) ) ? $tag : str_replace( ' src', ' defer src', $tag );
@@ -97,18 +114,14 @@ function frenchpress_print_script(){
 * Inline & minify CSS
 */
 function frenchpress_inline_css() {
+
+	global $frenchpress;
+	$css = '';
+
+	if ( !empty( $frenchpress->inline_css ) && ! SCRIPT_DEBUG ) :
+
 	// get parent styles
-	$css = file_get_contents( TEMPLATEPATH . '/style.css' );
-
-	/* Remove specific Blocks from CSS
-	$remove_blocks = [ "DRAWER", "SUBMENU" ];
-	foreach ( $remove_blocks as $block ) {
-		$css = preg_replace("|\/\* {$block} \*\/[\s\S]+?\/\* END {$block} \*\/|", "", $css );
-	}
-	*/
-
-	// set max width based on $GLOBALS['content_width'] which can be set on the options page and defaults to 1080
-	$css = str_replace( '/*max-width placeholder*/', "max-width:{$GLOBALS['content_width']}px;", $css );
+	$css .= file_get_contents( TEMPLATEPATH . '/style.css' );
 
 	// extra CSS for drawers & submenus
 	if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mobile_nav === 'fullscreen' )
@@ -124,9 +137,22 @@ function frenchpress_inline_css() {
 	// append child styles, if child theme active
 	if ( TEMPLATEPATH !== STYLESHEETPATH ) $css .= file_get_contents( STYLESHEETPATH . '/style.css' );
 
+	endif;// !empty( $frenchpress->inline_css ) && ! SCRIPT_DEBUG )
+
+	if ( !empty( $GLOBALS['frenchpress']->css ) ) $css .= $GLOBALS['frenchpress']->css;// inline CSS added by theme for various layout stuff
+	if ( !empty( $GLOBALS['frenchpress']->custom_css ) ) $css .= $GLOBALS['frenchpress']->custom_css;// must add custom css last for any overrides
+
 	$css = frenchpress_minify_css( $css );
 
 	echo "<style>{$css}</style>";
+
+	$GLOBALS['frenchpress']->css = '';// clear CSS so we can catch anythign added later in footer action.
+}
+
+function frenchpress_inline_css_footer() {
+	if ( !empty( $GLOBALS['frenchpress']->css ) ) {
+		echo "<style id=frenchpress-footer-style>". frenchpress_minify_css( $GLOBALS['frenchpress']->css ) ."</style>";
+	}
 }
 
 function frenchpress_minify_css( $css ) {
@@ -136,6 +162,11 @@ function frenchpress_minify_css( $css ) {
 		[  '',  '',  '',   '', ' ', ':', ';', ',', '{', '{', '}', '}', '}'],
 		preg_replace('|\/\*[\s\S]*?\*\/|','',$css)
 	);
+}
+
+function frenchpress_add_inline_style( $css ) {
+	if ( empty( $GLOBALS['frenchpress']->css ) ) $GLOBALS['frenchpress']->css = '';
+	$GLOBALS['frenchpress']->css .= $css;
 }
 
 
@@ -158,8 +189,14 @@ if ( empty( $GLOBALS['frenchpress']->dont_style_login ) ) {
  * Set the content width in pixels
  */
 function frenchpress_content_width() {
-	
-	$GLOBALS['content_width'] = !empty($GLOBALS['frenchpress']->content_width) ? $GLOBALS['frenchpress']->content_width : 1200;
+
+	if ( !empty($GLOBALS['frenchpress']->content_width) ) {
+		$GLOBALS['content_width'] = $GLOBALS['frenchpress']->content_width;
+	} elseif ( !empty($GLOBALS['frenchpress']->site_width) ) {
+		$GLOBALS['content_width'] = $GLOBALS['frenchpress']->site_width;
+	} else {
+		$GLOBALS['content_width'] = 1200;
+	}
 }
 add_action( 'after_setup_theme', 'frenchpress_content_width', 0 );// 0 to make it available to lower priority callbacks
 
@@ -221,16 +258,8 @@ add_action( 'after_setup_theme', 'frenchpress_setup' );
  */
 function frenchpress_widgets_init() {
 	register_sidebar([
-		'name'          => 'Sidebar 1',
+		'name'          => 'Sidebar',
 		'id'            => 'sidebar-1',
-		'before_widget' => '<section id="%1$s" class="widget sidebar-widget %2$s">',
-		'after_widget'  => "</section>\n",
-		'before_title'  => '<h3 class=widgettitle>',
-		'after_title'   => "</h3>\n",
-	]);
-	register_sidebar([
-		'name'          => 'Sidebar 2',
-		'id'            => 'sidebar-2',
 		'before_widget' => '<section id="%1$s" class="widget sidebar-widget %2$s">',
 		'after_widget'  => "</section>\n",
 		'before_title'  => '<h3 class=widgettitle>',
@@ -287,7 +316,7 @@ function frenchpress_widgets_init() {
 		'after_title'   => "</h3>\n",
 	]);
 }
-add_action( 'widgets_init', 'frenchpress_widgets_init' );
+add_action( 'widgets_init', 'frenchpress_widgets_init', 9 );
 
 
 /**
@@ -329,14 +358,14 @@ if ( ! function_exists( 'mnml_disable_embeds_code_init' ) ) {
 
 
 /**
- * Side Menu Drawer
+ * Side Menu Drawer TODO clean this up
  */
 if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mobile_nav === 'fullscreen' ) {
 	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav #main-menu{padding-top:32px!important} @media(max-width:782px){.mnav #main-menu{padding-top:46px!important}}</style>';});
 } elseif ( $GLOBALS['frenchpress']->mobile_nav === 'none' ) {
 	// this won't be the long-term solution I'm sure.
 	// This is just for sites with no drawer and might even be better defined in child theme to the exact pixel width.
-	add_action('wp_print_styles',function(){echo '<style>.mnav .site-header .menu-item > a{padding:12px}</style>';});
+	frenchpress_add_inline_style( '.mnav .site-header .menu-item > a{padding:12px}' );
 } else {//if ( in_array( $GLOBALS['frenchpress']->mobile_nav, ['slide','tree'] ) ) {
 	// require TEMPLATEPATH . '/includes/drawer.php';
 	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav .drawer,.desk-drawer{padding-top:32px!important} @media(max-width:782px){.mnav .drawer{padding-top:46px!important}}</style>';});

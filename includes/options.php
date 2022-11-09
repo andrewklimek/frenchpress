@@ -32,14 +32,14 @@ function frenchpress_options_page() {
 
 	$fields = array_fill_keys([
 		// 'no_drawer',
-		'content_width',
-		'menu_breakpoint',
 		'inline_css',
-		'page_titles','hide_archive_prefix',
-		'no_blog_thumbnails', 'blog_layout_desktop', 'blog_layout_mobile',
-		'blog_excerpt',
+		'site_width','content_width','sidebar_width','menu_breakpoint',
+		'post_layout','page_layout','index_layout',
+		'sidebar_position_desktop','sidebar_position_mobile','sidebar_centered_content',
+		'no_blog_thumbnails', 'blog_layout_desktop', 'blog_layout_mobile','blog_excerpt',
 		'entry_meta','entry_meta_time','entry_meta_byline',
 		'entry_footer',
+		'page_titles','hide_archive_prefix',
 		'feat_image_bg', 'feat_image_bg_location', 'feat_image_bg_color_overlay', 'title_in_header',
 		'disable_comments','avatar_size','comment_form_unstyle','comment_form_website_field',
 		'mini_toolbar',
@@ -53,8 +53,15 @@ function frenchpress_options_page() {
 		'add_custom_code_right_of_menu', 'custom_code_right_of_menu',
 		'add_custom_code_right_of_branding', 'custom_code_right_of_branding',
 		'full_width_nav', 'full_width_branding',
+		'custom_css',
 	],
 	[ 'type' => '' ]);// default
+
+	$fields['page_layout']['options'] = ["sidebars","content-width","site-width","full-width"];
+	$fields['post_layout'] = $fields['index_layout'] = $fields['page_layout'];
+
+	$fields['sidebar_position_desktop']['options'] = ["right","left"];
+	$fields['sidebar_position_mobile']['options'] = ["bottom","top"];
 
 	$fields['blog_layout_desktop']['options'] = ["list","grid"];
 	$fields['blog_layout_mobile']['options'] = ["list","grid"];
@@ -83,21 +90,23 @@ function frenchpress_options_page() {
 	$fields['logo']['type'] = 'text';
 	$fields['logo']['show'] = ['use_custom_code_for_branding' => 'empty'];
 
-	$fields['branding_custom_code']['type'] = 'textarea';
+	$fields['branding_custom_code']['type'] = 'code';
 	$fields['branding_custom_code']['show'] = 'use_custom_code_for_branding';
-	$fields['custom_code_right_of_menu']['type'] = 'textarea';
+	$fields['custom_code_right_of_menu']['type'] = 'code';
 	$fields['custom_code_right_of_menu']['show'] = 'add_custom_code_right_of_menu';
-	$fields['custom_code_right_of_branding']['type'] = 'textarea';
+	$fields['custom_code_right_of_branding']['type'] = 'code';
 	$fields['custom_code_right_of_branding']['show'] = 'add_custom_code_right_of_branding';
 	$fields['add_custom_code_right_of_branding']['show'] = ['nav_position' => ['top','bottom']];
 
 	$fields['menu_breakpoint']['type'] = 'number';
-	$fields['content_width']['type'] = 'number';
+	$fields['site_width']['type'] = $fields['content_width']['type'] = $fields['sidebar_width']['type'] = 'number';
 	$fields['mobile_nav']['options'] = ["fullscreen","slide","tree","none"];// tree not implemented yet.
 	$fields['avatar_size']['type'] = 'number';
 	$fields['avatar_size']['desc'] = 'in pixels. 0 disables avatars.';
 
 	$fields['logo']['desc'] = 'URL to logo. SVGs will be inlined so the fill color can be manipulated.';
+
+	$fields['custom_css']['type'] = 'code';
 
 
 	$options = [ 'frenchpress' => $fields ];// can add additional options groups to save as their own array in the options table
@@ -153,6 +162,9 @@ function frenchpress_options_page() {
 				switch ( $f['type'] ) {
 					case 'textarea':
 						echo "<label for='{$g}-{$k}'>{$l}</label><td><textarea id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='' rows=8 class={$size}-text>{$v}</textarea>";
+						break;
+					case 'code':
+						echo "<label for='{$g}-{$k}'>{$l}</label><td><textarea id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='' rows=8 class='large-text code'>{$v}</textarea>";
 						break;
 					case 'number':
 						$size = !empty( $f['size'] ) ? $f['size'] : 'small';
@@ -302,8 +314,7 @@ if ( !empty( $GLOBALS['frenchpress']->feat_image_bg ) ) {
 				$color = esc_attr( $GLOBALS['frenchpress']->feat_image_bg_color_overlay );
 				$style = "{$el}{background:linear-gradient(0deg,{$color},{$color}),url({$image_url[0]}) center/cover}";
 			}
-			echo "<style>{$style}</style>";
-			// wp_add_inline_style( 'frenchpress', $style );
+			frenchpress_add_inline_style( $style );
 		}
 	}
 }

@@ -1,11 +1,11 @@
 <?php
 
-add_action( 'wp_enqueue_scripts', function(){ wp_add_inline_style('frenchpress', frenchpress_style_loop() ); });
+frenchpress_add_inline_style( frenchpress_style_loop() );
 
 get_header();
-?>
-<main id=primary class="site-main fffi fffi-99">
-<?php
+
+echo "<main id=main class=site-main>";
+
 if ( have_posts() ) :
 
 	/* This block is for the Posts page as selected in the settings > reading 
