@@ -53,21 +53,21 @@
 			htmlClass.remove( o );
 			button.removeAttribute( x );
 			nav.removeAttribute( x );
-			document.removeEventListener('keyup', drawerEscKey );
+			// document.removeEventListener('keyup', drawerEscKey );
 		} else {
 			htmlClass.add( o );
 			button.setAttribute( x, 'true' );
 			nav.setAttribute( x, 'true' );
-			document.addEventListener('keyup', drawerEscKey );
+			// document.addEventListener('keyup', drawerEscKey );
 		}
 	}
 	
 	button.onclick = toggleDrawer;
 	mask.onclick = toggleDrawer;
 	
-	function drawerEscKey(e){
-		if( e.keyCode == 27 )
-			toggleDrawer();
-	}
+	// function drawerEscKey(e){
+	// 	if( e.keyCode == 27 )
+	// 		toggleDrawer();
+	// }
 	
 })();

@@ -17,12 +17,12 @@
 			htmlClass.remove( o );
 			button.removeAttribute( x );
 			menu.removeAttribute( x );
-			document.removeEventListener('keyup', drawerEscKey );
+			// document.removeEventListener('keyup', drawerEscKey );
 		} else {
 			htmlClass.add( o );
 			button.setAttribute( x, 'true' );
 			menu.setAttribute( x, 'true' );
-			document.addEventListener('keyup', drawerEscKey );
+			// document.addEventListener('keyup', drawerEscKey );
 		}
 	}
 	
@@ -30,10 +30,10 @@
 	// document.getElementById( 'menu-close' ).onclick = toggleDrawer;
 	mask.onclick = toggleDrawer;
 	
-	function drawerEscKey(e){
-		if( e.keyCode === 27 )
-			toggleDrawer();
-	}
+	// function drawerEscKey(e){
+	// 	if( e.keyCode === 27 )
+	// 		toggleDrawer();
+	// }
 	
 		
 	/** Close Drawer with swipe
