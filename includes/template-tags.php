@@ -161,14 +161,15 @@ endif;
  * Custom Comment Callback
  */
 function frenchpress_comment( $comment, $args, $depth ) {
-	// echo "<pre>"; print_r($comment); echo "</pre>";
+
+	// comment_class( !empty( $args['has_children'] ) ? 'parent' : '' )// if its ever helpful...
 	?>
-	<li id="comment-<?php comment_ID(); ?>" <?php comment_class( !empty( $args['has_children'] ) ? 'parent' : '', $comment ); ?>>
-		<article id="div-comment-<?php comment_ID(); ?>" class=comment-body>
+	<li id=comment-<?php echo $comment->comment_ID; ?> <?php comment_class(); ?>>
+		<article id=div-comment-<?php echo $comment->comment_ID; ?> class=comment-body>
 			<footer class="comment-meta fff fff-spacebetween">
 				<div class="comment-author vcard fffi">
 					<?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'] ); ?>
-					<cite class=fn><?php echo get_comment_author_link( $comment ) ?></cite>
+					<cite class=fn><?php echo $comment->comment_author ?></cite>
 				</div>
 				<div class="comment-metadata fffi">
 					<a class=comment-permalink href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
@@ -178,13 +179,13 @@ function frenchpress_comment( $comment, $args, $depth ) {
 						?></time>
 					</a>
 					<?php
-					comment_reply_link( array_merge( $args, array(
+					comment_reply_link( array_merge( $args, [
 						'add_below' => 'div-comment',
 						'depth'	 => $depth,
 						'max_depth' => $args['max_depth'],
 						'before'	=> ' | ',
 						'after'	 => ''
-					) ) );
+					] ) );
 					edit_comment_link( 'Edit', ' | ', '' );
 					?>
 				</div>
@@ -198,5 +199,19 @@ function frenchpress_comment( $comment, $args, $depth ) {
 			</div>
 		</article>
 	<?php
-	// ending </li> is handled by core or a custom end-callback
+	// ending </li> not needed
+}
+
+/**
+ * comment_class() in above function adds usernames to comments classlist... might be smart to remove for security, as if.
+ */
+add_filter('comment_class', 'frenchpress_remove_username_from_comments' );
+function frenchpress_remove_username_from_comments( $classes ){
+	$k = array_search( 'byuser', $classes );
+	if ( $index !== false ) {
+		if ( 'comment-author-' === substr( $classes[ 1 + $k ], 0, 15 ) ) {
+			unset( $classes[ 1 + $k ] );
+		}
+	}
+	return $classes;
 }
