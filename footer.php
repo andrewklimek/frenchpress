@@ -65,20 +65,22 @@ do_action('frenchpress_footer_bottom');
 // can do without the extra is_active function
 // if ( is_active_sidebar( 'footer-bottom' ) ) :
 global $sidebars_widgets;
-if ( !empty( $sidebars_widgets['footer-bottom'] ) ) : ?>
-	<div id=footer-bottom>
-		<div class="tray footer-bottom-tray<?php if( isset( $sidebars_widgets['footer-bottom'][1] ) ) echo ' fff fff-middle fff-spacebetween fff-nowrap'; ?> fff-pad">
-			<?php dynamic_sidebar( 'footer-bottom' ); ?>
-		</div>
-	</div>
-<?php
-endif;
+if ( !empty( $sidebars_widgets['footer-bottom'] ) )
+{
+	if ( isset( $sidebars_widgets['footer-bottom'][1] ) ) {
+		$multiple_widget_css = ' fff fff-middle fff-spacebetween';
+		// TODO this might be an option, and might want a custom class for nowrapping stuff. Also might be excessive and better in a child theme
+		echo "<style>@media(min-width:783px){.footer-bottom-tray{flex-wrap:nowrap}}</style>";
+	}
+	echo "<div id=footer-bottom><div class='footer-bottom-tray tray fff-pad{$multiple_widget_css}'>";
+	dynamic_sidebar( 'footer-bottom' );
+	echo "</div></div>";
+}
 
-?>
-</footer>
-<div id=wp_footer>
-	<div id=mask></div>
-	<?php
-	wp_footer();
-	?>
-</div>
+echo "</footer><div id=wp_footer>";
+
+if ( in_array( $GLOBALS['frenchpress']->mobile_nav, ['slide','tree'] ) ) echo "<div id=mask></div>";
+
+wp_footer();
+
+?></div>
