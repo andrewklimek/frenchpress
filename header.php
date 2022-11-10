@@ -41,12 +41,14 @@ wp_head();
 	<?php do_action( 'frenchpress_header_top' );
 
 
-	$nav = [ 'theme_location' => 'main-menu', 'menu_id' => 'main-menu', 'container' => 0, 'echo' => 0 ];
+	$nav = [ 'theme_location' => 'main-menu', 'menu_id' => 'main-menu', 'container' => 0, 'echo' => 0, 'fallback_cb' => false ];
 	if ( $frenchpress->nav_align !== "left" ) {
 		if ( $frenchpress->nav_align === "justified" ) $frenchpress->nav_align = "spacebetween";
 		$nav['menu_class'] = "menu fff fff-" . $frenchpress->nav_align;
 	}
 	$nav = wp_nav_menu($nav);
+
+	if ( $nav ) {
 
 	if ( !empty( $frenchpress->add_custom_code_right_of_menu ) || ( $frenchpress->nav_position === "right" && $frenchpress->nav_align !== "right" ) ) {
 		$grow = "fffi fffi-9";
@@ -76,9 +78,14 @@ wp_head();
 			$nav = "<div class=main-nav-wrap>$nav</nav>";
 		}
 	}
-	
-	
+
 	if ( $frenchpress->nav_position === "top" ) echo $nav;
+
+	} else {// no menu set
+		$frenchpress->nav_position = "top";
+	}
+	
+	
 
 	if ( $header_url = get_header_image() ) {
 		echo "<div id=header-image><a href='" . home_url() . "'><img src='{$header_url}' class=aligncenter></a></div>";// or should the class be tray?
