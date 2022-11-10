@@ -87,7 +87,7 @@ function frenchpress_scripts() {
 		}
 	}
 
-	add_action( 'wp_head', 'frenchpress_inline_css', 102 );// just after wp_custom_css_cb
+	add_action( 'wp_head', 'frenchpress_inline_css', 100 );// just before wp_custom_css_cb, which someone might use in a desperate atempt to override
 	add_action( 'wp_footer', 'frenchpress_inline_css_footer', 19 );// just before wp_print_footer_scripts
 
 	frenchpress_add_inline_style(".tray,.site-width{max-width:". 24 * 2 + $frenchpress->site_width ."px}.content-width{max-width:{$frenchpress->content_width}px}");
