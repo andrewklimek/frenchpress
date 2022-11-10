@@ -1,7 +1,7 @@
 <?php
 
-
 add_filter( 'option_frenchpress', 'frenchpress_options_defaults' );
+add_filter( 'default_option_frenchpress', 'frenchpress_options_defaults' );
 function frenchpress_options_defaults( $values ) {
 	$defaults = [
 		'site_width' => 1050,
