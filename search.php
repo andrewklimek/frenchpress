@@ -47,5 +47,6 @@ do_action('frenchpress_main_bottom');
 
 echo '</main>';
 
-get_sidebar();
+if (!empty($GLOBALS['frenchpress']->sidebar)) echo $GLOBALS['frenchpress']->sidebar;
+
 get_footer();
