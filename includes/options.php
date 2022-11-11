@@ -53,6 +53,7 @@ function frenchpress_options_page() {
 		'add_custom_code_right_of_menu', 'custom_code_right_of_menu',
 		'add_custom_code_right_of_branding', 'custom_code_right_of_branding',
 		'full_width_nav', 'full_width_branding',
+		'use_custom_sidebar','custom_sidebar',
 		'custom_css',
 	],
 	[ 'type' => '' ]);// default
@@ -97,6 +98,8 @@ function frenchpress_options_page() {
 	$fields['custom_code_right_of_branding']['type'] = 'code';
 	$fields['custom_code_right_of_branding']['show'] = 'add_custom_code_right_of_branding';
 	$fields['add_custom_code_right_of_branding']['show'] = ['nav_position' => ['top','bottom']];
+	$fields['custom_sidebar']['type'] = 'code';
+	$fields['custom_sidebar']['show'] = 'use_custom_sidebar';
 
 	$fields['menu_breakpoint']['type'] = 'number';
 	$fields['site_width']['type'] = $fields['content_width']['type'] = $fields['sidebar_width']['type'] = 'number';

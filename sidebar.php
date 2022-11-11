@@ -2,12 +2,13 @@
 /**
  * Called via get_sidebar()
  */
-$sidebar = apply_filters( 'frenchpress_custom_sidebar', '' );
-
 global $frenchpress;
 
+$sidebar = !empty( $frenchpress->custom_sidebar ) ? $frenchpress->custom_sidebar : '';
+$sidebar = apply_filters( 'frenchpress_custom_sidebar', $sidebar );
+
 if ( $sidebar ) {
-	echo '<aside id=side class="widget-area sidebar">';
+	echo '<aside id=side class=sidebar>';
 	echo $sidebar;
 	echo '</aside>';
 } else {
@@ -69,6 +70,6 @@ if ( $frenchpress->sidebar_position_mobile === "top" ) {
 $style .= "}";
 
 // Need to adjust padding for this layout... not sure if there's a more clever way of integratign above b/c of the media queries
-$style .= "#content{padding:0}#main,#side{padding:0 24px}";
+$style .= "#content{padding:0}#main,#side{padding:0 24px;}";
 
 frenchpress_add_inline_style( $style );
