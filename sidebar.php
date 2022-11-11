@@ -70,6 +70,7 @@ if ( $frenchpress->sidebar_position_mobile === "top" ) {
 $style .= "}";
 
 // Need to adjust padding for this layout... not sure if there's a more clever way of integratign above b/c of the media queries
-$style .= "#content{padding:0}#main,#side{padding:0 24px;}";
+// Also, min-width is needed to keep <pre> elements from expanding its container beyond vw.  see https://stackoverflow.com/questions/36247140/#36247448
+$style .= "#content{padding:0}#main,#side{padding:0 24px;min-width:0}";
 
 frenchpress_add_inline_style( $style );
