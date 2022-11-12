@@ -174,7 +174,7 @@ wp_head();
 	}
 	$header_main_classes = apply_filters( 'frenchpress_class_header_main', $header_main_classes );
 
-	echo "<div id=site-header-main><div class='{$header_main_classes}'>";
+	echo "<div class=site-header-main><div class='{$header_main_classes}'>";
 
 	echo $site_branding_html;
 
