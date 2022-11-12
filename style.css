@@ -166,7 +166,7 @@ button,
 # Main Sizing & Spacing
 --------------------------------------------------------------*/
 html {
-	line-height: 1.5;
+	line-height: 1.7;
 	word-wrap: break-word;/* should it just be on p a ?*/
 	-webkit-text-size-adjust: 100%;/* Prevent font size adjustments after orientation changes in IE and iOS */
 	text-rendering: geometricprecision;
