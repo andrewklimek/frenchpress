@@ -357,7 +357,7 @@ article,
 	padding: .75rem 1.5rem;
 }
 /* could this be redone with gap? */
-.site-header .menu {
+.site-header .tray .menu {/* TODO I dont really like having this. is it work removing for centered menus? could it just be on main menu?  .tray>.main-nav */
     margin: 0 -1.5rem;/* align flush with sides of header. must be overriden for side nav */
 }
 
