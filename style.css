@@ -215,7 +215,8 @@ blockquote {
 */
 
 hr {
-	border: .5px solid currentColor;
+    border: 0;
+	border-top: 1px solid currentColor;
 	/* background: currentColor; */
 	/* height: 1px; */
 	margin: 1.5rem 0;
