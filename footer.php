@@ -67,7 +67,6 @@ do_action('frenchpress_footer_bottom');
 global $sidebars_widgets;
 if ( !empty( $sidebars_widgets['footer-bottom'] ) )
 {
-    $multiple_widget_css = '';
 	if ( isset( $sidebars_widgets['footer-bottom'][1] ) ) {
 		$multiple_widget_css = ' fff fff-middle fff-spacebetween';
 		// TODO this might be an option, and might want a custom class for nowrapping stuff. Also might be excessive and better in a child theme
