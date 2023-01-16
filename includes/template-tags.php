@@ -99,11 +99,11 @@ function frenchpress_entry_meta() {
 
 	if ( !empty( $frenchpress->entry_meta_time ) ) {
 
-		if ( $GLOBALS['post']->post_date !==  $GLOBALS['post']->post_modified ) {
-			$time = '<time class=updated datetime="' . get_the_modified_date( DATE_W3C ) . '">' . get_the_modified_date() . '</time>';
-		} else {
-			$time = '<time class=published datetime="' .  get_the_date( DATE_W3C ) . '">' . get_the_date() . '</time>';// DATE_W3C is a PHP constant same as 'c' format
-		}
+		// TODO: make an option for showing updated date if I ever need it
+		// if ( $GLOBALS['post']->post_date !== $GLOBALS['post']->post_modified ) 
+			// $time = '<time class=updated datetime="' . get_the_modified_date( DATE_W3C ) . '">' . get_the_modified_date() . '</time>';
+		// else
+		$time = '<time class=published datetime="' .  get_the_date( DATE_W3C ) . '">' . get_the_date() . '</time>';// DATE_W3C is a PHP constant same as 'c' format
 
 		if ( apply_filters( 'frenchpress_entry_meta_link_time', false ) ) {
 			$time = '<a href="' . esc_url( get_permalink() ) . '">' . $time . '</a>';
@@ -126,7 +126,7 @@ function frenchpress_entry_meta() {
 endif;
 
 /**
- * Prints HTML with meta information for the categories, tags and comments.
+ * Prints HTML with meta information for the categories and tags.
  */
 if ( ! function_exists( 'frenchpress_entry_footer' ) ) :
 function frenchpress_entry_footer() {
@@ -155,63 +155,3 @@ function frenchpress_entry_footer() {
 	echo "</footer>";
 }
 endif;
-
-
-/**
- * Custom Comment Callback
- */
-function frenchpress_comment( $comment, $args, $depth ) {
-
-	// comment_class( !empty( $args['has_children'] ) ? 'parent' : '' )// if its ever helpful...
-	?>
-	<li id=comment-<?php echo $comment->comment_ID; ?> <?php comment_class(); ?>>
-		<article id=div-comment-<?php echo $comment->comment_ID; ?> class=comment-body>
-			<footer class="comment-meta fff fff-spacebetween">
-				<div class="comment-author vcard fffi">
-					<?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'] ); ?>
-					<cite class=fn><?php echo $comment->comment_author ?></cite>
-				</div>
-				<div class="comment-metadata fffi">
-					<a class=comment-permalink href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
-						<time datetime="<?php comment_time( 'c' ); ?>"><?php
-							echo mysql2date( get_option('date_format'), $comment->comment_date );
-							// echo mysql2date( get_option('date_format') .' '. get_option('time_format'), $comment->comment_date );// could use $comment->comment_date_gmt
-						?></time>
-					</a>
-					<?php
-					comment_reply_link( array_merge( $args, [
-						'add_below' => 'div-comment',
-						'depth'	 => $depth,
-						'max_depth' => $args['max_depth'],
-						'before'	=> ' | ',
-						'after'	 => ''
-					] ) );
-					edit_comment_link( 'Edit', ' | ', '' );
-					?>
-				</div>
-				<?php
-				if ( '0' == $comment->comment_approved )
-					echo '<p class=comment-awaiting-moderation>Your comment is awaiting moderation.</p>';
-				?>
-			</footer>
-			<div class=comment-content>
-				<?php comment_text(); ?>
-			</div>
-		</article>
-	<?php
-	// ending </li> not needed
-}
-
-/**
- * comment_class() in above function adds usernames to comments classlist... might be smart to remove for security, as if.
- */
-add_filter('comment_class', 'frenchpress_remove_username_from_comments' );
-function frenchpress_remove_username_from_comments( $classes ){
-	$k = array_search( 'byuser', $classes );
-	if ( $k !== false ) {
-		if ( 'comment-author-' === substr( $classes[ 1 + $k ], 0, 15 ) ) {
-			unset( $classes[ 1 + $k ] );
-		}
-	}
-	return $classes;
-}
