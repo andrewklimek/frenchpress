@@ -69,6 +69,10 @@ add_filter( 'the_content', 'frenchpress_custom_shortcode_parsing', 9 );// Run th
 // add_filter( 'widget_custom_html_content', 'frenchpress_custom_shortcode_parsing', 9 );// Only new HTML widgets
 // add_filter( 'widget_text_content', 'frenchpress_custom_shortcode_parsing', 9 );// Only text widget
 add_filter( 'widget_text', 'frenchpress_custom_shortcode_parsing', 9 );// both, at least for now
+add_filter( 'frm_the_content', 'frenchpress_custom_shortcode_parsing' );// Formidable Forms plugin. Process when "filter=limited" is set on a view (which does not run the_content or wpautop)
+
+// add_filter( 'the_content', 'frenchpress_custom_shortcode_parsing', 11 );
+// add_filter( 'the_content', 'frenchpress_custom_shortcode_reset_filter', 100 );
 
 function frenchpress_custom_shortcode_parsing( $c ) {
 
