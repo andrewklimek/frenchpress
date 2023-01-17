@@ -41,7 +41,7 @@ function frenchpress_options_page() {
 		'entry_footer',
 		'page_titles','hide_archive_prefix',
 		'feat_image_bg', 'feat_image_bg_location', 'feat_image_bg_color_overlay', 'title_in_header',
-		'disable_comments','avatar_size','comment_form_unstyle','comment_form_website_field',
+		'disable_comments','avatar_size','comment_form_unstyle','comment_form_website_field','comment_dates',
 		'mini_toolbar',
 		'boring_404',
 		'dont_style_login',

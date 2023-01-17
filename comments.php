@@ -62,44 +62,50 @@ echo '</section>';
  */
 function frenchpress_comment( $comment, $args, $depth ) {
 
-	// comment_class( !empty( $args['has_children'] ) ? 'parent' : '' )// if its ever helpful...
-	?>
-	<li id=comment-<?php echo $comment->comment_ID; ?> <?php comment_class(); ?>>
-		<article id=div-comment-<?php echo $comment->comment_ID; ?> class=comment-body>
-			<footer class="comment-meta fff fff-spacebetween">
-				<div class="comment-author vcard fffi">
-					<?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'] ); ?>
-					<cite class=fn><?php echo $comment->comment_author ?></cite>
-				</div>
-				<div class="comment-metadata fffi">
-					<a class=comment-permalink href="<?php echo esc_url( get_comment_link( $comment, $args ) ); ?>">
-						<time datetime="<?php comment_time( 'c' ); ?>"><?php
+// comment_class( !empty( $args['has_children'] ) ? 'parent' : '' )// if its ever helpful...
+?>
+<li id=comment-<?php echo $comment->comment_ID; ?> <?php comment_class(); ?>>
+	<article id=div-comment-<?php echo $comment->comment_ID; ?> class=comment-body>
+		<footer class="comment-meta fff fff-spacebetween">
+			<div class="comment-author vcard fffi">
+				<?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'] ); ?>
+				<cite class=fn><?php echo $comment->comment_author ?></cite>
+			</div>
+			<div class="comment-metadata fffi">
+				<?php
+
+				// Date (w/ comment link)
+				if ( !empty( $GLOBALS['frenchpress']->comment_dates ) ) {
+					echo "<a class=comment-permalink href='" . esc_url( get_comment_link( $comment, $args ) ) . "'>";
+					echo "<time datetime='" . get_comment_time( 'c' ) . "'>";
 							echo mysql2date( get_option('date_format'), $comment->comment_date );
 							// echo mysql2date( get_option('date_format') .' '. get_option('time_format'), $comment->comment_date );// could use $comment->comment_date_gmt
-						?></time>
-					</a>
-					<?php
-					comment_reply_link( array_merge( $args, [
-						'add_below' => 'div-comment',
-						'depth'	 => $depth,
-						'max_depth' => $args['max_depth'],
-						'before'	=> ' | ',
-						'after'	 => ''
-					] ) );
-					edit_comment_link( 'Edit', ' | ', '' );
-					?>
-				</div>
-				<?php
-				if ( '0' == $comment->comment_approved )
-					echo '<p class=comment-awaiting-moderation>Your comment is awaiting moderation.</p>';
+					echo "</time></a> | ";
+				}
+
+				// comment reply link
+				comment_reply_link( array_merge( $args, [
+					'add_below' => 'div-comment',
+					'depth'		=> $depth,
+					'max_depth'	=> $args['max_depth'],
+					'before'	=> '',
+					'after'		=> '',
+				] ) );
+
+				edit_comment_link( 'Edit', ' | ', '' );
+
 				?>
-			</footer>
-			<div class=comment-content>
-				<?php comment_text(); ?>
 			</div>
-		</article>
-	<?php
-	// ending </li> not needed
+			<?php
+			if ( '0' == $comment->comment_approved )
+				echo '<p class=comment-awaiting-moderation>Your comment is awaiting moderation.</p>';
+			?>
+		</footer>
+		<div class=comment-content>
+			<?php comment_text(); ?>
+		</div>
+	</article>
+<?php // ending </li> not needed
 }
 
 /**
