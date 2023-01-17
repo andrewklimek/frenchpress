@@ -351,6 +351,9 @@ if ( empty( $GLOBALS['frenchpress']->comment_form_unstyle ) )
 			if ( !empty( $fields['cookies'] ) ) {
 				$fields['cookies'] = str_replace( 'name, email, and website', 'name and email', $fields['cookies'] );
 			}
+
+			add_action('pre_comment_on_post', 'frenchpress_block_comments_with_url', 1 );
+
 		} else {
 			$fields['url'] = str_replace(
 				['p class="', '</p>', 'label', 'size="30"'],
@@ -373,4 +376,13 @@ elseif ( empty( $GLOBALS['frenchpress']->comment_form_website_field ) )// remove
 		}
 		return $fields;
 	} );
+
+	add_action('pre_comment_on_post', 'frenchpress_block_comments_with_url', 1 );
+}
+
+function frenchpress_block_comments_with_url(){
+	if ( !empty( $_POST['url'] ) ) {
+		error_log( "Blocked a comment because it had a URL:\n" . var_export( $_POST, true ) );
+		die;
+	}
 }
