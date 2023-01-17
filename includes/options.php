@@ -83,6 +83,7 @@ function frenchpress_options_page() {
 	$fields['avatar_size']['show'] = ['disable_comments' => 'empty'];
 	$fields['comment_form_unstyle']['show'] = ['disable_comments' => 'empty'];
 	$fields['comment_form_website_field']['show'] = ['disable_comments' => 'empty'];
+	$fields['comment_dates']['show'] = ['disable_comments' => 'empty'];
 
 	$fields['nav_position']['before'] = '<h2>Header Layout</h2>';
 	$fields['nav_position']['options'] = ["right","top","bottom"];
