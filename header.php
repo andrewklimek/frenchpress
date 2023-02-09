@@ -35,7 +35,7 @@ if ( empty( $frenchpress->layout ) ) {
 wp_head();
 ?>
 <body <?php body_class(); ?>>
-<?php do_action( 'frenchpress_body_top' ); ?>
+<?php wp_body_open(); ?>
 <a class="skip-link screen-reader-text" href=#content>Skip to content</a>
 <header id=header class=site-header>
 	<?php do_action( 'frenchpress_header_top' );
