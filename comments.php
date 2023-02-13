@@ -16,7 +16,7 @@ echo "<style>#comments ol{list-style:none;padding:0}li .comment{padding-left:19p
 
 if ( have_comments() ) :
 
-	echo '<h2 class="comments-title h3">';
+	echo '<p class="comments-title h3">';
 
 		$comments_number = get_comments_number();
 		if ( '1' === $comments_number ) {
@@ -24,8 +24,8 @@ if ( have_comments() ) :
 		} else {
 			printf( '%1$s Comments', $comments_number );
 		}
-	echo '</h2>
-		<ol class=comment-list>';
+		
+	echo '<ol class=comment-list>';
 		
 		$args = [ 'callback' => 'frenchpress_comment', 'style' => 'ol', 'short_ping' => true ];
 
@@ -51,7 +51,16 @@ if ( ! comments_open() && get_comments_number() && post_type_supports( get_post_
  * You can remove the "website" field from the comment form like so:
  * add_filter( 'comment_form_default_fields', function($fields){ unset($fields['url']); return $fields; } );
  */
-comment_form( [ 'comment_notes_before' => '', 'logged_in_as' => '', 'title_reply' => 'Leave a Comment' ] );
+comment_form( [
+	'comment_notes_before'	=> '', 
+	'logged_in_as'			=> '', 
+	'title_reply'			=> 'Leave a Comment', 
+	'title_reply_before'	=> '<p id=reply-title class=comment-reply-title>', 
+	'title_reply_after'		=> '</p>', 
+	'cancel_reply_before'	=> '<small> &nbsp;',
+	'cancel_reply_link'		=> 'cancel',
+
+	] );
 
 echo '</section>';
 
@@ -65,46 +74,43 @@ function frenchpress_comment( $comment, $args, $depth ) {
 // comment_class( !empty( $args['has_children'] ) ? 'parent' : '' )// if its ever helpful...
 ?>
 <li id=comment-<?php echo $comment->comment_ID; ?> <?php comment_class(); ?>>
-	<article id=div-comment-<?php echo $comment->comment_ID; ?> class=comment-body>
-		<footer class="comment-meta fff fff-spacebetween">
-			<div class="comment-author vcard fffi">
-				<?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'] ); ?>
-				<cite class=fn><?php echo $comment->comment_author ?></cite>
-			</div>
-			<div class="comment-metadata fffi">
-				<?php
+	<div id=div-comment-<?php echo $comment->comment_ID; ?> class=comment-body>
+		<div class=comment-meta>
+			<span class=comment-author>
+				<?php if ( 0 != $args['avatar_size'] ) echo get_avatar( $comment, $args['avatar_size'] );
+				echo $comment->comment_author;
+			echo "</span>";
 
-				// Date (w/ comment link)
-				if ( !empty( $GLOBALS['frenchpress']->comment_dates ) ) {
-					echo "<a class=comment-permalink href='" . esc_url( get_comment_link( $comment, $args ) ) . "'>";
-					echo "<time datetime='" . get_comment_time( 'c' ) . "'>";
-							echo mysql2date( get_option('date_format'), $comment->comment_date );
-							// echo mysql2date( get_option('date_format') .' '. get_option('time_format'), $comment->comment_date );// could use $comment->comment_date_gmt
-					echo "</time></a> | ";
-				}
+			// Date (w/ comment link)
+			if ( empty( $GLOBALS['frenchpress']->comment_no_dates ) ) {
+				echo "&nbsp; <a class='comment-permalink comment-date' href='" . esc_url( get_comment_link( $comment, $args ) ) . "'>";
+				// echo "<time datetime='" . get_comment_time( 'c' ) . "'>";
+						echo mysql2date( 'Y-m-d', $comment->comment_date );// get_option('date_format')
+						// echo mysql2date( get_option('date_format') .' '. get_option('time_format'), $comment->comment_date );// could use $comment->comment_date_gmt
+				// echo "</time>";
+				echo "</a>";
+			}
 
-				// comment reply link
-				comment_reply_link( array_merge( $args, [
-					'add_below' => 'div-comment',
-					'depth'		=> $depth,
-					'max_depth'	=> $args['max_depth'],
-					'before'	=> '',
-					'after'		=> '',
-				] ) );
+			// comment reply link
+			comment_reply_link( array_merge( $args, [
+				'add_below' => 'div-comment',
+				'depth'		=> $depth,
+				'max_depth'	=> $args['max_depth'],
+				'before'	=> '&nbsp; ',
+				'after'		=> '',
+				'reply_text' => 'reply',
+			] ) );
 
-				edit_comment_link( 'Edit', ' | ', '' );
+			edit_comment_link( 'Edit', '&nbsp; ', '' );
 
-				?>
-			</div>
-			<?php
 			if ( '0' == $comment->comment_approved )
 				echo '<p class=comment-awaiting-moderation>Your comment is awaiting moderation.</p>';
 			?>
-		</footer>
+		</div>
 		<div class=comment-content>
 			<?php comment_text(); ?>
 		</div>
-	</article>
+	</div>
 <?php // ending </li> not needed
 }
 

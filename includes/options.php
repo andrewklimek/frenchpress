@@ -328,44 +328,39 @@ if ( !empty( $GLOBALS['frenchpress']->feat_image_bg ) ) {
  */
 if ( empty( $GLOBALS['frenchpress']->comment_form_unstyle ) )
 {
+	// disable the cookie thing... might TODO some solution if a person wants cookies. See https://github.com/WordPress/WordPress/blob/cf9793f0dfaf5a9565302690566007cf65389e8d/wp-includes/comment-template.php#L2406
+	remove_action( 'set_comment_cookies', 'wp_set_comment_cookies', 10, 3 );
+
 	function frenchpress_comment_form_fields( $fields ){
 
-		$req = false === strpos( $fields['email'], 'required' ) ? '' : '*';
+		$req = false === strpos( $fields['email'], 'required' ) ? '' : '*';// i guess just to avoid using get_option( 'require_name_email' );
 
-		$fields['author'] = '<div class="fff fff-magic fff-pad">'
-			. str_replace(
-			['p class="', '</p>', 'label', 'size="30"'],
-			['span class="fffi ', '</span>', 'label class="screen-reader-text"', "placeholder='Name{$req}' style='width:100%'"],
-			$fields['author']
-			);
+		$fields['author'] = "<input id=author name=author placeholder='Name*' maxlength=245 autocomplete=name required>";
 
-		$fields['email'] = str_replace(
-			['p class="', '</p>', 'label', 'size="30"'],
-			['span class="fffi ', '</span>', 'label class="screen-reader-text"', "placeholder='Email{$req}' style='width:100%'"],
-			$fields['email']
-			);
+		$fields['email'] = "<input id=email name=email type=email placeholder='Email*' maxlength=100 autocomplete=email required>";
 
 		if ( empty( $GLOBALS['frenchpress']->comment_form_website_field ) ) {
-			$fields['email'] .= '</div>';
 			unset( $fields['url'] );
-			if ( !empty( $fields['cookies'] ) ) {
-				$fields['cookies'] = str_replace( 'name, email, and website', 'name and email', $fields['cookies'] );
-			}
-
 			add_action('pre_comment_on_post', 'frenchpress_block_comments_with_url', 1 );
-
 		} else {
-			$fields['url'] = str_replace(
-				['p class="', '</p>', 'label', 'size="30"'],
-				['span class="fffi ', '</span>', 'label class="screen-reader-text"', "placeholder='Website' style='width:100%'"],
-				$fields['url']
-				) . '</div>';
+			$fields['url'] = "<input id=url name=url type=url placeholder=Website maxlength=200>";
 		}
-		$fields['comment'] = str_replace( ['label', 'cols="45"'], ['label class="screen-reader-text"', "placeholder='Comment' style='width:100%'"], $fields['comment'] );
+
+		$fields['comment'] = "<textarea id=comment name=comment placeholder=Comment rows=5 maxlength=65525 required></textarea>";
 
 		return $fields;
 	}
 	add_filter( 'comment_form_fields', 'frenchpress_comment_form_fields' );
+
+	add_filter( 'comment_form_defaults', function( $defaults ){
+		$defaults['submit_button'] = '<button name="%1$s" type=submit id="%2$s" class="%3$s">%4$s</button>';
+		$defaults['submit_field'] = '%1$s %2$s';
+		return $defaults;
+	});
+
+	add_action( 'comment_form_before', function(){
+		echo "<style>.comment-form{display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end}.comment-form>textarea{width:100%}.comment-form>input{flex:auto;width:13em}</style>";
+	});
 }
 elseif ( empty( $GLOBALS['frenchpress']->comment_form_website_field ) )// remove URL field from comment form
 {
