@@ -100,7 +100,7 @@ select,
 /*optgroup,*/
 /*keygen,*/
 textarea {
-	color: inherit;
+	/* color: inherit; */
 	font: inherit;
 /*	margin: 0;*//* for FF & Safari... but is it really a big deal? */
 }
