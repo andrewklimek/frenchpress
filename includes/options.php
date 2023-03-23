@@ -3,6 +3,17 @@
 * Options Page
 **/
 
+add_action( 'admin_bar_menu', 'frenchpress_add_option_to_admin_bar' );
+function frenchpress_add_option_to_admin_bar( $bar ) {
+    $bar->add_node([
+        'id'     => 'frenchpress-options',
+        'parent' => 'customize',// dropdown under Customize seems appropriate
+        'title'  => 'Frenchpress Options',
+        'href'   => admin_url('themes.php?page=frenchpress'),
+    ]);
+}
+
+
 add_action( 'rest_api_init', 'frenchpress_register_api_endpoint' );
 function frenchpress_register_api_endpoint() {
 	register_rest_route( 'frenchpress/v1', '/s', ['methods' => 'POST', 'callback' => 'frenchpress_api_options', 'permission_callback' => function(){ return current_user_can('import');} ] );
