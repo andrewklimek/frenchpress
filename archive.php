@@ -33,7 +33,7 @@ if ( have_posts() ) :
 
 	endwhile;
 
-	if ( empty( $GLOBALS['frenchpress']->no_blog_thumbnails ) &&	 $GLOBALS['frenchpress']->blog_layout_desktop === "grid" ) {	
+	if ( empty( $GLOBALS['frenchpress']->no_blog_thumbnails ) && $GLOBALS['frenchpress']->blog_layout_desktop === "grid" ) {	
 		echo "<div class=post></div><div class=post></div><div class=post></div>";// placeholder divs to make the grid uniform (flex stretches last row when its not full)
 	}
 
