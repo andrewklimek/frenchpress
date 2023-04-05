@@ -248,6 +248,8 @@ function frenchpress_setup() {
 	add_editor_style();// Styles the visual editor. https://developer.wordpress.org/reference/functions/add_editor_style/
 
 	register_nav_menus([ 'main-menu' => 'Primary' ]);
+
+	add_theme_support( 'woocommerce' );
 }
 endif;
 add_action( 'after_setup_theme', 'frenchpress_setup' );
@@ -409,4 +411,18 @@ function frenchpress_has_submenus() {
 	poo($has_submenus);
 	
 	return $has_submenus;
+}
+
+
+remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
+remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
+add_action('woocommerce_before_main_content', 'frenchpress_output_content_wrapper', 10);
+add_action('woocommerce_after_main_content', 'frenchpress_output_content_wrapper_end', 10);
+
+function frenchpress_output_content_wrapper() {
+	echo "<main id=main class=site-main>";
+}
+
+function frenchpress_output_content_wrapper_end() {
+	echo '</main>';
 }
