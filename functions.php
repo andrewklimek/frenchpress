@@ -7,11 +7,14 @@ function frenchpress_options_defaults( $values ) {
 		'site_width' => 1050,
 		'content_width' => 700,
 		'sidebar_width' => 350,
-		'menu_breakpoint' => 787,
+		'menu_breakpoint' => 782,// same as wp admin bar
 		'sidebar_position_desktop' => 'right',
 		'sidebar_position_mobile' => 'bottom',
 		'nav_position' => 'right',
 		'nav_align' => 'right',
+		'post_layout' => 'content-width',
+		'page_layout' => 'content-width',
+		'index_layout' => 'site-width',
 	];
 	if ( is_array( $values ) ) return array_merge( $defaults, $values );
 	else return $defaults;
