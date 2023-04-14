@@ -75,7 +75,7 @@ function frenchpress_scripts() {
 		}
 		elseif ( in_array( $frenchpress->mobile_nav, ['slide','tree'] ) )
 		{
-			add_action('wp_print_scripts','frenchpress_print_script');
+			add_action('wp_print_footer_scripts','frenchpress_print_script');
 
 			if ( empty( $frenchpress->inline_css ) ) {
 				$layout = frenchpress_has_submenus() ? "sub-" . $frenchpress->mobile_nav : "drawer";
