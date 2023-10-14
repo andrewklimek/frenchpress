@@ -50,7 +50,7 @@ function frenchpress_options_page() {
 		'dont_style_login',
 		'dont_redirect_wplogin',
 		'mobile_nav',
-		'nav_position', 'nav_align',
+		'nav_position', 'nav_align','branding_align',
 		'logo',
 		'use_custom_code_for_branding', 'branding_custom_code',
 		'add_custom_code_right_of_menu', 'custom_code_right_of_menu',
@@ -90,7 +90,8 @@ function frenchpress_options_page() {
 
 	$fields['nav_position']['before'] = '<h2>Header Layout</h2>';
 	$fields['nav_position']['options'] = ["right","top","bottom"];
-	$fields['nav_align']['options'] = ["left","right","justified","center"];
+	$fields['nav_align']['options'] = ["left","right","center","justified"];
+	$fields['branding_align']['options'] = ["left","right","center"];
 
 	$fields['logo']['type'] = 'text';
 	$fields['logo']['show'] = ['use_custom_code_for_branding' => 'empty'];

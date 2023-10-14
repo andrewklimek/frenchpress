@@ -155,10 +155,12 @@ wp_head();
 
 	// dont even need the fff stuff if using no moblie menu
 	if ( $site_branding_html ) {
-		
+		if ( empty( $frenchpress->branding_align ) || $frenchpress->branding_align === "left" ) $align = "";
+		elseif ( $frenchpress->branding_align === "center" ) $align = " c";
+		elseif ( $frenchpress->branding_align === "right" ) $align = " r";
 		$pad = $logo || !$hide ? '' : ' pad-0';// TODO when is padding even applied? Might need padding on branding only rows.
 		$fff =  $frenchpress->mobile_nav === "none" && $frenchpress->nav_position !== "right" ? '' : ' fffi fffi-auto';
-		$site_branding_html = "<div class='site-branding{$fff}{$pad}'>{$site_branding_html}</div>";
+		$site_branding_html = "<div class='site-branding{$fff}{$pad}{$align}'>{$site_branding_html}</div>";
 		// TODO: also if centering, hamburger should have position: absolute; right: 12px;
 	}
 
