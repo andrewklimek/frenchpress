@@ -33,6 +33,7 @@ foreach ( $options as $g => $fields ) {
 		$v = isset( $values[$k] ) ? $values[$k] : '';
 		$l = isset( $f['label'] ) ? $f['label'] : str_replace( '_', ' ', $k );
 		$ph = !empty( $f['placeholder'] ) ? $f['placeholder'] : '';
+		$req = !empty( $f['required'] ) ? ' required' : '';
 		$size = !empty( $f['size'] ) ? $f['size'] : 'regular';
 		$hide = '';
 		if ( !empty( $f['show'] ) ) {
@@ -69,27 +70,27 @@ foreach ( $options as $g => $fields ) {
 		} else {
 			switch ( $f['type'] ) {
 				case 'textarea':
-					echo "<label for='{$g}-{$k}'>{$l}</label><td><textarea id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='{$ph}' rows=8 class={$size}-text>{$v}</textarea>";
+					echo "<label for='{$g}-{$k}'>{$l}</label><td><textarea{$req} id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='{$ph}' rows=8 class={$size}-text>{$v}</textarea>";
 					break;
 				case 'code':
-					echo "<label for='{$g}-{$k}'>{$l}</label><td><textarea id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='{$ph}' rows=8 class='large-text code'>{$v}</textarea>";
+					echo "<label for='{$g}-{$k}'>{$l}</label><td><textarea{$req} id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='{$ph}' rows=8 class='large-text code'>{$v}</textarea>";
 					break;
 				case 'number':
 					$size = !empty( $f['size'] ) ? $f['size'] : 'small';
-					echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='{$ph}' value='{$v}' class={$size}-text type=number>";
+					echo "<label for='{$g}-{$k}'>{$l}</label><td><input{$req} id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='{$ph}' value='{$v}' class={$size}-text type=number>";
 					break;
 				case 'radio':
 					if ( !empty( $f['options'] ) && is_array( $f['options'] ) ) {
 						echo "{$l}<td>";
 						foreach ( $f['options'] as $ov => $ol ) {
 							if ( ! is_string( $ov ) ) $ov = $ol;
-							echo "<label><input name='{$g}[{$k}]' value='{$ov}'"; if ( $v == $ov ) echo " checked"; echo " type=radio>{$ol}</label> ";
+							echo "<label><input{$req} name='{$g}[{$k}]' value='{$ov}'"; if ( $v == $ov ) echo " checked"; echo " type=radio>{$ol}</label> ";
 						}
 					}
 					break;
 				case 'select':
 					if ( !empty( $f['options'] ) && is_array( $f['options'] ) ) {
-						echo "<label for='{$g}-{$k}'>{$l}</label><td><select id='{$g}-{$k}' name='{$g}[{$k}]'>";
+						echo "<label for='{$g}-{$k}'>{$l}</label><td><select{$req} id='{$g}-{$k}' name='{$g}[{$k}]'>";
 						echo "<option value=''></option>";// placeholder
 						foreach ( $f['options'] as $key => $value ) {
 							echo "<option value='{$key}'" . selected( $v, $key, false ) . ">{$value}</option>";
@@ -98,7 +99,7 @@ foreach ( $options as $g => $fields ) {
 					}
 					break;
 				case 'text':
-					echo "<label for='{$g}-{$k}'>{$l}</label><td><input id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='{$ph}' value='{$v}' class={$size}-text>";
+					echo "<label for='{$g}-{$k}'>{$l}</label><td><input{$req} id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='{$ph}' value='{$v}' class={$size}-text>";
 					break;
 				case 'checkbox':
 				default:

@@ -106,7 +106,7 @@ function frenchpress_options_page() {
 	$fields['custom_sidebar']['show'] = 'use_custom_sidebar';
 
 	$fields['menu_breakpoint']['type'] = 'number';
-	$fields['site_width']['type'] = $fields['content_width']['type'] = $fields['sidebar_width']['type'] = 'number';
+	$fields['site_width'] = $fields['content_width'] = $fields['sidebar_width'] = [ 'type' => 'number', 'required' => 1 ];
 	$fields['mobile_nav']['options'] = ["fullscreen","slide","tree","none"];// tree not implemented yet.
 	$fields['avatar_size']['type'] = 'number';
 	$fields['avatar_size']['desc'] = 'in pixels. 0 disables avatars.';
