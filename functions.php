@@ -1,8 +1,17 @@
 <?php
 
-add_filter( 'option_frenchpress', 'frenchpress_options_defaults' );
-add_filter( 'default_option_frenchpress', 'frenchpress_options_defaults' );
-function frenchpress_options_defaults( $values ) {
+/**
+ * $frenchpress global is used throughout the theme for various settings.
+ * it could be filtered later once conditional tags are available via 'wp' action hook or at the top of header.php
+ * function 'frenchpress_settings_init' is for initializing the theme settings and could be called to add new default settings
+ * optional argument can be passed to specify specific settings, eg. if fist called from a child theme
+ */
+
+$frenchpress = get_option( 'frenchpress', [] );
+if ( $frenchpress ) $frenchpress = (object) $frenchpress;
+else frenchpress_settings_init();
+
+function frenchpress_settings_init( $settings=[] ) {
 	$defaults = [
 		'site_width' => 1050,
 		'content_width' => 700,
@@ -16,13 +25,12 @@ function frenchpress_options_defaults( $values ) {
 		'page_layout' => 'content-width',
 		'index_layout' => 'site-width',
 	];
-	if ( is_array( $values ) ) return array_merge( $defaults, $values );
-	else return $defaults;
+	$settings = array_merge( $defaults, $settings );
+	update_option( 'frenchpress', $settings, 'yes' );
+	$GLOBALS['frenchpress'] = (object) $settings;
 }
-$frenchpress = (object) get_option('frenchpress');
 
-// could add a filter to this global on the 'wp' action hook, (when conditional tags are ready) or just at the top of header.php
-
+if ( empty( $content_width ) ) $content_width = $frenchpress->content_width;// WP global used for things
 
 /* this is define by core for now as TEMPLATEPATH, along with STYLESHEETPATH. hopefully they dont remove it. see https://core.trac.wordpress.org/ticket/18298 */
 // define( 'TEMPLATE_DIR', get_template_directory() );
@@ -188,22 +196,6 @@ if ( empty( $GLOBALS['frenchpress']->dont_style_login ) ) {
 }
 
 
-/**
- * Set the content width in pixels
- */
-function frenchpress_content_width() {
-
-	if ( !empty($GLOBALS['frenchpress']->content_width) ) {
-		$GLOBALS['content_width'] = $GLOBALS['frenchpress']->content_width;
-	} elseif ( !empty($GLOBALS['frenchpress']->site_width) ) {
-		$GLOBALS['content_width'] = $GLOBALS['frenchpress']->site_width;
-	} else {
-		$GLOBALS['content_width'] = 1200;
-	}
-}
-add_action( 'after_setup_theme', 'frenchpress_content_width', 0 );// 0 to make it available to lower priority callbacks
-
-
 function frenchpress_mobile_test() {
 	$breakpoint = isset( $GLOBALS['frenchpress']->menu_breakpoint ) ? $GLOBALS['frenchpress']->menu_breakpoint : 860;
 	if ( ! $breakpoint ) return;
@@ -221,7 +213,6 @@ add_action( 'wp_print_scripts', 'frenchpress_mobile_test' );
  * Note that this function is hooked into the after_setup_theme hook, which runs before the init hook. 
  * The init hook is too late for some features, such as indicating support for post thumbnails.
  */
-if ( ! function_exists( 'frenchpress_setup' ) ) :
 function frenchpress_setup() {
 
 	// load_theme_textdomain( 'frenchpress', TEMPLATEPATH . '/languages' );
@@ -254,7 +245,6 @@ function frenchpress_setup() {
 
 	add_theme_support( 'woocommerce' );
 }
-endif;
 add_action( 'after_setup_theme', 'frenchpress_setup' );
 
 
