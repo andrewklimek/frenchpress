@@ -7,13 +7,13 @@ function frenchpress_style_loop(){
 
 	global $frenchpress;
 	if ( !empty( $frenchpress->no_blog_thumbnails ) ) {
-		return ".loop .post{margin-bottom:48px}";
+		return ".loop .post{margin-bottom:3rem}";
 	}
 	$desktop = !empty( $frenchpress->blog_layout_desktop ) ? $frenchpress->blog_layout_desktop : "list";
 	$mobile = !empty( $frenchpress->blog_layout_mobile ) ? $frenchpress->blog_layout_mobile : $desktop;
 	$breakpoint = 600;
-	$grid = ".loop{display:flex;flex-wrap:wrap;gap:48px}.loop .post{width:250px;flex:auto}";
-	$list = ".loop .post{display:flex;gap:24px;margin-bottom:48px}.loop .featured-image{order:1;max-width:25%;flex:none}.loop .post-text{flex:1}";
+	$grid = ".loop{display:flex;flex-wrap:wrap;gap:1.5rem}.loop .post{width:250px;flex:auto}";
+	$list = ".loop .post{display:flex;gap:1.5rem;margin-bottom:3rem}.loop .featured-image{order:1;max-width:25%;flex:none}.loop .post-text{flex:1}";
 	$css = "";
 	
 	if ( $desktop === $mobile ) {

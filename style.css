@@ -579,7 +579,7 @@ but I just seem to only use none/initial or auto/magic */
 /* [class*='fffi-x'].fffi, */
 [class*='fff-x'] > .fffi {width:100%;}
 
-@media(min-width:50em) {
+@media(min-width:783px) {
 	
 	/* .fffi-x2.fffi, */
 	.fff-x2 > .fffi {
@@ -684,3 +684,9 @@ hr.spacer {
 
 }
 */
+
+@media(max-width:1111px) {
+	html {
+		font-size: 13px;
+	}
+}
