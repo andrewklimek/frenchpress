@@ -6,15 +6,15 @@
 function frenchpress_style_loop(){
 
 	global $frenchpress;
+	$css = ".loop .post{padding-bottom:1.5rem}";
 	if ( !empty( $frenchpress->no_blog_thumbnails ) ) {
-		return ".loop .post{margin-bottom:3rem}";
+		return $css;
 	}
 	$desktop = !empty( $frenchpress->blog_layout_desktop ) ? $frenchpress->blog_layout_desktop : "list";
 	$mobile = !empty( $frenchpress->blog_layout_mobile ) ? $frenchpress->blog_layout_mobile : $desktop;
 	$breakpoint = 600;
 	$grid = ".loop{display:flex;flex-wrap:wrap;gap:1.5rem}.loop .post{width:calc(%s%% - 1.5rem)}";
 	$list = ".loop .post{display:flex;gap:1.5rem;margin-bottom:3rem}.loop .featured-image{order:1;max-width:25%;flex:none}.loop .post-text{flex:1}";
-	$css = "";
 	
 	if ( $desktop === "list" && $mobile === "list" ) {
 		$css .= $list;
@@ -23,13 +23,13 @@ function frenchpress_style_loop(){
 			if ( $mobile === "list" ) $css .= $list;
 			else {
 				$cols = !empty( $frenchpress->blog_layout_mobile_cols ) ? $frenchpress->blog_layout_mobile_cols : '2';
-				$css .= sprintf( $grid, 100 / $cols );
+				if ( $cols > 1 ) $css .= sprintf( $grid, 100 / $cols );
 			}
 		$css .= "} @media(min-width:" . ++$breakpoint . "px){";
 			if ( $desktop === "list" ) $css .= $list;
 			else {
 				$cols = !empty( $frenchpress->blog_layout_desktop_cols ) ? $frenchpress->blog_layout_desktop_cols : '4';
-				$css .= sprintf( $grid, 100 / $cols );
+				if ( $cols > 1 ) $css .= sprintf( $grid, 100 / $cols );
 			}
 		$css .= "}";
 	}
