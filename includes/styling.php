@@ -12,7 +12,7 @@ function frenchpress_style_loop(){
 	}
 	$desktop = !empty( $frenchpress->blog_layout_desktop ) ? $frenchpress->blog_layout_desktop : "list";
 	$mobile = !empty( $frenchpress->blog_layout_mobile ) ? $frenchpress->blog_layout_mobile : $desktop;
-	$breakpoint = 600;
+	$breakpoint = !empty( $frenchpress->blog_layout_mobile_breakpoint ) ? $frenchpress->blog_layout_mobile_breakpoint : '768';// lastest size considered "mobile" ... 768 is what woocommerce uses and is the most typical tablet width
 	$grid = ".loop{display:flex;flex-wrap:wrap;gap:1.5rem}.loop .post{width:calc(%s%% - 1.5rem)}";
 	$list = ".loop .post{display:flex;gap:1.5rem;margin-bottom:3rem}.loop .featured-image{order:1;max-width:25%;flex:none}.loop .post-text{flex:1}";
 	

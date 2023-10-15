@@ -40,7 +40,7 @@ function frenchpress_options_page() {
 		'post_layout','page_layout','index_layout',
 		'sidebar_position_desktop','sidebar_position_mobile','sidebar_centered_content',
 		'no_blog_thumbnails',
-		'blog_layout_desktop','blog_layout_desktop_cols','blog_layout_mobile','blog_layout_mobile_cols',
+		'blog_layout_desktop','blog_layout_desktop_cols','blog_layout_mobile_breakpoint','blog_layout_mobile','blog_layout_mobile_cols',
 		'blog_excerpt',
 		'entry_meta','entry_meta_time','entry_meta_byline',
 		'entry_footer',
@@ -71,6 +71,7 @@ function frenchpress_options_page() {
 
 	$fields['blog_layout_desktop'] = ['options' => ['list','grid'], 'show' => ['no_blog_thumbnails' => 'empty'] ];
 	$fields['blog_layout_mobile'] = $fields['blog_layout_desktop'];
+	$fields['blog_layout_mobile_breakpoint'] = ['type' => 'text', 'placeholder' => '768', 'show' => ['no_blog_thumbnails' => 'empty'] ];
 	$fields['blog_layout_desktop_cols'] = ['type' => 'text', 'placeholder' => '4', 'show' => ['blog_layout_desktop' => 'grid'] ];
 	$fields['blog_layout_mobile_cols'] = ['type' => 'text', 'placeholder' => '2', 'show' => ['blog_layout_mobile' => 'grid'] ];
 
