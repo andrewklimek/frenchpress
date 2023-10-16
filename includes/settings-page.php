@@ -77,7 +77,7 @@ foreach ( $options as $g => $fields ) {
 					break;
 				case 'number':
 					$size = !empty( $f['size'] ) ? $f['size'] : 'small';
-					echo "<label for='{$g}-{$k}'>{$l}</label><td><input{$req} id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='{$ph}' value='{$v}' class={$size}-text type=number>";
+					echo "<label for='{$g}-{$k}'>{$l}</label><td><input{$req} id='{$g}-{$k}' name='{$g}[{$k}]' placeholder='{$ph}' value='{$v}' class={$size}-text type=number step=any>";
 					break;
 				case 'radio':
 					if ( !empty( $f['options'] ) && is_array( $f['options'] ) ) {

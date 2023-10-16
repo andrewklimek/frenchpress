@@ -685,7 +685,7 @@ hr.spacer {
 }
 */
 
-@media(max-width:1111px) {
+@media(max-width:1080px) {
 	html {
 		font-size: 13px;
 	}

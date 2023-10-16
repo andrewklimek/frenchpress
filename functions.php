@@ -243,7 +243,6 @@ function frenchpress_setup() {
 
 	register_nav_menus([ 'main-menu' => 'Primary' ]);
 
-	add_theme_support( 'woocommerce' );
 }
 add_action( 'after_setup_theme', 'frenchpress_setup' );
 
@@ -351,6 +350,12 @@ if ( ! function_exists( 'mnml_disable_embeds_code_init' ) ) {
 	require TEMPLATEPATH . '/includes/disembellish.php';
 }
 
+/**
+ * WooCommerce Support
+ */
+if ( class_exists( 'WooCommerce' ) ) {
+	require TEMPLATEPATH . '/woocommerce/wc.php';
+}
 
 /**
  * Side Menu Drawer TODO clean this up
@@ -406,24 +411,3 @@ function frenchpress_has_submenus() {
 	return $has_submenus;
 }
 
-
-/**
- * Basic Woocommerce Integration
- * Why unhook them if the functions are pluggable?
- * https://github.com/woocommerce/woocommerce/blob/trunk/plugins/woocommerce/includes/wc-template-functions.php#L1020
- */
-// remove_action( 'woocommerce_before_main_content', 'woocommerce_output_content_wrapper', 10);
-// remove_action( 'woocommerce_after_main_content', 'woocommerce_output_content_wrapper_end', 10);
-// remove_action( 'woocommerce_sidebar', 'woocommerce_get_sidebar', 10 );
-// add_action('woocommerce_before_main_content', 'frenchpress_output_content_wrapper', 10);
-// add_action('woocommerce_after_main_content', 'frenchpress_output_content_wrapper_end', 10);
-// add_action('woocommerce_sidebar', 'frenchpress_get_sidebar', 10);
-function woocommerce_output_content_wrapper() {// function frenchpress_output_content_wrapper() {
-	echo "<main id=main class=site-main>";
-}
-function woocommerce_output_content_wrapper_end() {// function frenchpress_output_content_wrapper_end() {
-	echo '</main>';
-}
-function woocommerce_get_sidebar() {// function frenchpress_get_sidebar() {
-	if (!empty($GLOBALS['frenchpress']->sidebar)) echo $GLOBALS['frenchpress']->sidebar;
-}
