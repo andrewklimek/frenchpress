@@ -2,13 +2,7 @@
 /**
  * Pagination - Show numbered pagination for catalog pages
  *
- * This template can be overridden by copying it to yourtheme/woocommerce/loop/pagination.php.
- *
- * HOWEVER, on occasion WooCommerce will need to update template files and you
- * (the theme developer) will need to copy the new files to your theme to
- * maintain compatibility. We try to do this as little as possible, but it does
- * happen. When this occurs the version of the template file will be bumped and
- * the readme will list any important changes.
+ * Add classes to nav, change type to 'plain'
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
@@ -28,7 +22,7 @@ if ( $total <= 1 ) {
 	return;
 }
 ?>
-<nav class="woocommerce-pagination">
+<nav class="woocommerce-pagination fff fff-gap fff-center pad">
 	<?php
 	echo paginate_links(
 		apply_filters(
@@ -41,7 +35,7 @@ if ( $total <= 1 ) {
 				'total'     => $total,
 				'prev_text' => is_rtl() ? '&rarr;' : '&larr;',
 				'next_text' => is_rtl() ? '&larr;' : '&rarr;',
-				'type'      => 'list',
+				'type'      => 'plain',
 				'end_size'  => 3,
 				'mid_size'  => 3,
 			)
