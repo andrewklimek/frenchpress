@@ -1,5 +1,5 @@
 body.login {
-    margin: 8% 0 0;/* instead of adding it to #login b/c this will only load ont he wp-login.php not on login forms on other pages */
+	margin: 8% 0 0;/* instead of adding it to #login b/c this will only load ont he wp-login.php not on login forms on other pages */
 }
 #login {
 	background: #fff;
@@ -50,7 +50,7 @@ body.login {
 #login .submit {
 	float: right
 }
-#login .button-primary {
+.login .button {
 	line-height: 3;
 	padding: 0 3ex;
 	margin: 0;
@@ -73,7 +73,7 @@ body.login {
 	position: relative
 }
 #user_pass[type=text] {
-    font-size: 13px;
+	font-size: 13px;
 }
 #pass1-text,.pw-weak,.show-password #pass1 {
 	display: none
@@ -84,4 +84,14 @@ body.login {
 }
 .indicator-hint {
 	padding-top: 8px
+}
+#language-switcher {
+	max-width: 400px;
+	margin: 40px auto;
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	gap: 20px;
+}
+.language-switcher label {
+	display: none;
 }
