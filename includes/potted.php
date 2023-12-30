@@ -7,6 +7,7 @@ function frenchpress_temp_login_page(){
 	// global $wp_query;//$wp_query->query['name']
 	if ( is_404() && false !== strpos( $_SERVER['REQUEST_URI'], 'login' ) )
 	{
+		add_filter( 'frenchpress_title_in_header', '__return_false', 999 );
 		add_filter('pre_get_document_title', function(){ return get_bloginfo( 'name', 'display' ); }, 999);
 		$a = [];
 		$a['redirect'] = empty( $_REQUEST['redirect_to'] ) ? admin_url() : urlencode($_REQUEST['redirect_to']);
@@ -21,7 +22,7 @@ function frenchpress_temp_login_page(){
 		exit;
 	}
 }
-add_action( 'template_redirect', 'frenchpress_temp_login_page' );
+add_action( 'template_redirect', 'frenchpress_temp_login_page', 9 );
 
 function frenchpress_login_redirect() {
 
