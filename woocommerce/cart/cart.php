@@ -5,7 +5,8 @@
  * columns reordered
  * subtotal removed
  * table tags replaced
- * "product-info" wrapper added
+ * "f-cart-wrap" wrapper added
+ * "f-product-info" wrapper added
  * product-remove button modified where noted
  * classes added to style coupon section for now 
  *
@@ -18,6 +19,7 @@ defined( 'ABSPATH' ) || exit;
 
 do_action( 'woocommerce_before_cart' ); ?>
 
+<div class="f-cart-wrap">
 <form class="woocommerce-cart-form" action="<?php echo esc_url( wc_get_cart_url() ); ?>" method="post">
 	<?php do_action( 'woocommerce_before_cart_table' ); ?>
 
@@ -55,7 +57,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 					?>
 					</div>
 
-					<div class="product-info">
+					<div class="f-product-info">
 
 						<div class="product-name" data-title="<?php esc_attr_e( 'Product', 'woocommerce' ); ?>">
 						<?php
@@ -138,7 +140,7 @@ do_action( 'woocommerce_before_cart' ); ?>
 
 		<?php do_action( 'woocommerce_cart_contents' ); ?>
 
-		<div class="actions fff fff-spacebetween fff-gap">
+		<div class="actions fff fff-gap">
 
 			<?php if ( wc_coupons_enabled() ) { ?>
 				<div class="coupon">
@@ -172,5 +174,5 @@ do_action( 'woocommerce_before_cart' ); ?>
 		do_action( 'woocommerce_cart_collaterals' );
 	?>
 </div>
-
+</div>
 <?php do_action( 'woocommerce_after_cart' ); ?>
