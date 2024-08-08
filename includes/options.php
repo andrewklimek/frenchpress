@@ -39,6 +39,7 @@ function frenchpress_options_page() {
 		'site_width','content_width','sidebar_width','menu_breakpoint',
 		'post_layout','page_layout','index_layout',
 		'sidebar_position_desktop','sidebar_position_mobile','sidebar_centered_content',
+		'dark_theme',
 		'no_blog_thumbnails',
 		'blog_layout_desktop','blog_layout_mobile_breakpoint','blog_layout_mobile','column_minimum_width',
 		'blog_excerpt',
@@ -205,11 +206,69 @@ if ( !empty( $GLOBALS['frenchpress']->hide_archive_prefix ) ) {
 
 
 /**
+ *  Dark mode / theme selector
+ */
+if ( !empty( $GLOBALS['frenchpress']->dark_theme ) ) {
+	add_action('frenchpress_header_top',function(){
+		?>	
+		<div id=theme>&#x25D0;</div>
+		<script>
+		document.querySelector('#theme').onclick=e=>{
+			document.body.classList.toggle('dark');
+			localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light' );
+		}
+		var theme = localStorage.getItem('theme');
+		if ( theme == 'dark' || ( !theme && window.matchMedia('(prefers-color-scheme:dark)').matches ) ) {
+			document.body.classList.add('dark')
+		} else {
+			document.body.classList.remove('dark')
+		}
+		</script>
+		<?php
+	});
+	add_action( 'wp_enqueue_scripts', 'theme_theme' );
+	function theme_theme(){
+
+		$css = <<<DARKMODE
+body {
+	--bg: ##fffdfa;
+	--fg: #333;
+	--a1: #c4c995;/*#dadbd1;*/
+	background: var(--bg);
+	color: var(--fg);
+	transition: background .3s;
+}
+body.dark {
+	--bg: #222;
+	--fg: #ccc;
+	--a1: #5f6336;
+}
+#logo svg {
+	fill: var(--fg);
+}
+#theme {
+	position: absolute;
+	padding: 12px;
+	right: 0;
+	line-height: 1;
+	cursor: default;
+}
+#theme:hover {
+	transform: rotate(180deg);
+}
+DARKMODE;
+			frenchpress_add_inline_style( $css );
+	}
+}
+
+
+/**
  *  Featured image as bg image
  */
 if ( !empty( $GLOBALS['frenchpress']->title_in_header ) ) {
 	add_filter( 'frenchpress_title_in_header', '__return_true' );
 }
+
 
 /**
  *  Featured image as bg image
