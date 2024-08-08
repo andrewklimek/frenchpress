@@ -2,6 +2,9 @@
 
 add_action( 'after_setup_theme', function() { add_theme_support( 'woocommerce' ); } );
 
+// Add cart count to fragments:
+// https://github.com/woocommerce/woocommerce/blob/0a7d23e86867a304221c43ca86864c944349c36d/plugins/woocommerce/includes/class-wc-ajax.php#L221
+
 
 // Remove Woo Tabs - an example for child themes
 // remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
@@ -29,6 +32,10 @@ function woocommerce_get_sidebar() {
 }
 
 
+add_action( 'woocommerce_before_single_product_summary', function(){ echo "<div class='fff fff-magic fff-gap'><div class=fffi>"; }, 19 );
+add_action( 'woocommerce_before_single_product_summary', function(){ echo "</div><div class=fffi>"; }, 9999 );
+add_action( 'woocommerce_after_single_product_summary', function(){ echo "</div></div>"; }, 0 );
+
 // Could add a custom sidebar and maybe hook it inot sidebar.php with these conditionals
 function frenchpress_woo_sidebar() {
 	if ( is_single() && is_active_sidebar( 'single-product' ) ) {
@@ -37,7 +44,7 @@ function frenchpress_woo_sidebar() {
 		return ob_get_clean();
 	}
 }
-add_filter( 'frenchpress_custom_sidebar', 'frenchpress_woo_sidebar' );
+add_filter( 'frenchpress_custom_sidebar', 'frenchpress_woo_sidebar', 9 );
 // Register widget areas
 function frenchpress_woo_widgets_init() {
 	register_sidebar( [
