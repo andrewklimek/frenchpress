@@ -40,6 +40,7 @@ function frenchpress_options_page() {
 		'post_layout','page_layout','index_layout',
 		'sidebar_position_desktop','sidebar_position_mobile','sidebar_centered_content',
 		'dark_theme',
+		'slide_in_images',
 		'no_blog_thumbnails',
 		'blog_layout_desktop','blog_layout_mobile_breakpoint','blog_layout_mobile','column_minimum_width',
 		'blog_excerpt',
@@ -259,6 +260,34 @@ body.dark {
 DARKMODE;
 			frenchpress_add_inline_style( $css );
 	}
+}
+
+
+/**
+ *  Slide in images
+ */
+if ( !empty( $GLOBALS['frenchpress']->slide_in_images ) ) {
+add_action( 'wp_footer', 'frenchpress_slide_in_imgs' );
+function frenchpress_slide_in_imgs() {
+if ( is_single() ) return;
+print <<<SLIDEIN
+<style>img{transition:.5s ease-out}img.fade{transform:translateY(24px);opacity:0}</style>
+<script>(function(){
+const io = new IntersectionObserver((entries) => {
+	entries.forEach((e) => {
+		// if (e.isIntersecting || e.boundingClientRect.top < 0) {
+		if (e.boundingClientRect.top < e.rootBounds.bottom) {
+			e.target.classList.remove("fade");
+			io.unobserve(e.target);
+		} else {
+			e.target.classList.add("fade");
+		}
+	});
+});
+document.querySelectorAll("main img").forEach(e => { io.observe(e); });
+})();</script>
+SLIDEIN;
+}
 }
 
 
