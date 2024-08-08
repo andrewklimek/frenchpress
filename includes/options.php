@@ -41,6 +41,7 @@ function frenchpress_options_page() {
 		'sidebar_position_desktop','sidebar_position_mobile','sidebar_centered_content',
 		'dark_theme',
 		'slide_in_images',
+		'image_lightbox',
 		'no_blog_thumbnails',
 		'blog_layout_desktop','blog_layout_mobile_breakpoint','blog_layout_mobile','column_minimum_width',
 		'blog_excerpt',
@@ -290,6 +291,43 @@ SLIDEIN;
 }
 }
 
+
+/**
+ *  Lightbox
+ */
+if ( !empty( $GLOBALS['frenchpress']->image_lightbox ) ) {
+add_action( 'wp_footer', 'frenchpress_lightbox' );
+function frenchpress_lightbox() {
+print <<<LIGHTBOX
+<script>(function(){
+	function makeModal(e){
+		var modal = document.createElement('div');
+		modal.id = 'camobscur';
+		modal.style = 'position:fixed;top:0;left:0;background:rgba(0,0,0,.8);z-index:999999;width:100%;height:100%;display:flex;justify-content:center;align-items:center';
+		modal.innerHTML = '<img src="'+ this.href +'" style="max-width:95vw;max-height:95vh">';
+		document.body.appendChild(modal);
+		document.body.style.overflow = 'hidden';
+		modal.addEventListener('click', destroy );
+		document.addEventListener('keyup', modalEscKey );
+		e.preventDefault();
+	}
+	function modalEscKey(e){
+		if ( e.keyCode === 27 ) {
+			destroy();
+		}
+	}
+	function destroy(){
+		document.body.removeChild( document.getElementById('camobscur') );
+		document.removeEventListener('keyup', modalEscKey );
+		document.body.style.overflow = '';
+	}
+	for ( var imgs = document.querySelectorAll('a[href$=jpg]'), i=0, l=imgs.length; i<l; i++ ){
+		imgs[i].addEventListener('click', makeModal, false ); 
+	}
+})();</script>
+LIGHTBOX;
+}
+}
 
 /**
  *  Featured image as bg image
