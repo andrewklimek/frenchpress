@@ -51,6 +51,7 @@ function frenchpress_options_page() {
 		'boring_404',
 		'dont_style_login',
 		'dont_redirect_wplogin',
+		'header_footer_on_login',
 		'mobile_nav',
 		'nav_position', 'nav_align','branding_align',
 		'logo',

@@ -7,18 +7,29 @@ function frenchpress_temp_login_page(){
 	// global $wp_query;//$wp_query->query['name']
 	if ( is_404() && false !== strpos( $_SERVER['REQUEST_URI'], 'login' ) )
 	{
-		add_filter( 'frenchpress_title_in_header', '__return_false', 999 );
-		add_filter('pre_get_document_title', function(){ return get_bloginfo( 'name', 'display' ); }, 999);
 		$a = [];
 		$a['redirect'] = empty( $_REQUEST['redirect_to'] ) ? admin_url() : urlencode($_REQUEST['redirect_to']);
 		// if ( !empty( $_REQUEST['redirect_to'] ) ) $a['redirect'] = urlencode( $_REQUEST['redirect_to'] );
-		echo get_header();
-		echo "<style>" . file_get_contents( TEMPLATEPATH . "/login.css" ) . "</style>";
+		$header_footer = !empty( $GLOBALS['frenchpress']->header_footer_on_login );
+		if ( $header_footer ) {
+			add_filter('pre_get_document_title', function(){ return get_bloginfo( 'name', 'display' ); }, 999);
+			add_filter( 'frenchpress_title_in_header', '__return_false', 999 );
+			echo get_header();
+			echo "<style>" . file_get_contents( TEMPLATEPATH . "/login.css" ) . "</style>";
+		} else {
+			echo '<!doctype html><html lang=en><meta name=viewport content="width=device-width, initial-scale=1">';
+			$css = file_get_contents( TEMPLATEPATH . '/style.css' );
+			if ( TEMPLATEPATH !== STYLESHEETPATH ) $css .= file_get_contents( STYLESHEETPATH . '/style.css' );
+			$css .= file_get_contents( TEMPLATEPATH . "/login.css" );
+			echo "<style>" . frenchpress_minify_css( $css ) . "</style>";
+		}
 		echo "<div id=login>";
 		wp_login_form($a);
 		echo '<a href="' . wp_lostpassword_url( get_permalink() ) . '" title="Lost Password">Lost Password</a></div>';
 		echo "</div>";
-		echo get_footer();
+		if ( $header_footer ) {
+			echo get_footer();
+		}
 		exit;
 	}
 }
