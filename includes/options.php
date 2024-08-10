@@ -267,7 +267,7 @@ if ( !empty( $GLOBALS['frenchpress']->dark_theme ) ) {
 
 		$css = <<<DARKMODE
 body {
-	--bg: ##fffdfa;
+	--bg: #fffdfa;
 	--fg: #333;
 	--a1: #c4c995;/*#dadbd1;*/
 	background: var(--bg);
