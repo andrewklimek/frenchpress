@@ -58,6 +58,7 @@ function frenchpress_options_page() {
 		'mobile_nav',
 		'nav_position', 'nav_align','branding_align',
 		'logo',
+		'use_simple_menu', 'simple_menu',
 		'use_custom_code_for_branding', 'branding_custom_code',
 		'add_custom_code_right_of_menu', 'custom_code_right_of_menu',
 		'add_custom_code_right_of_branding', 'custom_code_right_of_branding',
@@ -102,6 +103,8 @@ function frenchpress_options_page() {
 	$fields['logo']['type'] = 'text';
 	$fields['logo']['show'] = ['use_custom_code_for_branding' => 'empty'];
 
+	$fields['simple_menu']['type'] = 'code';
+	$fields['simple_menu']['show'] = 'use_simple_menu';
 	$fields['branding_custom_code']['type'] = 'code';
 	$fields['branding_custom_code']['show'] = 'use_custom_code_for_branding';
 	$fields['custom_code_right_of_menu']['type'] = 'code';
@@ -175,6 +178,37 @@ function frenchpress_options_page() {
 
 // add_filter( 'frenchpress_title_in_header', '__return_true' );
 // add_action('frenchpress_header_bottom', function(){ echo '<h1>' . wp_title('', false) . '</h1>'; } );
+
+if ( !empty( $GLOBALS['frenchpress']->use_simple_menu ) ) {
+
+	add_filter( 'pre_wp_nav_menu', function( $output, $args ){
+
+		$nav = "<ul id={$args->menu_id} class='{$args->menu_class}'>";
+
+		$lines = preg_split( '<[\r\n]>', $GLOBALS['frenchpress']->simple_menu, -1, PREG_SPLIT_NO_EMPTY );
+
+		$current = $maybe_current = '';
+		foreach ( $lines as $line ) {
+			$parts = explode( '|', $line );
+			$uri = trim( $parts[0] );
+			$items[ $uri ] = $parts[1] ?? ucwords( str_replace( '-', ' ', trim( $uri, ' /' ) ) ) ?: 'Home';
+			if ( ! $current && false !== strpos( $_SERVER['REQUEST_URI'], $uri ) ) {
+				if ( trim( $_SERVER['REQUEST_URI'], '/' ) === trim( $uri, '/' ) ) {
+					$current = $uri;
+				} elseif ( strlen( $uri ) > strlen( $maybe_current ) ) {
+					$maybe_current = $uri;
+				}
+			}
+		}
+		if ( ! $current ) $current = $maybe_current;
+		foreach ( $items as $uri => $label ) {
+			$current_class = $current === $uri ? ' current-menu-item' : '';
+			$nav .= "<li class='menu-item{$current_class}'><a href='{$uri}'>{$label}</a>";
+		}
+
+		return $nav;
+	}, 10, 2 );
+}
 
 
 /**
