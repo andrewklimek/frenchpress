@@ -31,7 +31,7 @@ function woocommerce_get_sidebar() {
 	if (!empty($GLOBALS['frenchpress']->sidebar)) echo $GLOBALS['frenchpress']->sidebar;
 }
 
-add_action( 'init', 'frenchpress_woo_init' );
+add_action( 'wp', 'frenchpress_woo_init' );
 function frenchpress_woo_init(){
 	add_filter( 'woocommerce_enqueue_styles', '__return_false' );
 	// remove_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_again_button' );
