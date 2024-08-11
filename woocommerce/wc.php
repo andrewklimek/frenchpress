@@ -31,6 +31,16 @@ function woocommerce_get_sidebar() {
 	if (!empty($GLOBALS['frenchpress']->sidebar)) echo $GLOBALS['frenchpress']->sidebar;
 }
 
+add_action( 'init', 'frenchpress_woo_init' );
+function frenchpress_woo_init(){
+
+	if ( ! wc_reviews_enabled() ) {
+		// this script powers various features I don't use and could only be useful if reveiws/ratings are used
+		add_action( 'wp_enqueue_scripts', function(){ wp_dequeue_script( 'wc-single-product' ); }, 99 );
+		remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_rating', 5 );
+		remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10 );
+	}
+}
 
 add_action( 'woocommerce_before_single_product_summary', function(){ echo "<div class='fff fff-magic fff-gap'><div class=fffi>"; }, 19 );
 add_action( 'woocommerce_before_single_product_summary', function(){ echo "</div><div class=fffi>"; }, 9999 );
