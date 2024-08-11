@@ -200,7 +200,11 @@ function frenchpress_mobile_test() {
 	$breakpoint = isset( $GLOBALS['frenchpress']->menu_breakpoint ) ? $GLOBALS['frenchpress']->menu_breakpoint : 860;
 	if ( ! $breakpoint ) return;
 	echo "<script>(function(){var c=document.documentElement.classList;";
-	echo "function f(){if(!window.innerWidth){setTimeout(f,50)}else if(window.innerWidth>{$breakpoint}){c.remove('mnav');c.remove('dopen');c.add('dnav');}else{c.remove('dnav');c.add('mnav');}}";
+	if ( empty( $GLOBALS['frenchpress']->desktop_drawer ) ) {
+		echo "function f(){if(!window.innerWidth){setTimeout(f,50)}else if(window.innerWidth>{$breakpoint}){c.remove('mnav');c.remove('dopen');c.add('dnav');}else{c.remove('dnav');c.add('mnav');}}";
+	} else {
+		echo "function f(i){if(!window.innerWidth){setTimeout(f,50)}else if(window.innerWidth>{$breakpoint}){c.remove('mnav');c.add('dnav');i||c.add('dopen')}else{c.remove('dnav');c.add('mnav')}}";
+	}
 	echo "f();window.addEventListener('resize',f);})();</script>";
 }
 // if ( ! apply_filters( 'frenchpress_disable_mobile', false ) ) {
@@ -367,7 +371,6 @@ if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mo
 	// This is just for sites with no drawer and might even be better defined in child theme to the exact pixel width.
 	frenchpress_add_inline_style( '.mnav .site-header .menu-item > a{padding:12px}' );
 } else {//if ( in_array( $GLOBALS['frenchpress']->mobile_nav, ['slide','tree'] ) ) {
-	// require TEMPLATEPATH . '/includes/drawer.php';
 	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav .drawer,.desk-drawer{padding-top:32px!important} @media(max-width:782px){.mnav .drawer{padding-top:46px!important}}</style>';});
 }
 

@@ -57,6 +57,7 @@ function frenchpress_options_page() {
 		'header_footer_on_login',
 		'mobile_nav',
 		'nav_position', 'nav_align','branding_align',
+		'desktop_drawer',
 		'logo',
 		'use_simple_menu', 'simple_menu',
 		'use_custom_code_for_branding', 'branding_custom_code',

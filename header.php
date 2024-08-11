@@ -59,7 +59,8 @@ wp_head();
 	}
 
 	if ( in_array( $frenchpress->mobile_nav, ['slide','tree'] ) ) {
-		$nav = "<div class=drawer><nav class=main-nav>$nav</nav></div>";
+		$drawer_class = empty( $frenchpress->desktop_drawer ) ? "drawer" : "'drawer desk-drawer'";
+		$nav = "<div class={$drawer_class}><nav class=main-nav>$nav</nav></div>";
 		if ( $grow ) $nav = "<div class='{$grow}'>$nav</div>";
 	} else {
 		$nav = $grow ? "<nav class='main-nav {$grow}'>$nav</nav>" : "<nav class=main-nav>$nav</nav>";
