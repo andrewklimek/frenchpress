@@ -13,7 +13,7 @@
 
 .mnav .drawer,
 .desk-drawer {
-	z-index: 99999;
+	z-index: 99998;
 	/*	height: calc(100% + 60px);*/
 	height: 100%;
 	position: fixed;

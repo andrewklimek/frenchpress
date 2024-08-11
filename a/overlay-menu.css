@@ -9,7 +9,7 @@
 	background-color: #fff; /*This shouldnt be hard-coded*/
 	overflow: auto;
 	position: fixed;
-	z-index: 99999;
+	z-index: 99998;
 	top: 0;
 	left: 0;
 	width: 100%;
