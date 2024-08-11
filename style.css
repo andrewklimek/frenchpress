@@ -71,6 +71,7 @@ img {
 	/* display: block; why make them blocks? ppl arent sure how to center say a spotify embed */
 	max-width: 100%;
 	border: 0;/* only for iframe that has a 2px inset border */
+	vertical-align: middle;/* remove space below inline images */
 }
 /*video,*/
 img {
