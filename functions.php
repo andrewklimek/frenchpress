@@ -372,6 +372,11 @@ if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mo
 	frenchpress_add_inline_style( '.mnav .site-header .menu-item > a{padding:12px}' );
 } else {//if ( in_array( $GLOBALS['frenchpress']->mobile_nav, ['slide','tree'] ) ) {
 	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav .drawer,.desk-drawer{padding-top:32px!important} @media(max-width:782px){.mnav .drawer{padding-top:46px!important}}</style>';});
+	if ( !empty( $GLOBALS['frenchpress']->desktop_drawer ) ) {
+		// TODO do I need to override .dnav #menu-open { display: none; } here or can I exclude that rule in the first place?
+		// TODO I want to use margins here instead of padding, but it made #content overflow the screen, because #content has width: 100% due to flex method. I don't really like that possibility, can we do without width: 100%?
+		frenchpress_add_inline_style( '.dnav.dopen #header,.dnav.dopen #content,.dnav.dopen #footer{padding-left:222px}#header,#content,#footer{transition:padding .4s}.dnav #menu-open{display:inline-block}' );
+	}
 }
 
 
