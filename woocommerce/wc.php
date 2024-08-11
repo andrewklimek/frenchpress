@@ -33,7 +33,15 @@ function woocommerce_get_sidebar() {
 
 add_action( 'init', 'frenchpress_woo_init' );
 function frenchpress_woo_init(){
-
+	add_filter( 'woocommerce_enqueue_styles', '__return_false' );
+	// remove_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_again_button' );
+	// remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+	// remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_upsell_display', 15 );
+	// remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_related_products', 20 );
+	// remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_sharing', 50 );
+	// remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_sale_flash', 10 );
+	// remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40 );
+	// remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20 );
 	if ( ! wc_reviews_enabled() ) {
 		// this script powers various features I don't use and could only be useful if reveiws/ratings are used
 		add_action( 'wp_enqueue_scripts', function(){ wp_dequeue_script( 'wc-single-product' ); }, 99 );
