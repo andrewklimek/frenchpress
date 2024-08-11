@@ -6,7 +6,7 @@
     display: flex;
 }
 .mnav #main-menu {
-	background-color: #fff; /*This shouldnt be hard-coded*/
+	background-color: var(--bg); /*This shouldnt be hard-coded*/
 	overflow: auto;
 	position: fixed;
 	z-index: 99998;

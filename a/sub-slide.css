@@ -24,8 +24,8 @@
 /*	padding: .8em;*/
 	transition: transform .4s;
 /*	display: block;*/
-	background: #fff;
-	color: #333;
+	background: var(--bg);
+	color: var(--fg);
 	text-align: left;
 	-webkit-overflow-scrolling: touch;
 	will-change: transform;
