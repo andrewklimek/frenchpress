@@ -251,14 +251,14 @@ if ( !empty( $GLOBALS['frenchpress']->dark_theme ) ) {
 		<div id=theme>&#x25D0;</div>
 		<script>
 		document.querySelector('#theme').onclick=e=>{
-			document.body.classList.toggle('dark');
-			localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light' );
+			document.documentElement.classList.toggle('dark');
+			localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light' );
 		}
 		var theme = localStorage.getItem('theme');
 		if ( theme == 'dark' || ( !theme && window.matchMedia('(prefers-color-scheme:dark)').matches ) ) {
-			document.body.classList.add('dark')
+			document.documentElement.classList.add('dark')
 		} else {
-			document.body.classList.remove('dark')
+			document.documentElement.classList.remove('dark')
 		}
 		</script>
 		<?php
@@ -267,7 +267,7 @@ if ( !empty( $GLOBALS['frenchpress']->dark_theme ) ) {
 	function theme_theme(){
 
 		$css = <<<DARKMODE
-body {
+:root {
 	--bg: #fffdfa;/* background */
 	--gb: #ccc;/* grey background */
 	--gf: #666;/* grey foreground */
@@ -276,7 +276,7 @@ body {
 	color: var(--fg);
 	transition: background .3s;
 }
-body.dark {
+:root.dark {
 	--bg: #222;
 	--gb: #555;
 	--gf: #aaa;
