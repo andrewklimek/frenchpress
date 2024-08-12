@@ -268,17 +268,19 @@ if ( !empty( $GLOBALS['frenchpress']->dark_theme ) ) {
 
 		$css = <<<DARKMODE
 body {
-	--bg: #fffdfa;
-	--fg: #333;
-	--a1: #c4c995;/*#dadbd1;*/
+	--bg: #fffdfa;/* background */
+	--gb: #ccc;/* grey background */
+	--gf: #666;/* grey foreground */
+	--fg: #333;/* foreground */
 	background: var(--bg);
 	color: var(--fg);
 	transition: background .3s;
 }
 body.dark {
 	--bg: #222;
-	--fg: #ccc;
-	--a1: #5f6336;
+	--gb: #555;
+	--gf: #aaa;
+	--fg: #ddd;
 }
 #logo svg {
 	fill: var(--fg);
