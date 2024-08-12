@@ -16,6 +16,8 @@ remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
 
 remove_action( 'wp_enqueue_scripts', 'wp_enqueue_classic_theme_styles' );// small bit of CSS only needed for button blocks
 
+add_filter('site_icon_meta_tags', function($icons){ if ( strpos( end($icons), 'msapplication' ) ) array_pop($icons); return $icons; }, 0 );
+
  /**
   * Remove the default WP logo favicon
   * see https://github.com/WordPress/WordPress/blob/270f2011f8ec7265c3f4ddce39c77ef5b496ed1c/wp-includes/functions.php#L1694
