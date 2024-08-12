@@ -291,6 +291,7 @@ if ( !empty( $GLOBALS['frenchpress']->dark_theme ) ) {
 	right: 0;
 	line-height: 1;
 	cursor: default;
+	font-size: 20px;
 }
 #theme:hover {
 	transform: rotate(180deg);
