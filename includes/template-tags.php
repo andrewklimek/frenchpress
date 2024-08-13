@@ -155,3 +155,57 @@ function frenchpress_entry_footer() {
 	echo "</footer>";
 }
 endif;
+
+add_shortcode( 'tooltip', 'frenchpress_tooltip' );
+function frenchpress_tooltip( $a, $c='' ) {
+	if ( ! $c ) return '';
+	$icon = empty( $a['i'] ) ? '?' : $a['i'];
+	$html = '';
+
+	if ( ! defined( 'DID_FP_TOOLTIP' ) ) {
+		define( 'DID_FP_TOOLTIP', true );
+
+	$html .= <<<HEREDOC
+<style>
+.ftt {
+	display: inline-block;
+	cursor: help;
+	position: relative;
+	font-weight: 700;
+	background: #555;
+	color: #fff;
+	border-radius: 50%;
+	margin: 0 5px;
+	width: 13px;
+	height: 13px;
+	text-align: center;
+	font-size: 12px;
+	line-height: 1.3;
+}
+.fttc {
+	font-family: sans-serif;
+	position: absolute;
+	display: block;
+	bottom: 133%;
+	left: 50%;
+	text-align: center;
+	border-radius: 5px;
+	transition: visibility 1s;
+	translate: -50%;
+	background: #555;
+	padding: 8px;
+	width: max-content;
+	max-width: 140px;
+	height: auto;
+	visibility: hidden;
+}
+.ftt:hover .fttc {
+	visibility: visible;
+}
+</style>
+HEREDOC;
+	}
+
+	$html .= "<span class=ftt>{$icon}<span class=fttc>{$c}</span></span>";
+	return $html;
+}
