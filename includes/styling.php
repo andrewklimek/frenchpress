@@ -14,7 +14,7 @@ function frenchpress_style_loop(){
 	$mobile = !empty( $frenchpress->blog_layout_mobile ) ? $frenchpress->blog_layout_mobile : $desktop;
 	$breakpoint = !empty( $frenchpress->blog_layout_mobile_breakpoint ) ? $frenchpress->blog_layout_mobile_breakpoint : '768';// lastest size considered "mobile" ... 768 is what woocommerce uses and is the most typical tablet width
 	$col_size = !empty( $frenchpress->column_minimum_width ) ? $frenchpress->column_minimum_width : '15';
-	$grid = ".loop{display:grid;grid-template-columns: repeat(auto-fit, minmax({$col_size}rem, 1fr));gap:1.5rem}";
+	$grid = ".loop{display:grid;grid-template-columns:repeat(auto-fill,minmax({$col_size}rem,1fr));gap:1.5rem}";
 	$list = ".loop .post{display:flex;gap:1.5rem;margin-bottom:3rem}.loop .featured-image{order:1;max-width:25%;flex:none}.loop .post-text{flex:1}";
 	
 	if ( $desktop === $mobile ) {
