@@ -74,17 +74,17 @@ add_filter('login_headertext', function(){ return get_bloginfo( 'name', 'display
 /**
  * System emails sent from admin email & blog name rather than wordpress@ and WordPress
  */
-add_filter('wp_mail_from', function($email){
-	// if( substr($email,0,10) === 'wordpress@')
-		// $email = get_option('admin_email');// this isn't really a good idea. it might not be at this domain, at it may not be desired to be public
-	$email = str_replace( 'wordpress@', 'webmaster@', $email );
-	return $email;
-}, 99);
-add_filter('wp_mail_from_name', function($name){
-	if($name === 'WordPress')
-		$name = str_replace( '&#039;', "'", get_option('blogname') );
-	return $name;
-}, 99);
+// add_filter('wp_mail_from', function($email){
+// 	// if( substr($email,0,10) === 'wordpress@')
+// 		// $email = get_option('admin_email');// this isn't really a good idea. it might not be at this domain, at it may not be desired to be public
+// 	$email = str_replace( 'wordpress@', 'webmaster@', $email );
+// 	return $email;
+// }, 99);
+// add_filter('wp_mail_from_name', function($name){
+// 	if($name === 'WordPress')
+// 		$name = str_replace( '&#039;', "'", get_option('blogname') );
+// 	return $name;
+// }, 99);
 
 
 /**
