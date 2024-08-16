@@ -2,7 +2,7 @@ body.login {
 	margin: 8% 0 0;/* instead of adding it to #login b/c this will only load ont he wp-login.php not on login forms on other pages */
 }
 #login {
-	background: #fff;
+	/* background: #fff; */
 	margin: 0 auto;
 	padding: 20px;
 	width: 400px;
@@ -50,7 +50,7 @@ body.login {
 #login .submit {
 	float: right
 }
-.login .button {
+.button {
 	line-height: 3;
 	padding: 0 3ex;
 	margin: 0;

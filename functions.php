@@ -182,18 +182,18 @@ function frenchpress_add_inline_style( $css ) {
 
 
 /**
- * Style Login to match theme
+ * Style Login to match theme - need to look at this more
  */
-if ( empty( $GLOBALS['frenchpress']->dont_style_login ) ) {
-	add_action( 'login_enqueue_scripts', function() {
-		wp_dequeue_style( 'login' );
-		if ( function_exists( 'frenchpress_child_enqueue_scripts' ) ) {
-			frenchpress_child_enqueue_scripts();
-		}
-		wp_enqueue_style( 'theme', get_stylesheet_uri(), array(), null );
-		wp_enqueue_style( 'frenchpress-login', TEMPLATE_DIR_U . '/login.css', array(), null );
-	} );
-}
+// if ( empty( $GLOBALS['frenchpress']->dont_style_login ) ) {
+// 	add_action( 'login_enqueue_scripts', function() {
+// 		wp_dequeue_style( 'login' );
+// 		if ( function_exists( 'frenchpress_child_enqueue_scripts' ) ) {
+// 			frenchpress_child_enqueue_scripts();
+// 		}
+// 		wp_enqueue_style( 'theme', get_stylesheet_uri(), array(), null );
+// 		wp_enqueue_style( 'frenchpress-login', TEMPLATE_DIR_U . '/login.css', array(), null );
+// 	} );
+// }
 
 
 function frenchpress_mobile_test() {

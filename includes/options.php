@@ -52,7 +52,7 @@ function frenchpress_options_page() {
 		'disable_comments','avatar_size','comment_form_unstyle','comment_form_website_field','comment_dates',
 		'mini_toolbar',
 		'boring_404',
-		'dont_style_login',
+		// 'dont_style_login',
 		'dont_redirect_wplogin',
 		'header_footer_on_login',
 		'mobile_nav',
