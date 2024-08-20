@@ -2,6 +2,15 @@
 
 add_action( 'after_setup_theme', function() { add_theme_support( 'woocommerce' ); } );
 
+/**
+ * Remove the Woo Connect admin notice:
+ * Your store might be at risk as you are running old versions of WooCommerce plugins. Connect your store to WooCommerce.com to get updates and streamlined support for your subscriptions.
+ */
+add_action( 'admin_enqueue_scripts', function(){
+	remove_action( 'admin_notices', [ 'Automattic\WooCommerce\Admin\PluginsHelper', 'maybe_show_connect_notice_in_plugin_list' ] );
+	remove_action( 'admin_enqueue_scripts', [ 'Automattic\WooCommerce\Admin\PluginsHelper', 'maybe_enqueue_scripts_for_connect_notice' ] );
+}, 0 );
+
 // Add cart count to fragments:
 // https://github.com/woocommerce/woocommerce/blob/0a7d23e86867a304221c43ca86864c944349c36d/plugins/woocommerce/includes/class-wc-ajax.php#L221
 
