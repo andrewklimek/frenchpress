@@ -20,8 +20,8 @@
 /* 	bottom: 0; */
     top: 0;
 	left: 0;
-	width: 222px;
-	margin: 0 0 0 -222px;
+	width: 270px;
+	margin: 0 0 0 -270px;
 /*	padding: .8em;*/
 	transition: transform .4s;
 /*	display: block;*/
@@ -34,8 +34,8 @@
 
 .dopen .drawer {
 	max-width: 90%;
-	-webkit-transform: translateX(222px);
-	transform: translateX(222px);
+	-webkit-transform: translateX(270px);
+	transform: translateX(270px);
 	box-shadow: 0 0 4px rgba(0,0,0,0.1);
 	overflow: auto;
 }

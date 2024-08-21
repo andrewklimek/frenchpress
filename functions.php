@@ -374,7 +374,7 @@ if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mo
 	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav .drawer,.desk-drawer{padding-top:32px!important} @media(max-width:782px){.mnav .drawer{padding-top:46px!important}}</style>';});
 	if ( !empty( $GLOBALS['frenchpress']->desktop_drawer ) ) {
 		// TODO do I need to override .dnav #menu-open { display: none; } here or can I exclude that rule in the first place?
-		frenchpress_add_inline_style( '.dnav.dopen body{padding-left:222px}body{transition:padding .4s}.dnav #menu-open{display:inline-block}' );
+		frenchpress_add_inline_style( '.dnav.dopen body{padding-left:270px}body{transition:padding .4s}.dnav #menu-open{display:inline-block}' );
 	}
 }
 
