@@ -12,10 +12,11 @@ while ( have_posts() ) : the_post();
 // 	$format = get_post_format();// post format support removed
 
 	locate_template( [
-        "template-parts/content-single{$type}.php",
-        "template-parts/content{$type}.php",
-	    "template-parts/content.php"
-	    ], true, false );
+		"template-parts/content-single{$type}.php",
+		"template-parts/content{$type}.php",
+		"template-parts/content-single.php",
+		"template-parts/content.php"
+		], true, false );
 
 	if ( apply_filters( 'frenchpress_post_navigation', false ) ) :
 		// filter the navigation args, for example to go to next post in same category:
