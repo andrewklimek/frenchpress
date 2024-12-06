@@ -399,9 +399,9 @@ function frenchpress_has_submenus() {
 
 	if ( isset( $mods['has_submenus'] ) ) return $mods['has_submenus'];
 
-	poo("finding if it has submenus");
-
 	if ( empty( $mods['nav_menu_locations']['main-menu'] ) ) return false;
+
+	poo("finding if it has submenus");
 
 	$has_submenus = 0;
 	$menu_items = wp_get_nav_menu_items( $mods['nav_menu_locations']['main-menu'] );
