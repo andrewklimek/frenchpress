@@ -30,7 +30,7 @@ function frenchpress_temp_login_page(){
 			$css = file_get_contents( TEMPLATEPATH . '/style.css' );
 			if ( TEMPLATEPATH !== STYLESHEETPATH ) $css .= file_get_contents( STYLESHEETPATH . '/style.css' );
 			$css .= file_get_contents( TEMPLATEPATH . "/login.css" );
-			if ( TEMPLATEPATH !== STYLESHEETPATH ) $css .= file_get_contents( STYLESHEETPATH . '/login.css' );
+			if ( TEMPLATEPATH !== STYLESHEETPATH ) $css .= @file_get_contents( STYLESHEETPATH . '/login.css' );
 			echo "<style>" . frenchpress_minify_css( $css ) . "#login{margin-bottom:99px}</style>";
 			// do_action('login_head');
 			echo "<body class='fff-center'>";// a way to make it feel centered, maybe not the best way.
