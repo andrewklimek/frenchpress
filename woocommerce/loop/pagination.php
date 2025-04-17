@@ -6,7 +6,7 @@
  *
  * @see     https://docs.woocommerce.com/document/template-structure/
  * @package WooCommerce\Templates
- * @version 3.3.1
+ * @version 9.3.0
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -22,7 +22,7 @@ if ( $total <= 1 ) {
 	return;
 }
 ?>
-<nav class="woocommerce-pagination fff fff-gap fff-center pad">
+<nav class="woocommerce-pagination fff fff-gap fff-center pad" aria-label="Product Pagination">
 	<?php
 	echo paginate_links(
 		apply_filters(
