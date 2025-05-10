@@ -359,7 +359,7 @@ print <<<LIGHTBOX
 		document.removeEventListener('keyup', modalEscKey );
 		document.body.style.overflow = '';
 	}
-	for ( var imgs = document.querySelectorAll('a[href$=jpg],a[href$=png]'), i=0, l=imgs.length; i<l; i++ ){
+	for ( var imgs = document.querySelectorAll('a[href$=jpg],a[href$=png],a[href$=jpeg]'), i=0, l=imgs.length; i<l; i++ ){
 		imgs[i].addEventListener('click', makeModal, false ); 
 	}
 })();</script>
