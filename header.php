@@ -171,7 +171,7 @@ wp_head();
 	$header_main_classes = empty( $frenchpress->full_width_branding ) ? "tray" : "";
 	if ( $site_branding_html ) {
 		if ( $frenchpress->mobile_nav !== "none" || !empty( $frenchpress->add_custom_code_right_of_branding ) ) {
-			$header_main_classes .= " fff fff-middle fff-spacebetween fff-pad fff-nowrap";
+			$header_main_classes .= " fff fff-middle fff-spacebetween fff-pad";// fff-nowrap";
 		} elseif ( $frenchpress->mobile_nav === "none" && $frenchpress->nav_position === "right" ) {// edge case...
 			$header_main_classes .= " fff fff-middle fff-spacebetween fff-pad";
 		}
