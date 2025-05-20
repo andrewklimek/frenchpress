@@ -242,25 +242,22 @@ if ( !empty( $GLOBALS['frenchpress']->hide_archive_prefix ) ) {
 }
 
 
-/**
+/*
  *  Dark mode / theme selector
- */
+ * 
+ * script:
+function setTheme(isDark) {
+	document.documentElement.dataset.dark = isDark;
+	localStorage.dark = isDark;
+};
+document.querySelector('#theme').onclick = () => setTheme(document.documentElement.dataset.dark == 'false');
+setTheme( localStorage.dark===null ? window.matchMedia('(prefers-color-scheme:dark)').matches : localStorage.dark );
+*/
 if ( !empty( $GLOBALS['frenchpress']->dark_theme ) ) {
 	add_action('frenchpress_header_top',function(){
 		?>	
 		<div id=theme>&#x25D0;</div>
-		<script>
-		document.querySelector('#theme').onclick=e=>{
-			document.documentElement.classList.toggle('dark');
-			localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light' );
-		}
-		var theme = localStorage.getItem('theme');
-		if ( theme == 'dark' || ( !theme && window.matchMedia('(prefers-color-scheme:dark)').matches ) ) {
-			document.documentElement.classList.add('dark')
-		} else {
-			document.documentElement.classList.remove('dark')
-		}
-		</script>
+		<script>function setTheme(e){document.documentElement.dataset.dark=e,localStorage.dark=e}document.querySelector("#theme").onclick=()=>setTheme("false"==document.documentElement.dataset.dark),setTheme(null===localStorage.dark?window.matchMedia("(prefers-color-scheme:dark)").matches:localStorage.dark);</script>
 		<?php
 	});
 	add_action( 'wp_enqueue_scripts', 'theme_theme' );
@@ -268,19 +265,24 @@ if ( !empty( $GLOBALS['frenchpress']->dark_theme ) ) {
 
 		$css = <<<DARKMODE
 :root {
-	--bg: #fffdfa;/* background */
-	--gb: #ccc;/* grey background */
-	--gf: #666;/* grey foreground */
-	--fg: #333;/* foreground */
+	color-scheme: light dark;
 	background: var(--bg);
 	color: var(--fg);
 	transition: background .3s;
 }
-:root.dark {
-	--bg: #222;
-	--gb: #555;
-	--gf: #aaa;
-	--fg: #ddd;
+:root[data-dark] {
+	color-scheme: light;
+	--bg: #fffdfa;/* background */
+	--gb: #ccc;/* grey background */
+	--gf: #666;/* grey foreground */
+	--fg: #333;/* foreground */
+}
+:root[data-dark=true] {
+	color-scheme: dark;
+    --bg: #222;
+    --gb: #555;
+    --gf: #aaa;
+    --fg: #ddd;
 }
 #logo svg {
 	fill: var(--fg);
