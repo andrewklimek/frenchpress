@@ -13,10 +13,12 @@ function frenchpress_temp_login_page(){
 		// $redirect = $requested_redirect_to ?: admin_url();
 		// apply_filters( 'login_redirect', $redirect, $requested_redirect_to );
 		// $a['redirect'] = urlencode( $redirect );
-		if ( $redirect && ! strpos( $redirect, '://' ) ) {
+		if ( ! strpos( $redirect, '://' ) ) {
 			$redirect = ( is_ssl() ? 'https://' : 'http://' ) . $_SERVER['HTTP_HOST'] . '/' . ltrim( $redirect, '/' );
 		}
 		$a['redirect'] = $redirect;
+		// error_log($redirect);
+		// $a['redirect'] = empty( $_REQUEST['redirect_to'] ) ? admin_url() : urlencode($_REQUEST['redirect_to']);
 		// if ( !empty( $_REQUEST['redirect_to'] ) ) $a['redirect'] = urlencode( $_REQUEST['redirect_to'] );
 		$header_footer = !empty( $GLOBALS['frenchpress']->header_footer_on_login );
 		if ( $header_footer ) {
