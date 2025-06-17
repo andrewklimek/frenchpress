@@ -268,7 +268,6 @@ if ( !empty( $GLOBALS['frenchpress']->dark_theme ) ) {
 	color-scheme: light dark;
 	background: var(--bg);
 	color: var(--fg);
-	transition: background .3s;
 }
 :root[data-dark] {
 	color-scheme: light;
