@@ -161,3 +161,15 @@ remove_action( 'wp_head', 'wp_oembed_add_host_js' );
 remove_filter( 'pre_oembed_result', 'wp_filter_pre_oembed_result', 10 );
 }
 add_action( 'init', 'mnml_disable_embeds_code_init', 9999 );
+
+
+// throttle heartbeat api
+add_filter( 'heartbeat_settings', function( $settings ) {
+    if ( is_admin() && in_array( $GLOBALS['pagenow'], ['post.php', 'post-new.php'] ) ) {
+		$settings['interval'] = 60;
+    } else {
+		$settings['interval'] = 300;
+        // wp_deregister_script( 'heartbeat' ); // Disable completely
+    }
+    return $settings;
+} );
