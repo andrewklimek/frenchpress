@@ -62,6 +62,7 @@ function frenchpress_scripts() {
 		elseif ( in_array( $frenchpress->mobile_nav, ['slide','tree'] ) )
 		{
 			$layout = frenchpress_has_submenus() ? "sub-" . $frenchpress->mobile_nav : "drawer";
+			if ( $layout !== "drawer" && !empty( $frenchpress->desktop_drawer ) ) $layout .= "-dd";
 			wp_enqueue_script( 'frenchpress-menu', TEMPLATE_DIR_U."/a/{$layout}.js", null, filemtime( TEMPLATEPATH."/a/{$layout}.js" ), true );
 			wp_enqueue_style( 'frenchpress-menu', TEMPLATE_DIR_U."/a/{$layout}.css", null, filemtime( TEMPLATEPATH."/a/{$layout}.css" ) );
 		}
@@ -87,6 +88,7 @@ function frenchpress_scripts() {
 
 			if ( empty( $frenchpress->inline_css ) ) {
 				$layout = frenchpress_has_submenus() ? "sub-" . $frenchpress->mobile_nav : "drawer";
+				if ( $layout !== "drawer" && !empty( $frenchpress->desktop_drawer ) ) $layout .= "-dd";
 				wp_enqueue_style( 'frenchpress-menu', TEMPLATE_DIR_U."/a/{$layout}.css", null, filemtime( TEMPLATEPATH."/a/{$layout}.css" ) );
 			}
 		}
@@ -115,6 +117,7 @@ add_filter('script_loader_tag', function($tag, $handle) {
 
 function frenchpress_print_script(){
 	$layout = frenchpress_has_submenus() ? "sub-" . $GLOBALS['frenchpress']->mobile_nav : "drawer";
+	if ( $layout !== "drawer" && !empty( $GLOBALS['frenchpress']->desktop_drawer ) ) $layout .= "-dd";
 	$ver = "?var=" . filemtime( TEMPLATEPATH . "/a/{$layout}.min.js" );
 	// echo "<script src='". TEMPLATE_DIR_U . "/a/{$layout}.min.js{$ver}' async></script>";
 	echo "<script src='/wp-content/themes/frenchpress/a/{$layout}.min.js{$ver}' async></script>";

@@ -10,7 +10,7 @@
 	transition: background-color .4s;
 }
 
-.mnav .drawer {
+.drawer {
 	z-index: 99998;
 	/*	height: calc(100% + 60px);*/
 	height: 100%;
@@ -36,11 +36,13 @@
 	transform: translateX(270px);
 	box-shadow: 0 0 4px rgba(0,0,0,0.1);
 	overflow: auto;
+	scrollbar-width: none;
 }
 
 /* not sure which of these are needed */
 /* .site-header li, */
 .mnav .drawer .menu,/* this one overrides the negative margin on horizontal header navs in preceding rule */
+.drawer.desk-drawer .menu,/* needs the specifity to override negative margin */
 .main-nav .menu-item {
 	display: block;
 	margin: 0;
@@ -87,61 +89,7 @@
     display: none;
 }
 
-
-/* HORIZONTAL MAIN NAV */
-
-/* .dnav #menu-close, */
-.dnav #menu-open,
-.dnav .menutog,
-.dnav .menuback,
-.dnav .drawer-widget {
-	display: none;
-}
-
-/* END DRAWER COMMON CSS */
-
-/* HORIZONTAL HEADER SUBMENU */
-
-.dnav .site-header .sub-menu {
-	/* top: 100%; */
-	/* left: 0; */
-/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
-/*	right: -16em;*/
-/*	margin: 0  auto;*/
-	width: 17em;
-	/* white-space: pre; *//* instead of specifying a width */
-	/* min-width: 12em; */
-	position: absolute;
-	z-index: 99;/* need anymore cause of parent z-index? */
-	visibility: hidden;
-	opacity: 0;
-	transition: opacity 250ms;
-	padding: 0 0 4px;
-}
-.dnav .site-header .sub-menu > li {
-	font-size: .9em;
-    /* border-top: 1px solid #ddd; */
-}
-
-.dnav .site-header .menu-item:hover > ul,
-.dnav .site-header .menu-item.focus > ul {
-	visibility: visible;
-	opacity: 1;
-}
-
-.dnav .site-header .sub-menu ul {
-	top: 0;
-	left: 99%;
-/*	width: 100%;*/
-}
-
-/* END HORIZONTAL HEADER SUBMENU */
-
 /* SUBMENU */
-/* sliding nav sets height attribute via JS. This is to override if resizing browser to desktop size */
-.dnav .main-nav {
-    height: auto!important;
-}
 .menutog {
 	padding: 12px;
     cursor: pointer;
@@ -164,14 +112,14 @@
     transform: rotate(225deg);
     margin: 0 3px 0 2px;
 }
-.mnav .drawer .sub-menu {
+.drawer .sub-menu {
     position: absolute;
     top: 0;
 	left: 0;
     margin-left: 100%;
     width: 100%;
 }
-.mnav .main-nav ul {
+.main-nav ul {
     transition: opacity .3s, transform .3s;
 }
 .main-nav ul ul {
@@ -179,7 +127,7 @@
     visibility: hidden;
 	opacity: 0;
 }
-.mnav .main-nav ul.focus {
+.main-nav ul.focus {
     transform: translate(-100%);
 }
 /* .main-nav .menu, */
@@ -188,13 +136,13 @@
 	opacity:1;
 }
 
-.mnav .main-nav {
+.main-nav {
     overflow: hidden;
 	position: relative;
 	transition: height .3s;
 	margin: 12px 0;/* makes consistent spacing at top and bottom of nav drawer */
 }
-.mnav .drawer .menu-item {
+.drawer .menu-item {
 	position: static;
 	display: flex;
 /*    justify-content: stretch;*/
@@ -204,14 +152,4 @@
     cursor: pointer;
     padding: 12px;
     display: block;
-}
-
-/*.current-menu-item:not(.seperate-tog),*/
-/*.current-menu-item.seperate-tog > a,*/
-.menuback:hover,
-.menu-item:not(.seperate-tog):hover,
-.seperate-tog > a:hover,
-.seperate-tog > .menutog:hover {
-/*    background: rgba(255, 255, 255, 0.1);*/
-/*	-webkit-font-smoothing: antialiased;*/
 }

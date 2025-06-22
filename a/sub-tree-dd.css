@@ -10,7 +10,7 @@
 	transition: background-color .4s;
 }
 
-.mnav .drawer {
+.drawer {
 	z-index: 99998;
 	/*	height: calc(100% + 60px);*/
 	height: 100%;
@@ -36,11 +36,13 @@
 	transform: translateX(270px);
 	box-shadow: 0 0 4px rgba(0,0,0,0.1);
 	overflow: auto;
+	scrollbar-width: none;
 }
 
 /* not sure which of these are needed */
 /* .site-header li, */
 .mnav .drawer .menu,/* this one overrides the negative margin on horizontal header navs in preceding rule */
+.drawer.desk-drawer .menu,/* needs the specifity to override negative margin */
 .main-nav .menu-item {
 	display: block;
 	margin: 0;
@@ -87,64 +89,7 @@
     display: none;
 }
 
-
-/* HORIZONTAL MAIN NAV */
-
-/* .dnav #menu-close, */
-.dnav #menu-open,
-.dnav .menutog,
-.dnav .menuback,
-.dnav .drawer-widget {
-	display: none;
-}
-
-/* END DRAWER COMMON CSS */
-
-/* HORIZONTAL HEADER SUBMENU */
-
-.dnav .site-header .sub-menu {
-	/* top: 100%; */
-	/* left: 0; */
-/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
-/*	right: -16em;*/
-/*	margin: 0  auto;*/
-	width: 17em;
-	/*white-space: pre;*//* instead of specifying a width */
-	/* min-width: 12em; */
-	position: absolute;
-	z-index: 99;/* need anymore cause of parent z-index? */
-	visibility: hidden;
-	opacity: 0;
-	transition: opacity 250ms;
-	padding: 0 0 4px;
-}
-.dnav .site-header .sub-menu > li {
-	font-size: .9em;
-    /* border-top: 1px solid #ddd; */
-}
-
-.dnav .site-header .menu-item:hover > ul,
-.dnav .site-header .menu-item.focus > ul {
-	visibility: visible;
-	opacity: 1;
-}
-
-.dnav .site-header .sub-menu ul {
-	top: 0;
-	left: 99%;
-/*	width: 100%;*/
-}
-
-/* END HORIZONTAL HEADER SUBMENU */
-
-/* SUBMENU TREE */
-/* may need this, which I disabled above
-.menu-item > a {
-	display: block;
-	position: relative;
-}
-*/
-
+/* SUBMENU */
 .menutog {
     position: absolute;
     top: 0;
@@ -167,11 +112,12 @@
 .menu-item.focus > .menutog::after {
     transform: rotate(225deg);
 }
-.mnav .drawer .sub-menu {
+
+.drawer .sub-menu {
      max-height: 0;
      overflow: hidden;
      transition: max-height cubic-bezier(1,0,0,1) 99ms;
 }
-.mnav .focus > .sub-menu {
+.drawer .focus > .sub-menu {
     max-height: 50em;
 }
