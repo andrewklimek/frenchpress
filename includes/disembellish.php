@@ -5,6 +5,8 @@
  * Also a plugin, so versioning: 1.5
  */
 
+add_filter( 'admin_email_check_interval', '__return_false' );
+
 /**
  * Remove crazy preset colors, not using site editor.
  * This should possibly only be done if "Classic Editor" is installed or some other test.
