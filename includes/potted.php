@@ -7,6 +7,7 @@ function frenchpress_temp_login_page(){
 	// global $wp_query;//$wp_query->query['name']
 	if ( is_404() && false !== strpos( $_SERVER['REQUEST_URI'], 'login' ) )
 	{
+		status_header(200);
 		$a = [];
 		// I think I need to get this $_REQUEST['redirect_to'] ? But don't need to do the admin_url or filter?
 		$redirect = isset( $_REQUEST['redirect_to'] ) && is_string( $_REQUEST['redirect_to'] ) ? $_REQUEST['redirect_to'] : '';
