@@ -323,7 +323,6 @@ add_action( 'widgets_init', 'frenchpress_widgets_init', 9 );
 /**
  * INCLUDES
  */
-require TEMPLATEPATH . '/includes/potted.php';
 
 /**
  * Settings Page
