@@ -281,6 +281,8 @@ function frenchpress_widgets_init() {
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
+		'before_sidebar'=> '<div id="%1$s" class="widget-area fffi">',
+		'after_sidebar' => "</div>\n",
 	]);
 	register_sidebar([
 		'name'          => 'Footer 2',
@@ -289,6 +291,8 @@ function frenchpress_widgets_init() {
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
+		'before_sidebar'=> '<div id="%1$s" class="widget-area fffi">',
+		'after_sidebar' => "</div>\n",
 	]);
 	register_sidebar([
 		'name'          => 'Footer 3',
@@ -297,6 +301,8 @@ function frenchpress_widgets_init() {
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
+		'before_sidebar'=> '<div id="%1$s" class="widget-area fffi">',
+		'after_sidebar' => "</div>\n",
 	]);
 	register_sidebar([
 		'name'          => 'Footer 4',
@@ -305,6 +311,8 @@ function frenchpress_widgets_init() {
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
+		'before_sidebar'=> '<div id="%1$s" class="widget-area fffi">',
+		'after_sidebar' => "</div>\n",
 	]);
 	register_sidebar([
 		'name'          => 'Bottom of Footer',

@@ -22,41 +22,22 @@ if ( is_active_sidebar( 'footer-top' ) ) : ?>
 <?php
 endif;
 
-if ( is_active_sidebar( 'footer-1' ) || is_active_sidebar( 'footer-2' ) || is_active_sidebar( 'footer-3' ) || is_active_sidebar( 'footer-4' ) ) :
 
-	$number_of_widget_areas = 0;
+$active_count = 0;
+for ( $i = 4; $i >= 1; $i-- ) {
+    if ( is_active_sidebar( "footer-{$i}" ) ) {
+        $active_count = $i;
+        break;
+    }
+}
 
-	ob_start();
-
-	if ( is_active_sidebar( 'footer-1' ) ) {
-		++$number_of_widget_areas;
-		echo '<div id=footer-1 class="widget-area fffi">';
-		dynamic_sidebar( 'footer-1' );
-		echo '</div>';
-	}
-	if ( is_active_sidebar( 'footer-2' ) ) {
-		++$number_of_widget_areas;
-		echo '<div id=footer-2 class="widget-area fffi">';
-		dynamic_sidebar( 'footer-2' );
-		echo '</div>';
-	}
-	if ( is_active_sidebar( 'footer-3' ) ) {
-		++$number_of_widget_areas;
-		echo '<div id=footer-3 class="widget-area fffi">';
-		dynamic_sidebar( 'footer-3' );
-		echo '</div>';
-	}
-	if ( is_active_sidebar( 'footer-4' ) ) {
-		++$number_of_widget_areas;
-		echo '<div id=footer-4 class="widget-area fffi">';
-		dynamic_sidebar( 'footer-4' );
-		echo '</div>';
-	}
-	$widgets = ob_get_clean();
-
-	echo "<div class='tray footer-tray fff fff-pad fff-x{$number_of_widget_areas}'>{$widgets}</div>";
-
-endif;
+if ( $active_count > 0 ) {
+	echo "<div class='tray footer-tray fff fff-pad fff-x{$active_count}'>";
+    for ( $j = 1; $j <= $active_count; $j++ ) {
+        dynamic_sidebar( "footer-{$j}" );
+    }
+    echo '</div>';
+}
 
 do_action('frenchpress_footer_bottom');
 
