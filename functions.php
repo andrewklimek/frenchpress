@@ -1,37 +1,5 @@
 <?php
 
-/**
- * $frenchpress global is used throughout the theme for various settings.
- * it could be filtered later once conditional tags are available via 'wp' action hook or at the top of header.php
- * function 'frenchpress_settings_init' is for initializing the theme settings and could be called to add new default settings
- * optional argument can be passed to specify specific settings, eg. if fist called from a child theme
- */
-
-$frenchpress = get_option( 'frenchpress', [] );
-if ( $frenchpress ) $frenchpress = (object) $frenchpress;
-else frenchpress_settings_init();
-
-function frenchpress_settings_init( $settings=[] ) {
-	$defaults = [
-		'site_width' => 1050,
-		'content_width' => 700,
-		'sidebar_width' => 350,
-		'menu_breakpoint' => 782,// same as wp admin bar
-		'sidebar_position_desktop' => 'right',
-		'sidebar_position_mobile' => 'bottom',
-		'nav_position' => 'right',
-		'nav_align' => 'right',
-		'post_layout' => 'content-width',
-		'page_layout' => 'content-width',
-		'index_layout' => 'site-width',
-	];
-	$settings = array_merge( $defaults, $settings );
-	update_option( 'frenchpress', $settings, 'yes' );
-	$GLOBALS['frenchpress'] = (object) $settings;
-}
-
-if ( empty( $content_width ) ) $content_width = $frenchpress->content_width;// WP global used for things
-
 /* this is define by core for now as TEMPLATEPATH, along with STYLESHEETPATH. hopefully they dont remove it. see https://core.trac.wordpress.org/ticket/18298 */
 // define( 'TEMPLATE_DIR', get_template_directory() );
 define( 'TEMPLATE_DIR_U', get_template_directory_uri() );
@@ -222,6 +190,37 @@ add_action( 'wp_print_scripts', 'frenchpress_mobile_test' );
  */
 function frenchpress_setup() {
 
+	$frenchpress = get_option( 'frenchpress', [] );
+	if ( $frenchpress ) {
+		foreach ($frenchpress as $key => $value) {
+			if ($key === 'x') continue;
+			update_option("frenchpress_{$key}", $value, true);
+		}
+		delete_option('frenchpress');// clean up old option
+		update_option('frenchpress_backup', $frenchpress, false);
+	}
+	$GLOBALS['frenchpress'] = (object) frenchpress_settings();
+
+	/**
+	 * Side Menu Drawer TODO clean this up
+	 */
+	if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mobile_nav === 'fullscreen' ) {
+		add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav #main-menu{padding-top:32px!important} @media(max-width:782px){.mnav #main-menu{padding-top:46px!important}}</style>';});
+	} elseif ( $GLOBALS['frenchpress']->mobile_nav === 'none' ) {
+		// this won't be the long-term solution I'm sure.
+		// This is just for sites with no drawer and might even be better defined in child theme to the exact pixel width.
+		frenchpress_add_inline_style( '.mnav .site-header .menu-item > a{padding:12px}' );
+	} else {//if ( in_array( $GLOBALS['frenchpress']->mobile_nav, ['slide','tree'] ) ) {
+		add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav .drawer,.desk-drawer{padding-top:32px!important} @media(max-width:782px){.mnav .drawer{padding-top:46px!important}}</style>';});
+		if ( !empty( $GLOBALS['frenchpress']->desktop_drawer ) ) {
+			// TODO do I need to override .dnav #menu-open { display: none; } here or can I exclude that rule in the first place?
+			frenchpress_add_inline_style( '.dnav.dopen body{padding-left:270px}body{transition:padding .4s}.dnav #menu-open{display:inline-block}' );
+		}
+	}
+
+
+	if ( empty( $content_width ) ) $content_width = $GLOBALS['frenchpress']->content_width;// WP global used for things
+
 	// load_theme_textdomain( 'frenchpress', TEMPLATEPATH . '/languages' );
 
 	// add_theme_support( 'automatic-feed-links' );// Add default posts and comments RSS feed links to head.
@@ -361,23 +360,6 @@ if ( ! function_exists( 'mnml_disable_embeds_code_init' ) ) {
  */
 if ( class_exists( 'WooCommerce' ) ) {
 	require TEMPLATEPATH . '/woocommerce/wc.php';
-}
-
-/**
- * Side Menu Drawer TODO clean this up
- */
-if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mobile_nav === 'fullscreen' ) {
-	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav #main-menu{padding-top:32px!important} @media(max-width:782px){.mnav #main-menu{padding-top:46px!important}}</style>';});
-} elseif ( $GLOBALS['frenchpress']->mobile_nav === 'none' ) {
-	// this won't be the long-term solution I'm sure.
-	// This is just for sites with no drawer and might even be better defined in child theme to the exact pixel width.
-	frenchpress_add_inline_style( '.mnav .site-header .menu-item > a{padding:12px}' );
-} else {//if ( in_array( $GLOBALS['frenchpress']->mobile_nav, ['slide','tree'] ) ) {
-	add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav .drawer,.desk-drawer{padding-top:32px!important} @media(max-width:782px){.mnav .drawer{padding-top:46px!important}}</style>';});
-	if ( !empty( $GLOBALS['frenchpress']->desktop_drawer ) ) {
-		// TODO do I need to override .dnav #menu-open { display: none; } here or can I exclude that rule in the first place?
-		frenchpress_add_inline_style( '.dnav.dopen body{padding-left:270px}body{transition:padding .4s}.dnav #menu-open{display:inline-block}' );
-	}
 }
 
 

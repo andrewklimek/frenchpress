@@ -20,8 +20,12 @@ function frenchpress_register_options_endpoint() {
 }
 
 function frenchpress_api_options( $request ) {
-	$data = $request->get_params();
-	foreach ( $data as $k => $v ) update_option( $k, array_filter($v, 'strlen') );
+	$options = $request->get_param('opts') ?: [];
+	error_log( print_r( $options, true ) );
+	foreach ($options as $option => $value) {
+	    if ('' === $value) delete_option($option);
+        else update_option($option, $value, true);
+	}
 	return "Saved";
 }
 
@@ -31,7 +35,7 @@ function frenchpress_admin_menu() {
 	add_submenu_page( 'themes.php', 'Frenchpress Theme Options', 'Theme Options', 'import', 'frenchpress', 'frenchpress_options_page', 1 );
 }
 
-function frenchpress_options_page() {
+function frenchpress_options_define() {
 
 	$fields = array_fill_keys([
 		// 'no_drawer',
@@ -126,15 +130,80 @@ function frenchpress_options_page() {
 
 	$fields['custom_css']['type'] = 'code';
 
-	/**
-	 *  Build Settings Page using framework in settings_page.php
-	 **/
-	$options = [ 'frenchpress' => $fields ];// can add additional options groups to save as their own array in the options table
+	// Defaults
+	$fields['site_width']['default'] = 1050;
+	$fields['content_width']['default'] = 700;
+	$fields['sidebar_width']['default'] = 350;
+	$fields['menu_breakpoint']['default'] = 782;// same as wp admin bar
+	$fields['sidebar_position_desktop']['default'] = 'right';
+	$fields['sidebar_position_mobile']['default'] = 'bottom';
+	$fields['nav_position']['default'] = 'right';
+	$fields['nav_align']['default'] = 'right';
+	$fields['post_layout']['default'] = 'content-width';
+	$fields['page_layout']['default'] = 'content-width';
+	$fields['index_layout']['default'] = 'site-width';
+
+	return [ 'frenchpress_' => $fields ];
+}
+
+function frenchpress_option( $key, $fallback = null ) {
+
+	$return = get_option( $key, null );
+	if ( $return !== null ) {
+		return $return;
+	} else {
+		$schema = frenchpress_options_define();
+	}
+
+
+    static $schema = null;
+    if ( $schema === null ) $schema = frenchpress_options_define();
+
+    foreach ( $schema as $group => $fields ) {
+        if ( !isset($fields[$key]) && !array_key_exists($key, $fields) ) continue;
+
+        $def = $fields[$key]['default'] ?? $fallback ?? '';
+
+        if ( substr($group, -1) === '_' ) {
+            // serialized group
+            $data = get_option( $group, [] );
+            return $data[$key] ?? $def;
+        } else {
+            // flat prefixed
+            return get_option( $group . $key, $def );
+        }
+    }
+    return $fallback;
+}
+
+function frenchpress_options_page() {
+	$options = frenchpress_options_define();
 	$endpoint = rest_url('frenchpress/v1/settings');
 	$title = "Frenchpress Theme Options";
 	require( __DIR__.'/settings-page.php' );// needs $options, $endpoint, $title
 }
 
+function frenchpress_settings( $option = null ) {
+	static $values = [];
+	if ( ! $values ) {
+		$options = frenchpress_options_define();
+		foreach ( $options as $group => $fields ) {
+			$serial = substr($group, -1) !== '_';
+			if ( $serial ) {
+				$saved = get_option( $group, [] );
+                foreach ( $fields as $k => $f ) {
+                    $values[ $group ][ $k ] = $saved[ $k ] ?? ( $f['default'] ?? '' );
+                }
+			} else {
+				foreach ( $fields as $k => $f ) {
+					$values[$k] = get_option( "{$group}{$k}", $f['default'] ?? '' );
+				}
+			}
+		}
+	}
+	if ( $option === null ) return $values;
+	return $values[$option] ?? null;
+}
 
 // function frenchpress_full_width( $full_width ) {
 // 	if ( in_category( 'review' ) ) $full_width = true;
