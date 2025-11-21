@@ -190,36 +190,7 @@ add_action( 'wp_print_scripts', 'frenchpress_mobile_test' );
  */
 function frenchpress_setup() {
 
-	$frenchpress = get_option( 'frenchpress', [] );
-	if ( $frenchpress ) {
-		foreach ($frenchpress as $key => $value) {
-			if ($key === 'x') continue;
-			update_option("frenchpress_{$key}", $value, true);
-		}
-		delete_option('frenchpress');// clean up old option
-		update_option('frenchpress_backup', $frenchpress, false);
-	}
-	$GLOBALS['frenchpress'] = (object) frenchpress_settings();
-
-	/**
-	 * Side Menu Drawer TODO clean this up
-	 */
-	if ( empty( $GLOBALS['frenchpress']->mobile_nav ) || $GLOBALS['frenchpress']->mobile_nav === 'fullscreen' ) {
-		add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav #main-menu{padding-top:32px!important} @media(max-width:782px){.mnav #main-menu{padding-top:46px!important}}</style>';});
-	} elseif ( $GLOBALS['frenchpress']->mobile_nav === 'none' ) {
-		// this won't be the long-term solution I'm sure.
-		// This is just for sites with no drawer and might even be better defined in child theme to the exact pixel width.
-		frenchpress_add_inline_style( '.mnav .site-header .menu-item > a{padding:12px}' );
-	} else {//if ( in_array( $GLOBALS['frenchpress']->mobile_nav, ['slide','tree'] ) ) {
-		add_action('wp_before_admin_bar_render',function(){echo '<style>.mnav .drawer,.desk-drawer{padding-top:32px!important} @media(max-width:782px){.mnav .drawer{padding-top:46px!important}}</style>';});
-		if ( !empty( $GLOBALS['frenchpress']->desktop_drawer ) ) {
-			// TODO do I need to override .dnav #menu-open { display: none; } here or can I exclude that rule in the first place?
-			frenchpress_add_inline_style( '.dnav.dopen body{padding-left:270px}body{transition:padding .4s}.dnav #menu-open{display:inline-block}' );
-		}
-	}
-
-
-	if ( empty( $content_width ) ) $content_width = $GLOBALS['frenchpress']->content_width;// WP global used for things
+	require TEMPLATEPATH . '/includes/theme-setup.php';
 
 	// load_theme_textdomain( 'frenchpress', TEMPLATEPATH . '/languages' );
 
@@ -334,7 +305,7 @@ add_action( 'widgets_init', 'frenchpress_widgets_init', 9 );
 /**
  * Settings Page
  */
-require TEMPLATEPATH . '/includes/options.php';
+require TEMPLATEPATH . '/includes/settings-setup.php';
 
 /**
  * [frenchpress] builder-style shortcode
