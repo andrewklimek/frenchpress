@@ -332,4 +332,19 @@ if ( !empty( $GLOBALS['frenchpress']->disable_auto_p ) ) {
 	remove_filter( 'the_excerpt', 'shortcode_unautop' );
 	remove_filter( 'widget_text_content', 'wpautop' );
 	remove_filter( 'widget_text_content', 'shortcode_unautop' );
+	remove_filter( 'comment_text', 'wpautop', 30 );
+}
+
+if ( !empty( $GLOBALS['frenchpress']->disable_texturize ) ) {
+	$hooks = [
+		'the_content','the_excerpt','comment_text','widget_text_content','the_title',
+		'the_post_thumbnail_caption','list_cats',
+		'single_post_title', 'single_cat_title', 'single_tag_title', 'single_month_title', 'nav_menu_attr_title', 'nav_menu_description',
+		'term_description', 'get_the_post_type_description',
+		'comment_author', 'term_name', 'link_name', 'link_description', 'link_notes', 'bloginfo', 'wp_title', 'document_title', 'widget_title',
+	];
+
+	foreach ( $hooks as $hook ) {
+		remove_filter( $hook, 'wptexturize' );
+	}
 }

@@ -52,7 +52,7 @@ function frenchpress_options_define() {
 		'feat_image_bg', 'feat_image_bg_location', 'feat_image_bg_color_overlay', 'title_in_header',
 		'disable_comments','avatar_size','comment_form_unstyle','comment_form_website_field','comment_dates',
 		'mini_toolbar',
-		'disable_auto_p',
+		'disable_auto_p','disable_texturize',
 		'boring_404',
 		'style_wp_login',
 		'dont_redirect_wplogin',
