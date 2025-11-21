@@ -324,3 +324,12 @@ function frenchpress_block_comments_with_url(){
 		die;
 	}
 }
+
+if ( !empty( $GLOBALS['frenchpress']->disable_auto_p ) ) {
+	remove_filter( 'the_content', 'wpautop' );
+	remove_filter( 'the_excerpt', 'wpautop' );
+	remove_filter( 'the_content', 'shortcode_unautop' );
+	remove_filter( 'the_excerpt', 'shortcode_unautop' );
+	remove_filter( 'widget_text_content', 'wpautop' );
+	remove_filter( 'widget_text_content', 'shortcode_unautop' );
+}
