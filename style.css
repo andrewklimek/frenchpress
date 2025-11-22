@@ -12,25 +12,9 @@ License:	GPLv2
 /*--------------------------------------------------------------
 *  Normalisation
 --------------------------------------------------------------*/
-/* 
-body - margin
-p - margin
-pre - margin
-dl - margin
-dd - margin left
-ol - margin + left padding
-ul - margin + left padding
-menu - margin + left padding (same as ul... who uses it)
-blockquote - margin all sides
-figure - margin all sides (same as blockquote)
-fieldset - margin l/r + padding all sides + border
-legend - padding 2px
-iframe - border - mainly gross since it's inset
-*/
+
 * {
 	box-sizing: border-box;
-	/* margin: 0; */
-	/* border: 0; */
 }
 
 a {
@@ -40,105 +24,32 @@ a {
 }
 p a {
 	text-decoration: underline;
-	/* word-wrap: break-word; */
 }
-/*h1 a,
-h2 a,
-h3 a,
-h4 a,
-#header a,
-nav a,
-aside a,
-#comments a {
-	text-decoration: none;
-}*/
 
 pre {
-	/*max-width: 100%;*/
 	overflow: auto;
 }
 
-/*pre, code, kbd, samp, var {*/
-/*	font-family: monospace;*/
-/*}*/
-
-/*embed,*/
-/* figure, WP adds fixed width to figures when using captions shortcode, to contain long captions.  Currently using a weird function on img_caption_shortcode_width in extras.php to make it max-width instead */
-/* object, wen use */
 video,
 iframe,
 img {
-	/* display: block; why make them blocks? ppl arent sure how to center say a spotify embed */
 	max-width: 100%;
 	border: 0;/* only for iframe that has a 2px inset border */
 	vertical-align: middle;/* remove space below inline images */
 }
-/*video,*/
+
 img {
   height: auto;/* can't also be on iframes (above) b/c it overrides height attributes and makes them 150px high  */
 }
-
-/*blockquote,*/
-/*q {*/
-/*	quotes: "\201C""\201D""\2018""\2019";*/
-/*}*/
-
-/* table { */
-	/* border-collapse: collapse; */
-/*	border-spacing: 0;*//* only comes into play when border-collapse = seperate */
-/* } */
-
-/* td, th { */
-	/* padding: .5ex 1ex; */
-	/* text-align: left; */
-/* } */
 
 cite,
 address,/* cite & address used to be on their own line with just font-style inherit */
 button,
 input,
 select,
-/*optgroup,*/
-/*keygen,*/
 textarea {
-	/* color: inherit; */
 	font: inherit;
-/*	margin: 0;*//* for FF & Safari... but is it really a big deal? */
 }
-
-/* input, */
-/* :not([type=file]):not([type=range]), */
-/*:not([type=radio]) true, but it doesn't seem to affect these */
-/*:not([type=checkbox]) true, but it doesn't seem to affect these. may need margin added back though */
-/*:not([type=color]) needs border but padding isn't ideal. But who will use this? */
-/*:not([type=image]) true, but who will use this? */
-/* select, */
-/* textarea { */
-	/* border: 1px solid; */
-	/*border-radius: 0;*//* iOS rounds these */
-	/* padding: .5ex; */
-	/* background: #fff; */
-/* } */
-
-/* [type=search] { */
-	/*-webkit-appearance: textfield;*//* Correct odd appearance in Chrome & Safari */
-	/*outline-offset: -2px;*//* Correct outline style in Safari */
-/* } */
-
-/* [type=search]::-webkit-search-decoration { */
-  /*-webkit-appearance: none;*//* Remove inner padding in Chrome & Safari on mac */
-/* } */
-
-/* textarea { */
-	/* width: 100%; */
-	/* display: block; */
-	/*overflow: auto;*//* Remove scrollbar in IE */
-/* } */
-
-/* svg { */
-	/* fill: currentColor;*//* not sure how often this will come up really, and it overrides "fill" attribute color definitions */
-	/*overflow: hidden;*//* sanitize.css says to Hide the overflow in IE using svg:not(:root) */
-/* } */
 
 /* Correct inability to style clickable types in iOS & Safari */
 button,
@@ -148,116 +59,32 @@ button,
   -webkit-appearance: button;
 }
 
-/* seemed useful once
-:disabled,
-:disabled:hover {
-	color: #888;
-    background: #ccc;
-    border-color: #ccc;
-}
-*/
-
-/* FF already does this.  Chrome sets to a grey so conceivably bad if input background is a dark color... but then you're customizing anyhow */
-/* ::placeholder {
-	color: inherit;
-	opacity: .5;
-} */
-
 /*--------------------------------------------------------------
 # Main Sizing & Spacing
 --------------------------------------------------------------*/
 html {
 	line-height: 1.7;
-	word-wrap: break-word;/* should it just be on p a ?*/
+	word-wrap: break-word;
 	-webkit-text-size-adjust: 100%;/* Prevent font size adjustments after orientation changes in IE and iOS */
 	text-rendering: geometricprecision;
 }
 
 h1,h2,h3,h4,
-dl,/* margin */
-dd,/* margin left */
-ol,/* margin + left padding */
-ul,/* margin + left padding */
-/* menu,margin + left padding (same as ul... who uses it) */
-blockquote,/* margin all sides */
-figure,/* margin all sides (same as blockquote) */
-/* fieldset,margin l/r + padding all sides + border */
+dl,
+dd,
+ol,
+ul,
+blockquote,
+figure,
 pre,
 p {
   margin: 0 0 1.5rem;
-  /*line-height: max(24px,1.5em);*/
-  /*line-height: calc(2ex + 9px);*/
 }
-/* don't need this while only <p> gets margin
-li ul,
-li ol,
-.margin-0 {
-	margin: 0;
-}
-*/
-
-/* browsers default to to 40px, why not use it?
-ul,
-ol,
-dd {
-	padding-left: 2em;
-}
-*/
-
-/* hard to know whats expected behaviour for this, but it helps in post/rss widgets */
-/*li {*/
-/*   margin: .75rem 0;*/
-/*}*/
-
-/* not always wanted. and quotes almost always need custom styling. body of quote might have diff bg color from footer so then you need no padding around both
-blockquote {
-	padding: .8em 1.6em;
-}
-*/
 
 hr {
     border: 0;
 	border-top: 1px solid currentColor;
-	/* background: currentColor; */
-	/* height: 1px; */
 	margin: 1.5rem 0;
-	/* clear: both;*//* just as a way to escape from alignleft and alignright images? */
-}
-
-/* h1, *//* I suspect h1 will almost always need custom margins */
-/* h2, */
-/* h3, */
-/* h4 { */
-	/* margin: 3ex 0 1ex; */
-	/* line-height: 1.2;or should this only be on h1-h3 */
-	/* margin: calc(6ex - 45px) 0 0; */
-	/* font-weight: inherit;*/
-	/* padding-top: 1.5rem;*//* no bottom margin so you can write top margin rules like h2 > h3: margin-top 0; and have the lines close (there's no h3 < h2 selector) */
-	/* margin: 4.8ex 0 2.4ex; */
-	/* clear: both;*//* just as a way to escape from alignleft and alignright images? */
-/* } */
-
-/* h1:first-child, *//* I suspect h1 will almost always need custom margins */
-/* h2:first-child,
-h3:first-child,
-h4:first-child,
-p:first-child {
-	margin-top: 0;
-} */
-/* h1:last-child, *//* I suspect h1 will almost always need custom margins */
-/* h2:last-child,
-h3:last-child,
-h4:last-child,
-p:last-child {
-	margin-bottom: 0;
-} */
-
-/* Generalized markup that was needed in WP galleries and images with captions. Seems good. */
-figcaption {
-    font-size: 88%;
-    /* line-height: 1; *//* if adding hieght 0 to .wp-caption, .gallery-item to avoid inline space between image and caption */
-	/*text-align: center;*/
-    /* padding: 7px 0 .75rem; *//* may need padding somewhere else like figure of gallery-item */
 }
 
 /*--------------------------------------------------------------
@@ -267,89 +94,30 @@ figcaption {
 body {
 	margin: 0;
 	min-height: 100vh;
-	/* overflow-x: hidden; */
-}
-
-/* hopefully this is the answer for side padding. might want a better way of removing padding from fullwidth */
-/* .tray, */
-main {
-	/* padding: 0 1.5rem; */
-}
-
-.full-width > main,
-.content-tray {
-	/* padding: 0; */
-}
-
-/*.main-full-width .tray {*/
-	/*padding: 1.5rem;*//* this was to add padding to top and bottom of full width page sections, but i'm thinking it's better to use .pad and .pad-2  below */
-/*}*/
-
-/* need to find a way to handle padding that should appear on mobile */
-#content.tray article .tray {
-	/* padding-left: 1.5rem; */
-	/* padding-right: 1.5rem; */
 }
 
 .tray {
-	/*max-width placeholder*/
-	width: 100%;/* this was needed for sidebar w/ centered content... but I had it hear since long before that layout, not sure why. */
-	/* margin-left: auto; */
-	/* margin-right: auto; */
+	width: 100%;/* this was needed for sidebar w/ centered content... but I had it here since long before that layout, not sure why. */
 	margin: auto;
 	padding: 0 1.5rem;
 }
-
-/* this is only for bigger screens to auto size main content against sidebars
- * without this, we should be bale to disable all flex stuff and have phones render fine with everything just stacked */
-/* @supports(display:flex) {
-	#main {
-		width: 500px;
-	}
-} */
 
 nav ul,
 aside ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
-	/*line-height: 1.5rem;*/
 }
-
-/* general template whitespace... probably not good in parent theme, often overriding on designed sites
-.entry-header,
-.entry-content,
-#main,
-#header,
-.sidebar-widget,
-article,
-.page-header {
-	margin-bottom: 48px;
-}
-*/
 
 /*--------------------------------------------------------------
 *  Navigation
 --------------------------------------------------------------*/
 
-/* I think the main nav should probably respond to typical "text-align" CSS, unless I go with an option in the theme for left, right, center and modify the fff-right class that way */
-/* well maybe not b/c you prob dont want submenus to be align right or center */
-/* .dnav .main-nav {
-	display: inline-block;
-} */
-
 .site-header .menu-item {
 	margin: 0;/* might need to be on nav li */
-	/*padding: .75rem;*//* Moved to .menu-item > a for sliding submenus ... is it neede tho on horizontal navs? */
 	position: relative;/* Allows better submenu absolute positioning like: nav ul ul {top: 100%;} li.menu-item-has-children:nth-last-child(-n+3) ul {right: 1.5rem;} */
 	display: inline-block;
-	/* transition: inherit; */
 }
-
-/* .mnav .main-nav .menu-item { */
-/*	padding: 0;*/
-/*	margin: .75rem 0 .75rem .75rem;*/
-/* } */
 
 /* for toggle arrows, so they can be centered to the parent, not the whole ul in the li */
 .site-header .menu-item > a {
@@ -363,21 +131,10 @@ article,
     margin: 0 -1.5rem;/* align flush with sides of header. must be overriden for side nav */
 }
 
-
-/* NO DRAWER */
-
-/* only for menus that stay horizontal on mobile, reduce padding
-* inlined in functions.php at include drawer conditional... for now
-.mnav .site-header .menu-item > a {
-    padding: .75rem;
-}*/
-/* END NO DRAWER */
-
-
 /*--------------------------------------------------------------
 *  Accessibility
 --------------------------------------------------------------*/
-/* Text meant only for screen readers. */
+
 .screen-reader-text {
 	position: absolute;/* !important */
 	word-wrap: normal;/* !important *//* Many screen reader and browser combinations announce broken words as they would appear visually. */
@@ -389,15 +146,11 @@ article,
 .screen-reader-text:focus {
 	background: #fff;
 	color: #000;
-	/* clip: auto; */
-	/* clip-path: none; */
-	/* display: block; */
 	padding: 1em;
 	height: auto;
 	width: auto;
 	left: 5px;
 	top: 50px;/* try below WP toolbar instead of z-index stuff */
-	/* z-index: 100000; *//* Above WP toolbar (99999) */
 }
 
 
@@ -407,38 +160,22 @@ article,
 /* also using this on costom header image to get rid of space below, and centering */
 .aligncenter {
 	display: block;
-	/*clear: both;*//* it would be strange to do a layout that need this */
 	margin: 0 auto;
 }
 
 .alignleft {
 	float: left;
-	margin: 0 1.5rem 6px 0;/* should the bottom be applied more generally to p > img or something? */
+	margin: 0 1.5rem 6px 0;
 }
 
 .alignright {
 	float: right;
 	margin: 0 0 6px 1.5rem;
 }
-/* this would just be a weird thing to do anyhow
-.alignleft + .alignright {
-	margin-left: 0;
-} */
-/* footer {
-	clear: both;
-} */
-
 
 /*--------------------------------------------------------------
 *  CSS Framework-type stuff.
-*  Avoids massive child theme stylesheets, esp given the flexbox prefixes
 --------------------------------------------------------------*/
-
-/* FLEX GRID IMPLEMENTATION "fff" for "frenchpress flexbox framework" */
-/* display: block on flex item comes first so that flex-items can also be flex containers and the display:block will be overruled */
-/* .fffi { */
-	/*display: block;*//* Inline elements are not treated as flex items in IE 10. IE 11 fixed this with regular inline elements, but not ::before / ::after pseudo-elements */
-/* } */
 
 .feat,
 body,
@@ -452,34 +189,25 @@ body,
 .fff-column {
     flex-flow: column;/* this should reset wrap to intitial (nowrap) */
 }
-/* main wasn't shrinking in safari... is this still relevant?  there's a max-width on all fffi */
-/* .fff-column > .fffi {
-	max-width: 100%;
-} */
 
 .fff-nowrap {
 	flex-wrap: nowrap;
 }
 
-/* .feat, *//* opting for text-align so it can be more intuitively overridden */
 .fff-middle {
-    align-items: center;
+    align-items: center;/* same as grid */
 }
 
-/* .feat { *//* might be needed if even using this feat thing */
-	/* height: 100%; */
-/* } */
-
 .fff-top {
-    align-items: flex-start;
+    align-items: start;
 }
 
 .fff-bottom {
-    align-items: flex-end;
+    align-items: end;
 }
 
 .fff-left {
-    justify-content: flex-start;
+    justify-content: start;
 }
 
 .fff-center {
@@ -487,7 +215,7 @@ body,
 }
 
 .fff-right {
-    justify-content: flex-end;
+    justify-content: end;
 }
 
 .feat,
@@ -500,33 +228,28 @@ body,
 }
 
 .fffi-top {
-	align-self: flex-start;
+	align-self: start;
 }
 
 .fffi-middle {
- -ms-grid-row-align: center;
-	 align-self: center;
+	align-self: center;
 }
 
 .fffi-bottom {
-	align-self: flex-end;
+	align-self: end;
 }
 
-.fffi,/* default */
+.fffi,
 .fff-initial > .fffi,
 .fff > .fffi-initial.fffi {
 	flex: initial;/* shorthand initial needs to be spelled out 0 1 auto for IE10 */
 }
 
-/* [class*='fffi-x'].fffi, [class*='fff-x'] > .fffi, *//* prob don’t need this madness if “initial” is default */
 .fff-none > .fffi,
 .fff > .fffi-none.fffi {
 	flex: none;/* 0 0 auto */
 }
 
-/* I had thought this (below) was the best default b/c IE fails to auto size nested flex containers 
-and flex-basis 0% is a work around (https://github.com/philipwalton/flexbugs/issues/71), 
-but I just seem to only use none/initial or auto/magic */
 .fff-even > .fffi,
 .fff > .fffi-even.fffi {
 	flex: 1;/* shorthand 1 needs to be spelled out 1 1 0% for IE10 & can’t have unitless flex-basis */
@@ -538,61 +261,26 @@ but I just seem to only use none/initial or auto/magic */
 	flex: auto;/* shorthand auto needs to be spelled out 1 1 auto for IE10 */
 }
 
-/* I don't see using this. mainly for bug fixed 2019 https://github.com/philipwalton/flexbugs#flexbug-1
-.fff-noshrink > .fffi,
-.fff > .fffi-noshrink.fffi {
-	flex: 1 0 auto;
-}
-*/
-
 .fff-magic > .fffi,
 .fff > .fffi-magic.fffi {
 	flex: auto;
 	width: 18em;
-	/*max-width: 100%;*//* this seems to be needed on #main I think only because of my weird auto + width:18em concept */
 }
 
-/* eg missing pictues on archive page */
-/*.fff-magic > .fffi:empty,
-.fff > .fffi-magic.fffi:empty {
-	display: none;
-}*/
-
-/* growth ratios */
-/* .fffi-0.fffi{flex-grow:0;}
-.fffi-1.fffi{flex-grow:1;}
-.fffi-2.fffi{flex-grow:2;}
-.fffi-3.fffi{flex-grow:3;}
-.fffi-4.fffi{flex-grow:4;}
-.fffi-5.fffi{flex-grow:5;}
-.fffi-6.fffi{flex-grow:6;}
-.fffi-7.fffi{flex-grow:7;}
-.fffi-8.fffi{flex-grow:8;} */
 .fffi-9.fffi{flex-grow:9;}
-/*.fffi-10.fffi{-ms-flex-positive:10;flex-grow:10;}*/
-/*.fffi-11.fffi{-ms-flex-positive:11;flex-grow:11;}*//* up to 11 emulates the typical 12-column grid, but I doubt anythign will ever be 1/12 */
 .fffi-99.fffi{flex-grow:99;}/* use 99 to make one cell eat up virtually all the extra space (while still allowing other cells to grow once they're on their own line (on a smaller screen)) */
-/* percentage based */
-/* Due to IE 10 & 11 we need to use flex:none + width:50% instead of flex:0 0 50%; */
-/* using the "none" block above, tho perhaps it's goofy to avoid some characters this way */
-/* .fffi-x1.fffi, */
-/* .fff-x1 > .fffi */
-/* [class*='fffi-x'].fffi, */
 [class*='fff-x'] > .fffi {width:100%;}
 
 @media(min-width:783px) {
 	
-	/* .fffi-x2.fffi, */
 	.fff-x2 > .fffi {
 		width: 50%;
 	}
 	
-	/* .fffi-x3.fffi, */
 	.fff-x3 > .fffi {
 		width:33.333%;
 	}
 
-	/* .fffi-x4.fffi, */
 	.fff-x4 > .fffi {
 		width:25%;
 	}
@@ -668,23 +356,6 @@ hr.spacer {
 	text-align: right;
 }
 
-/* .l {
-	text-align: left;
-} */
-
-/* better off in child theme if ever used
-.round {
-	border-radius: 50%;
-}
-
-@media screen and (max-width: 600px) {
-	#content .breakout {
-		margin: 0 -1.5rem;
-		max-width: calc( 100% + 1.5rem + 1.5rem );
-	}
-
-}
-*/
 
 @media(max-width:1080px) {
 	html {
