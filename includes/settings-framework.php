@@ -9,7 +9,7 @@ if ( empty( $options ) || empty( $endpoint ) ) return;
 echo "<div class=wrap>";
 if (!empty($title)) echo "<h1>$title</h1>";
 // if (!empty($_GET['updated'])) echo '<div class="notice notice-success is-dismissible"><p>Settings saved.</p></div>';
-
+$script = '';
 echo '<form method=post id=mnml-settings-form>';
 echo '<table class=form-table>';
 foreach ($options as $group => $fields) {
@@ -34,7 +34,6 @@ foreach ($options as $group => $fields) {
         $ph = !empty($f['placeholder']) ? $f['placeholder'] : '';
         $size = !empty($f['size']) ? $f['size'] : 'regular';
         $hide = '';
-        $script = '';
         if (!empty($f['show'])) {
             if (is_string($f['show'])) $f['show'] = [$f['show'] => 'any'];
             foreach ($f['show'] as $target => $cond) {
@@ -118,6 +117,7 @@ foreach ($options as $group => $fields) {
     }
 }
 ?>
+</table>
 <script>
 document.getElementById('mnml-settings-form').addEventListener('change', function(e) {
   const form = e.target.form;
@@ -155,6 +155,5 @@ document.getElementById('mnml-settings-form').addEventListener('change', functio
 <?php 
 echo $script;
 echo "</script>";
-echo "</table>";
 echo "<div style='position:fixed;bottom:0;left:0;right:0;padding:16px 0 16px 180px;z-index:1;background:#1d2327'><button class=button-primary>Save Changes</button></div>";
 echo "</form></div>";
