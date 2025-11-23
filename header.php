@@ -86,17 +86,10 @@ wp_head();
 	} else {// no menu set
 		$frenchpress->nav_position = "top";
 	}
-	
-	
-
-	if ( $header_url = get_header_image() ) {
-		echo "<div id=header-image><a href='" . home_url() . "'><img src='{$header_url}' class=aligncenter></a></div>";// or should the class be tray?
-	}
 
 	/* BRANDING */
 	// start building .site-branding.  Keep track of if anything is displayed so I can remove padding if not
 	$site_branding_html = "";
-
 
 	if ( !empty( $frenchpress->use_custom_code_for_branding ) && !empty( $frenchpress->branding_custom_code ) ) :
 

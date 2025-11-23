@@ -323,11 +323,6 @@ require TEMPLATEPATH . '/includes/template-tags.php';
 require TEMPLATEPATH . '/includes/styling.php';
 
 /**
- * Customizer / header image
- */
-require TEMPLATEPATH . '/includes/customizer.php';
-
-/**
  * Remove core bull
  */
 if ( ! function_exists( 'mnml_disable_embeds_code_init' ) ) {
