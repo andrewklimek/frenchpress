@@ -18,7 +18,6 @@ function frenchpress_register_options_endpoint() {
 
 function frenchpress_api_options( $request ) {
 	$options = $request->get_param('opts') ?: [];
-	error_log( print_r( $options, true ) );
 	foreach ($options as $option => $value) {
 	    if ('' === $value) delete_option($option);
         else update_option($option, $value, true);
