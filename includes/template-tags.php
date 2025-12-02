@@ -31,6 +31,18 @@ function frenchpress_loop( $a=[] ){
 }
 add_shortcode( 'frenchpress_loop', 'frenchpress_loop');
 
+/**
+ * Custom walker to add dropdown wrapper divs for submenu levels > 1
+ */
+class Frenchpress_Menu_Walker extends Walker_Nav_Menu {
+    public function start_lvl( &$output, $depth = 0, $args = null ) {
+        $output .= "<ul class=" . ( $depth ? "'sub-menu sub-sub-menu'" : "sub-menu" ) . "><div class=sub-menu-wrapper>";
+    }
+    public function end_lvl( &$output, $depth = 0, $args = null ) {
+        $output .= "</div></ul>";
+    }
+}
+
 
 /**
  * Custom posts nav function because I'm insane

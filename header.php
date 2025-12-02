@@ -41,7 +41,7 @@ wp_head();
 	<?php do_action( 'frenchpress_header_top' );
 
 
-	$nav = [ 'theme_location' => 'main-menu', 'menu_id' => 'main-menu', 'container' => 0, 'echo' => 0, 'fallback_cb' => false ];
+	$nav = [ 'theme_location' => 'main-menu', 'menu_id' => 'main-menu', 'container' => 0, 'echo' => 0, 'fallback_cb' => false, 'item_spacing' => 'discard', 'walker' => new Frenchpress_Menu_Walker() ];
 	if ( $frenchpress->nav_align !== "left" ) {
 		if ( $frenchpress->nav_align === "justified" ) $frenchpress->nav_align = "spacebetween";
 		$nav['menu_class'] = "menu fff fff-" . $frenchpress->nav_align;

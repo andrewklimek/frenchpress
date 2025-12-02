@@ -108,7 +108,7 @@
 /*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
 /*	right: -16em;*/
 /*	margin: 0  auto;*/
-	width: 17em;
+	width: max-content;
 	/* white-space: pre; *//* instead of specifying a width */
 	/* min-width: 12em; */
 	position: absolute;
@@ -116,10 +116,14 @@
 	visibility: hidden;
 	opacity: 0;
 	transition: opacity 250ms;
-	padding: 0 0 4px;
+	padding: 2rem;
+	margin: -2rem;
 }
-.dnav .site-header .sub-menu > li {
-	font-size: .9em;
+.dnav .site-header .sub-menu:not(.sub-sub-menu) {
+  /* margin-top: -1rem; */
+}
+.dnav .site-header .sub-menu {
+	font-size: .9rem;
     /* border-top: 1px solid #ddd; */
 }
 
@@ -154,7 +158,7 @@
 	border-right: 1px solid currentColor;
 	border-top: 1px solid currentColor;
     vertical-align: middle;
-    display: inline-block;
+    display: block;
 	width: 6px;
 	height: 6px;
     cursor: pointer;
@@ -198,7 +202,7 @@
 	position: static;
 	display: flex;
 /*    justify-content: stretch;*/
-/*    align-items: stretch;*/
+   align-items: center;
 }
 .menuback {
     cursor: pointer;
@@ -214,4 +218,8 @@
 .seperate-tog > .menutog:hover {
 /*    background: rgba(255, 255, 255, 0.1);*/
 /*	-webkit-font-smoothing: antialiased;*/
+}
+
+sub-menu-wrapper {
+	padding: .25rem;
 }
