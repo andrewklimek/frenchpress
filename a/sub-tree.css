@@ -15,14 +15,14 @@
 	/*	height: calc(100% + 60px);*/
 	height: 100%;
 	position: fixed;
-/* 	bottom: 0; */
-    top: 0;
+	/* 	bottom: 0; */
+	top: 0;
 	left: 0;
 	width: 270px;
 	margin: 0 0 0 -270px;
-/*	padding: .8em;*/
+	/*	padding: .8em;*/
 	transition: transform .4s;
-/*	display: block;*/
+	/*	display: block;*/
 	background: var(--bg);
 	color: var(--fg);
 	text-align: left;
@@ -38,12 +38,9 @@
 	overflow: auto;
 }
 
-/* not sure which of these are needed */
-/* .site-header li, */
-.mnav .drawer .menu,/* this one overrides the negative margin on horizontal header navs in preceding rule */
+.mnav .drawer .menu,/* unset flex on mobile */
 .main-nav .menu-item {
 	display: block;
-	margin: 0;
 }
 
 #menu-close,
@@ -55,12 +52,12 @@
 }
 
 #menu-close {
-/*    position: absolute;*/
-/*    bottom: 0;*/
-/*    left: 0;*/
-/*	font: 100 24px/.7 sans-serif;*/
-/*    padding: 12px 24px;*/
- 	display: none;
+	/*    position: absolute;*/
+	/*    bottom: 0;*/
+	/*    left: 0;*/
+	/*	font: 100 24px/.7 sans-serif;*/
+	/*    padding: 12px 24px;*/
+	display: none;
 }
 
 .menubun {
@@ -72,9 +69,9 @@
 
 /* Allow drawer menu to scroll, but not on bigger screens cause fixed headers shift when you hide desktop scrollbars */
 /*@media (max-height:770px) {*/
-	.mnav.dopen {
-		overflow: hidden;
-	}
+.mnav.dopen {
+	overflow: hidden;
+}
 
 /*}*/
 
@@ -84,7 +81,7 @@
 	visibility: visible;
 }
 .mnav #menu-close {
-    display: none;
+	display: none;
 }
 
 
@@ -102,37 +99,41 @@
 
 /* HORIZONTAL HEADER SUBMENU */
 
-.dnav .site-header .sub-menu {
+.dnav .navdd {
 	/* top: 100%; */
 	/* left: 0; */
-/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
-/*	right: -16em;*/
-/*	margin: 0  auto;*/
-	width: 17em;
-	/*white-space: pre;*//* instead of specifying a width */
+	/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
+	/*	right: -16em;*/
+	/*	margin: 0  auto;*/
+	width: max-content;
+	/* white-space: pre; *//* instead of specifying a width */
 	/* min-width: 12em; */
 	position: absolute;
 	z-index: 99;/* need anymore cause of parent z-index? */
 	visibility: hidden;
 	opacity: 0;
 	transition: opacity 250ms;
-	padding: 0 0 4px;
+	padding: 2rem;
+	margin: -2rem;
 }
-.dnav .site-header .sub-menu > li {
-	font-size: .9em;
-    /* border-top: 1px solid #ddd; */
+/* .dnav #main-menu>li>.navdd { */
+.dnav .navdd:not(.sub) {
+	margin-top: -2rem;
+}
+.dnav .navdd {
+	font-size: .9rem;
+	/* border-top: 1px solid #ddd; */
 }
 
-.dnav .site-header .menu-item:hover > ul,
-.dnav .site-header .menu-item.focus > ul {
+.dnav .menu-item:hover > .navdd,
+.dnav .menu-item.focus > .navdd {
 	visibility: visible;
 	opacity: 1;
 }
 
-.dnav .site-header .sub-menu ul {
+.dnav .navdd.sub {
 	top: 0;
-	left: 99%;
-/*	width: 100%;*/
+	left: 100%;
 }
 
 /* END HORIZONTAL HEADER SUBMENU */
@@ -140,38 +141,41 @@
 /* SUBMENU TREE */
 /* may need this, which I disabled above
 .menu-item > a {
-	display: block;
-	position: relative;
+display: block;
+position: relative;
 }
 */
 
+.mnav .drawer .menu-item {
+	display: flex;
+	flex-flow: wrap;
+	align-items: center;
+}
 .menutog {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 24px;
 	padding: 12px;
-    cursor: pointer;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
 }
 .menutog::after {
 	content: "";
 	border-left: 1px solid currentColor;
 	border-top: 1px solid currentColor;
-    vertical-align: middle;
-    display: inline-block;
+	vertical-align: middle;
+	display: inline-block;
 	width: 6px;
 	height: 6px;
-    cursor: pointer;
+	cursor: pointer;
 	transform: rotate(45deg);
 }
 .menu-item.focus > .menutog::after {
-    transform: rotate(225deg);
+	transform: rotate(225deg);
 }
-.mnav .drawer .sub-menu {
-     max-height: 0;
-     overflow: hidden;
-     transition: max-height cubic-bezier(1,0,0,1) 99ms;
+.mnav .drawer .navdd {
+	width: 100%;
+	max-height: 0;
+	overflow: hidden;
+	transition: max-height cubic-bezier(1,0,0,1) 99ms;
 }
-.mnav .focus > .sub-menu {
-    max-height: 50em;
+.mnav .focus > .navdd {
+	max-height: 50em;
 }

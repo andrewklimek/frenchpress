@@ -15,14 +15,14 @@
 	/*	height: calc(100% + 60px);*/
 	height: 100%;
 	position: fixed;
-/* 	bottom: 0; */
-    top: 0;
+	/* 	bottom: 0; */
+	top: 0;
 	left: 0;
 	width: 270px;
 	margin: 0 0 0 -270px;
-/*	padding: .8em;*/
+	/*	padding: .8em;*/
 	transition: transform .4s;
-/*	display: block;*/
+	/*	display: block;*/
 	background: var(--bg);
 	color: var(--fg);
 	text-align: left;
@@ -38,12 +38,9 @@
 	overflow: auto;
 }
 
-/* not sure which of these are needed */
-/* .site-header li, */
-.mnav .drawer .menu,/* this one overrides the negative margin on horizontal header navs in preceding rule */
+.mnav .drawer .menu,/* unset flex on mobile */
 .main-nav .menu-item {
 	display: block;
-	margin: 0;
 }
 
 #menu-close,
@@ -55,12 +52,12 @@
 }
 
 #menu-close {
-/*    position: absolute;*/
-/*    bottom: 0;*/
-/*    left: 0;*/
-/*	font: 100 24px/.7 sans-serif;*/
-/*    padding: 12px 24px;*/
- 	display: none;
+	/*    position: absolute;*/
+	/*    bottom: 0;*/
+	/*    left: 0;*/
+	/*	font: 100 24px/.7 sans-serif;*/
+	/*    padding: 12px 24px;*/
+	display: none;
 }
 
 .menubun {
@@ -72,9 +69,9 @@
 
 /* Allow drawer menu to scroll, but not on bigger screens cause fixed headers shift when you hide desktop scrollbars */
 /*@media (max-height:770px) {*/
-	.mnav.dopen {
-		overflow: hidden;
-	}
+.mnav.dopen {
+	overflow: hidden;
+}
 
 /*}*/
 
@@ -84,7 +81,7 @@
 	visibility: visible;
 }
 .mnav #menu-close {
-    display: none;
+	display: none;
 }
 
 
@@ -102,12 +99,12 @@
 
 /* HORIZONTAL HEADER SUBMENU */
 
-.dnav .site-header .sub-menu {
+.dnav .navdd {
 	/* top: 100%; */
 	/* left: 0; */
-/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
-/*	right: -16em;*/
-/*	margin: 0  auto;*/
+	/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
+	/*	right: -16em;*/
+	/*	margin: 0  auto;*/
 	width: max-content;
 	/* white-space: pre; *//* instead of specifying a width */
 	/* min-width: 12em; */
@@ -119,81 +116,84 @@
 	padding: 2rem;
 	margin: -2rem;
 }
-.dnav .site-header .sub-menu:not(.sub-sub-menu) {
-  /* margin-top: -1rem; */
+/* .dnav #main-menu>li>.navdd { */
+.dnav .navdd:not(.sub) {
+	margin-top: -2rem;
 }
-.dnav .site-header .sub-menu {
+.dnav .navdd {
 	font-size: .9rem;
-    /* border-top: 1px solid #ddd; */
+	/* border-top: 1px solid #ddd; */
 }
 
-.dnav .site-header .menu-item:hover > ul,
-.dnav .site-header .menu-item.focus > ul {
+.dnav .menu-item:hover > .navdd,
+.dnav .menu-item.focus > .navdd {
 	visibility: visible;
 	opacity: 1;
 }
 
-.dnav .site-header .sub-menu ul {
+.dnav .navdd.sub {
 	top: 0;
-	left: 99%;
-/*	width: 100%;*/
+	left: 100%;
 }
 
 /* END HORIZONTAL HEADER SUBMENU */
 
 /* SUBMENU */
+
 /* sliding nav sets height attribute via JS. This is to override if resizing browser to desktop size */
 .dnav .main-nav {
-    height: auto!important;
+	height: auto!important;
 }
 .menutog {
 	padding: 12px;
-    cursor: pointer;
-    -webkit-tap-highlight-color: transparent;
-
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	
 }
 .menuback::before,
 .menutog::after {
 	content: "";
 	border-right: 1px solid currentColor;
 	border-top: 1px solid currentColor;
-    vertical-align: middle;
-    display: block;
+	vertical-align: middle;
+	display: block;
 	width: 6px;
 	height: 6px;
-    cursor: pointer;
+	cursor: pointer;
 	transform: rotate(45deg);
 }
 .menuback::before {
-    transform: rotate(225deg);
-    margin: 0 3px 0 2px;
+	display: inline-block;/* or use flex */
+	transform: rotate(225deg);
+	margin: 0 3px 0 2px;
 }
-.mnav .drawer .sub-menu {
-    position: absolute;
-    top: 0;
+.mnav .drawer .navdd {
+	position: absolute;
+	top: 0;
 	left: 0;
-    margin-left: 100%;
-    width: 100%;
+	margin-left: 100%;
+	width: 100%;
+	z-index: 1;
 }
-.mnav .main-nav ul {
-    transition: opacity .3s, transform .3s;
+.mnav .navdd {
+	transition: opacity .3s, transform .3s;
 }
-.main-nav ul ul {
-    /* transition: .3s; */
-    visibility: hidden;
+.navdd .navdd {
+	/* transition: .3s; */
+	visibility: hidden;
 	opacity: 0;
 }
-.mnav .main-nav ul.focus {
-    transform: translate(-100%);
+.mnav .focus > .navdd {
+	transform: translate(-100%);
 }
 /* .main-nav .menu, */
-.main-nav .focus > ul {
-    visibility:visible;
+.focus > .navdd {
+	visibility:visible;
 	opacity:1;
 }
 
 .mnav .main-nav {
-    overflow: hidden;
+	overflow: hidden;
 	position: relative;
 	transition: height .3s;
 	margin: 12px 0;/* makes consistent spacing at top and bottom of nav drawer */
@@ -201,13 +201,13 @@
 .mnav .drawer .menu-item {
 	position: static;
 	display: flex;
-/*    justify-content: stretch;*/
-   align-items: center;
+	/*    justify-content: stretch;*/
+	align-items: center;
 }
 .menuback {
-    cursor: pointer;
-    padding: 12px;
-    display: block;
+	cursor: pointer;
+	padding: 12px;
+	display: block;
 }
 
 /*.current-menu-item:not(.seperate-tog),*/
@@ -216,10 +216,10 @@
 .menu-item:not(.seperate-tog):hover,
 .seperate-tog > a:hover,
 .seperate-tog > .menutog:hover {
-/*    background: rgba(255, 255, 255, 0.1);*/
-/*	-webkit-font-smoothing: antialiased;*/
+	/*    background: rgba(255, 255, 255, 0.1);*/
+	/*	-webkit-font-smoothing: antialiased;*/
 }
 
-sub-menu-wrapper {
+navdd {
 	padding: .25rem;
 }

@@ -1,102 +1,54 @@
-/* DRAWER */
+/* SIMPLE DRAWER – no submenu support */
 
 #mask {
-	position: fixed;
-	background-color: transparent;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
-	visibility: hidden;
-	transition: background-color .4s;
+    position: fixed;
+    inset: 0;
+    background: transparent;
+    visibility: hidden;
+    transition: background-color 0.4s;
+    z-index: 99997;
 }
 
-.mnav .drawer,
-.desk-drawer {
-	z-index: 99998;
-	/*	height: calc(100% + 60px);*/
-	height: 100%;
-	position: fixed;
-/* 	bottom: 0; */
-    top: 0;
-	left: 0;
-	width: 270px;
-	margin: 0 0 0 -270px;
-/*	padding: .8em;*/
-	transition: transform .4s;
-/*	display: block;*/
-	background: var(--bg);
-	color: var(--fg);
-	text-align: left;
-	-webkit-overflow-scrolling: touch;
-	will-change: transform;
+.drawer {
+    --drawer-width: 270px;
+    position: fixed;
+    inset-block: 0 0;
+    inset-inline-start: 0;
+    width: var(--drawer-width);
+    margin-inline-start: calc(-1 * var(--drawer-width));
+    background: var(--bg);
+    color: var(--fg);
+    transition: transform 0.4s;
+    z-index: 99998;
+    -webkit-overflow-scrolling: touch;
 }
 
 .dopen .drawer {
-	max-width: 90%;
-	-webkit-transform: translateX(270px);
-	transform: translateX(270px);
-	box-shadow: 0 0 4px rgba(0,0,0,0.1);
-	overflow: auto;
+    transform: translateX(var(--drawer-width));
+    max-width: 90%;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    overflow: auto;
 }
 
-/* not sure which of these are needed */
-/* .site-header li, */
-.mnav .drawer .menu,/* this one overrides the negative margin on horizontal header navs in preceding rule */
-.desk-drawer .menu,
-.main-nav .menu-item {
-	display: block;
-	margin: 0;
-}
-
-#menu-close,
-#menu-open {
-	display: inline-block;
-	padding: 14px 0;
-	cursor: pointer;
-	-webkit-tap-highlight-color: transparent;
-}
-
-#menu-close {
-/*    position: absolute;*/
-/*    bottom: 0;*/
-/*    left: 0;*/
-/*	font: 100 24px/.7 sans-serif;*/
-/*    padding: 12px 24px;*/
- 	display: none;
-}
-
-.menubun {
-	background: currentColor;
-	width: 18px;
-	height: 1px;
-	margin: 4px;
-}
-
-/* Allow drawer menu to scroll, but not on bigger screens cause fixed headers shift when you hide desktop scrollbars */
-/*@media (max-height:770px) {*/
-	.mnav.dopen {
-		overflow: hidden;
-	}
-
-/*}*/
-
-/* only mobile screens */
 .mnav.dopen #mask {
-	background-color: rgba(0,0,0,.5);
-	visibility: visible;
+    background: rgba(0,0,0,0.5);
+    visibility: visible;
 }
-.mnav #menu-close {
+
+/* Hide drawer toggle / submenu indicators on desktop */
+.dnav #menu-open,
+.dnav .menutog,
+.dnav .menuback {
     display: none;
 }
 
+/* Drawer menu layout */
+.mnav .drawer .menu,
+.drawer .main-nav .menu-item {
+    display: block;
+    margin: 0;
+}
 
-/* HORIZONTAL MAIN NAV */
-
-/* .dnav #menu-close, */
-.dnav #menu-open,
-.dnav .menutog,
-.dnav .menuback,
-.dnav .drawer-widget {
-	display: none;
+.mnav.dopen {
+    overflow: hidden; /* prevent body scroll */
 }

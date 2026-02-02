@@ -36,11 +36,15 @@ add_shortcode( 'frenchpress_loop', 'frenchpress_loop');
  */
 class Frenchpress_Menu_Walker extends Walker_Nav_Menu {
     public function start_lvl( &$output, $depth = 0, $args = null ) {
-        $output .= "<ul class=" . ( $depth ? "'sub-menu sub-sub-menu'" : "sub-menu" ) . "><div class=sub-menu-wrapper>";
+        // $output .= "<div class=navdd><ul class=" . ( $depth ? "'sub-menu sub-sub-menu'" : "sub-menu" ) . ">";
+        $output .= "<div class=" . ( $depth ? "'navdd sub'" : "navdd" ) . "><ul class=sub-menu>";
     }
     public function end_lvl( &$output, $depth = 0, $args = null ) {
-        $output .= "</div></ul>";
+        $output .= "</div>";// </ul> not needed
     }
+	public function end_el( &$output, $data_object, $depth = 0, $args = null ) {
+		// </li> not needed
+	}
 }
 
 

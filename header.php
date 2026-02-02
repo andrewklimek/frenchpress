@@ -51,9 +51,9 @@ wp_head();
 	if ( $nav ) {
 
 	if ( !empty( $frenchpress->add_custom_code_right_of_menu ) || ( $frenchpress->nav_position === "right" && $frenchpress->nav_align !== "right" ) ) {
-		$grow = "fffi fffi-9";
+		$grow = "grow";
 	} elseif ( $frenchpress->nav_position === "right" ) {// $frenchpress->nav_align === "right" implied.  I think this is right...
-		$grow = "fffi";
+		$grow = "";// used to have fffi, but i think that's not needed
 	} else {
 		$grow = "";
 	}
@@ -70,9 +70,9 @@ wp_head();
 	if ( !empty( $frenchpress->add_custom_code_right_of_menu ) ) {
 		if ( $frenchpress->nav_position !== "right" ) {
 			$tray = empty( $frenchpress->full_width_nav ) ? "tray " : "";
-			$nav = "<div class=main-nav-wrap><div class='{$tray}fff fff-middle fff-nowrap fff-pad fff-spacebetween'>{$nav}<div class=fffi>{$frenchpress->custom_code_right_of_menu}</div></div></div>";
+			$nav = "<div class=main-nav-wrap><div class='{$tray}fff fff-middle fff-nowrap fff-pad fff-spacebetween'>{$nav}<div>{$frenchpress->custom_code_right_of_menu}</div></div></div>";
 		} else {
-			$nav = "{$nav}<div class=fffi>{$frenchpress->custom_code_right_of_menu}</div>";
+			$nav = "{$nav}<div>{$frenchpress->custom_code_right_of_menu}</div>";
 		}
 	} else {
 		if ( $frenchpress->nav_position !== "right" && $frenchpress->nav_align !== "center" ) {
@@ -93,7 +93,7 @@ wp_head();
 
 	if ( !empty( $frenchpress->use_custom_code_for_branding ) && !empty( $frenchpress->branding_custom_code ) ) :
 
-		$site_branding_html = "<div class='site-branding fffi fffi-9'>" . do_shortcode( $frenchpress->branding_custom_code ) . "</div>";
+		$site_branding_html = "<div class='site-branding grow'>" . do_shortcode( $frenchpress->branding_custom_code ) . "</div>";
 
 	else :
 
@@ -156,7 +156,7 @@ wp_head();
 		elseif ( $frenchpress->branding_align === "center" ) $align = " c";
 		elseif ( $frenchpress->branding_align === "right" ) $align = " r";
 		$pad = $logo || !$hide ? '' : ' pad-0';// TODO when is padding even applied? Might need padding on branding only rows.
-		$fff =  $frenchpress->mobile_nav === "none" && $frenchpress->nav_position !== "right" ? '' : ' fffi fffi-auto';
+		$fff =  $frenchpress->mobile_nav === "none" && $frenchpress->nav_position !== "right" ? '' : 'grow';
 		$site_branding_html = "<div class='site-branding{$fff}{$pad}{$align}'>{$site_branding_html}</div>";
 		// TODO: also if centering, hamburger should have position: absolute; right: 12px;
 	}
@@ -179,17 +179,17 @@ wp_head();
 
 	if ( $frenchpress->nav_position === "right" ) echo $nav;
 
-	elseif( !empty( $frenchpress->add_custom_code_right_of_branding ) ) echo "<div class=fffi>{$frenchpress->custom_code_right_of_branding}</div>";
+	elseif( !empty( $frenchpress->add_custom_code_right_of_branding ) ) echo "<div>{$frenchpress->custom_code_right_of_branding}</div>";
 
 	/**
 	* Menu Drawer Button
 	*/
 	if ( empty( $frenchpress->mobile_nav ) || $frenchpress->mobile_nav === 'fullscreen' ) : ?>
-		<div id=menu-open role=button aria-controls=main-menu class=fffi onclick="document.documentElement.classList.toggle('dopen')">
+		<div id=menu-open role=button aria-controls=main-menu onclick="document.documentElement.classList.toggle('dopen')">
 			<span id=menu-open-label class=screen-reader-text>Menu</span>
 			<div class=menubun></div><div class=menubun></div><div class=menubun></div></div>
 	<?php elseif ( in_array( $frenchpress->mobile_nav, ['slide','tree'] ) ) : ?>
-		<div id=menu-open role=button aria-controls=main-menu aria-expanded=false class=fffi>
+		<div id=menu-open role=button aria-controls=main-menu aria-expanded=false>
 			<span id=menu-open-label class=screen-reader-text>Menu</span>
 			<div class=menubun></div><div class=menubun></div><div class=menubun></div></div>
 	<?php endif;
