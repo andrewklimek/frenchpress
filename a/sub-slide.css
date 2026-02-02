@@ -38,8 +38,8 @@
 	overflow: auto;
 }
 
-.mnav .drawer .menu,/* unset flex on mobile */
-.main-nav .menu-item {
+/* unset flex on mobile */
+.mnav .drawer .menu {
 	display: block;
 }
 
@@ -89,7 +89,7 @@
 
 /* .dnav #menu-close, */
 .dnav #menu-open,
-.dnav .menutog,
+.dnav .menu > li > .menutog,
 .dnav .menuback,
 .dnav .drawer-widget {
 	display: none;
@@ -100,7 +100,7 @@
 /* HORIZONTAL HEADER SUBMENU */
 
 .dnav .navdd {
-	/* top: 100%; */
+	top: 100%;
 	/* left: 0; */
 	/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
 	/*	right: -16em;*/
@@ -197,9 +197,13 @@
 }
 .mnav .drawer .menu-item {
 	position: static;
-	display: flex;
+	/* display: flex; */
 	/*    justify-content: stretch;*/
-	align-items: center;
+	/* align-items: center; */
+}
+.drawer .menu-item {
+	display: flex;
+	align-items: center
 }
 .menuback {
 	cursor: pointer;

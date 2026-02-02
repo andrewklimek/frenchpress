@@ -38,8 +38,8 @@
 	overflow: auto;
 }
 
-.mnav .drawer .menu,/* unset flex on mobile */
-.main-nav .menu-item {
+/* unset flex on mobile */
+.mnav .drawer .menu {
 	display: block;
 }
 
@@ -89,7 +89,7 @@
 
 /* .dnav #menu-close, */
 .dnav #menu-open,
-.dnav .menutog,
+.dnav .menu > li > .menutog,
 .dnav .menuback,
 .dnav .drawer-widget {
 	display: none;
@@ -100,7 +100,7 @@
 /* HORIZONTAL HEADER SUBMENU */
 
 .dnav .navdd {
-	/* top: 100%; */
+	top: 100%;
 	/* left: 0; */
 	/*	left: -16em;*//* doesn't have to be exactly same as width, just 100% was sometimes too small */
 	/*	right: -16em;*/
@@ -143,7 +143,7 @@ position: relative;
 }
 */
 
-.mnav .drawer .menu-item {
+.drawer .menu-item {
 	display: flex;
 	flex-flow: wrap;
 	align-items: center;
@@ -155,7 +155,7 @@ position: relative;
 }
 .menutog::after {
 	content: "";
-	border-left: 1px solid currentColor;
+	border-right: 1px solid currentColor;
 	border-top: 1px solid currentColor;
 	vertical-align: middle;
 	display: inline-block;
@@ -165,7 +165,7 @@ position: relative;
 	transform: rotate(45deg);
 }
 .menu-item.focus > .menutog::after {
-	transform: rotate(225deg);
+	transform: rotate(135deg);
 }
 .mnav .drawer .navdd {
 	width: 100%;
