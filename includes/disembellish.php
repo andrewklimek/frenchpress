@@ -61,6 +61,8 @@ remove_action( 'wp_head', 'wp_generator' );
  */
 function disable_gutenberg_block_css() {
 	wp_dequeue_style( 'wp-block-library' );
+	// wp_dequeue_style( 'wp-block-library-theme' );/* only added if theme declares support for wp-block-styles */
+	wp_dequeue_style( 'classic-theme-styles' );
 }
 add_action( 'wp_enqueue_scripts', 'disable_gutenberg_block_css', 999 );
 
@@ -175,3 +177,6 @@ add_filter( 'heartbeat_settings', function( $settings ) {
     }
     return $settings;
 } );
+
+// WP 6.9 - might want to try this on sites that will be cached and see if it does help stylesheets
+add_filter( 'wp_should_output_buffer_template_for_enhancement', '__return_false' );
