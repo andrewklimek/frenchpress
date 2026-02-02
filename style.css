@@ -94,12 +94,17 @@ hr {
 body {
 	margin: 0;
 	min-height: 100vh;
+	/* display: flex; */
+    /* flex-direction: column; */
 }
+
+/* supposedly this is safer than 1 1 0% */
+/* #content { flex: 1 0 auto; } */
 
 .tray {
 	width: 100%;/* this was needed for sidebar w/ centered content... but I had it here since long before that layout, not sure why. */
 	margin: auto;
-	padding: 0 1.5rem;
+	padding: 1.5rem;
 }
 
 nav ul,
@@ -123,12 +128,8 @@ aside ul {
 .site-header .menu-item > a {
 	display: block;
 	/* position: relative; *//* may only have served the toggle tree nav */
-	flex-grow: 1;
-	padding: .75rem 1.5rem;
-}
-/* could this be redone with gap? */
-.site-header .tray .menu {/* TODO I dont really like having this. is it work removing for centered menus? could it just be on main menu?  .tray>.main-nav */
-    margin: 0 -1.5rem;/* align flush with sides of header. must be overriden for side nav */
+	padding: .25rem .75rem;
+	flex: 1;
 }
 
 /*--------------------------------------------------------------
@@ -152,7 +153,6 @@ aside ul {
 	left: 5px;
 	top: 50px;/* try below WP toolbar instead of z-index stuff */
 }
-
 
 /*--------------------------------------------------------------
 *  WordPress Specific stuff: Alignments - Required
@@ -184,18 +184,21 @@ body,
 	flex-wrap: wrap;
 }
 
-.feat,/* I'm not sure this "feat" class will work in IE11 because of this bug: https://github.com/philipwalton/flexbugs#flexbug-2 which would require .feat > * { max-width:100% } */
-body,
-.fff-column {
-    flex-flow: column;/* this should reset wrap to intitial (nowrap) */
+.fff:not(.no-gap) {
+	gap: 1.5rem;
+}
+.fff.menu {
+	gap: .5rem;
 }
 
-.fff-nowrap {
-	flex-wrap: nowrap;
+.feat,
+body,
+.fff-column {
+    flex-flow: column;
 }
 
 .fff-middle {
-    align-items: center;/* same as grid */
+    align-items: center;
 }
 
 .fff-top {
@@ -227,86 +230,34 @@ body,
 	justify-content: space-around;
 }
 
-.fffi-top {
-	align-self: start;
-}
-
-.fffi-middle {
-	align-self: center;
-}
-
-.fffi-bottom {
-	align-self: end;
-}
-
-.fffi,
-.fff-initial > .fffi,
-.fff > .fffi-initial.fffi {
-	flex: initial;/* shorthand initial needs to be spelled out 0 1 auto for IE10 */
-}
-
-.fff-none > .fffi,
-.fff > .fffi-none.fffi {
-	flex: none;/* 0 0 auto */
-}
-
-.fff-even > .fffi,
-.fff > .fffi-even.fffi {
-	flex: 1;/* shorthand 1 needs to be spelled out 1 1 0% for IE10 & can’t have unitless flex-basis */
-}
-
 #content,
-.fff-auto > .fffi,
-.fff > .fffi-auto.fffi {
-	flex: auto;/* shorthand auto needs to be spelled out 1 1 auto for IE10 */
+.grow {
+	flex: 1;/* 1 1 0% */
 }
 
-.fff-magic > .fffi,
-.fff > .fffi-magic.fffi {
-	flex: auto;
-	width: 18em;
+.fff-grid {
+	grid-template-columns: repeat(auto-fit, minmax(min(18em, 100%), 1fr));
 }
 
-.fffi-9.fffi{flex-grow:9;}
-.fffi-99.fffi{flex-grow:99;}/* use 99 to make one cell eat up virtually all the extra space (while still allowing other cells to grow once they're on their own line (on a smaller screen)) */
-[class*='fff-x'] > .fffi {width:100%;}
+[class*='fff-x'] {
+	display: grid;
+}
+
+.fff-x4 {
+	grid-template-columns: repeat(2, 1fr);
+}
 
 @media(min-width:783px) {
-	
-	.fff-x2 > .fffi {
-		width: 50%;
-	}
-	
-	.fff-x3 > .fffi {
-		width:33.333%;
-	}
-
-	.fff-x4 > .fffi {
-		width:25%;
-	}
-}
-
-.fff-pad > .fffi,
-.tray.fff-pad {
-	padding: .75rem;/* margin would be ideal for the inner divs if they have images or a bg color but then %-based widths don't work (since margin isn't part of width). padding is also better for borders inbetween...  */
-}
-
-.fff-pad:not(.tray) {/* this breaks trays on full width pages cause the margin auto is ruined */
-	margin: -.75rem;
-}
-
-.fff-gap {
-	gap: 1.5rem;
-}
-
-.pad-0 {
-	padding: 0;
+	.fff-x2 { grid-template-columns: repeat(2, 1fr); }
+	.fff-x3 { grid-template-columns: repeat(3, 1fr); }
+	.fff-x4 { grid-template-columns: repeat(4, 1fr); }
 }
 
 .pad {
 	padding: 1.5rem;
 }
-.fff-pad > .fffi > :last-child,
+
+.fff > * > :last-child,
 .pad > :last-child {
     margin-bottom: 0;
 }
@@ -330,20 +281,11 @@ body,
   padding: 3rem 1.5rem;/* 2*base 1*base */
 }
 
-.pad-2.tray.fff-pad {
-	padding: 2.25rem .75rem;/* 1.5*base .5*base */
-}
-
 .pad-3 {
   padding: 4.5rem 1.5rem;/* 3*base 1*base */
 }
 
-.pad-3.tray.fff-pad {
-	padding: 3.75rem .75rem;/* 2.5*base .5*base */
-}
-
 hr.spacer {
-	/* background: none; */
 	border: 0;
 }
 
