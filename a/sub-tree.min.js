@@ -51,9 +51,11 @@
 			// Reset any previous adjustment (in case window was resized, etc.)
 			submenu.style.left = '';
 			submenu.style.right = '';
-			if (submenu.getBoundingClientRect().right - window.innerWidth > -9) {
-			submenu.style.right = submenu.classList.contains('sub') ? '100%' : '0';
-			submenu.style.left = 'auto';
+			if (htmlClass.contains('dnav')) {
+				if (submenu.getBoundingClientRect().right - window.innerWidth > -9) {
+					submenu.style.right = submenu.classList.contains('sub') ? '100%' : '0';
+					submenu.style.left = 'auto';
+				}
 			}
 		});
 	}
