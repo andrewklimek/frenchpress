@@ -43,5 +43,26 @@
 		parent.parentElement.insertBefore(tog, parent.nextSibling);
 		
 	});
+
+	// fix alignment of submenus if they'll overflow the viewport
+	function adjustSubmenuIfNeeded() {
+	document.querySelectorAll('.navdd').forEach((submenu) => {
+		if (!submenu) return;
+		// Reset any previous adjustment (in case window was resized, etc.)
+		submenu.style.left = '';
+		submenu.style.right = '';
+		if (submenu.getBoundingClientRect().right - window.innerWidth > -9) {
+		submenu.style.right = submenu.classList.contains('sub') ? '100%' : '0';
+		submenu.style.left = 'auto';
+		}
+	});
+	}
+	document.addEventListener('DOMContentLoaded', adjustSubmenuIfNeeded);
+	// check on resize
+	let resizeTimer;
+	window.addEventListener('resize', () => {
+		clearTimeout(resizeTimer);
+		resizeTimer = setTimeout(adjustSubmenuIfNeeded, 120);
+	});
 	
 })();
