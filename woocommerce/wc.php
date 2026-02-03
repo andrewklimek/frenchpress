@@ -59,8 +59,8 @@ function frenchpress_woo_init(){
 	}
 }
 
-add_action( 'woocommerce_before_single_product_summary', function(){ echo "<div class='fff fff-magic fff-gap'><div class=fffi>"; }, 19 );
-add_action( 'woocommerce_before_single_product_summary', function(){ echo "</div><div class=fffi>"; }, 9999 );
+add_action( 'woocommerce_before_single_product_summary', function(){ echo "<div class=fff><div class=grow style='width:18em'>"; }, 19 );
+add_action( 'woocommerce_before_single_product_summary', function(){ echo "</div><div class=grow style='width:18em'>"; }, 9999 );
 add_action( 'woocommerce_after_single_product_summary', function(){ echo "</div></div>"; }, 0 );
 
 // Could add a custom sidebar and maybe hook it inot sidebar.php with these conditionals

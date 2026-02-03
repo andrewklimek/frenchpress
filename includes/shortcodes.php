@@ -45,10 +45,10 @@ bottom
 
 (flex)
 none		(0 0 auto)
-auto		(1 1 auto)
+grow (auto)		(1 1 auto)
 initial	 (0 1 auto)
 noshrink	(1 0 auto) *** DISABLED ***
-magic		(1 1 auto + width:18em)
+magic		(1 1 auto + width:18em) *** DISABLED ***
 even		(1 1 0)
 
 (flex-basis)
@@ -114,19 +114,25 @@ function frenchpress_shortcode( $a, $c = '', $tag = '' ) {
 	}
 	// ad-hoc style attribute
 	if ( !empty( $a['style'] ) ) $style .= $a['style'];
-	$style = " style='{$style}'";
+	$style = trim($style) ? " style='{$style}'" : "";
 
 	// Flex
 	if ( false !== strpos( $tag, 'grid' ) || !empty( $a['grid'] ) ) {
 		$class .= ' fff';
 		if ( !empty( $a['grid'] ) && 'true' !== $a['grid'] ) {// anything but true, lets add the modifiers
 			$class .= " fff-" . str_replace( " ", " fff-", $a['grid'] );
+			$deprecated_count = 0;
+			$class = str_replace( 'fff-pad', '', $class, $deprecated_count );
+			// if ( $deprecated_count ) error_log( '!!! Deprecated grid values found on ' . $_SERVER['REQUEST_URI'] . ': ' . $a['grid'] );
 		}
 	}
 	if ( false !== strpos( $tag, 'cell' ) || !empty( $a['cell'] ) ) {
-		$class .= ' fffi';
+		// $class .= ' fffi';
 		if ( !empty( $a['cell'] ) && 'true' !== $a['cell'] ) {// anything but true, lets add the modifiers
-			$class .= " fffi-" . str_replace( " ", " fffi-", $a['cell'] );
+			// $class .= " fffi-" . str_replace( " ", " fffi-", $a['cell'] );
+			$deprecated_count = 0;
+			$class .= ' ' . str_replace( ['magic', 'auto'], 'grow', $a['cell'], $deprecated_count );
+			if ( $deprecated_count ) error_log( '!!! Deprecated cell values found on ' . $_SERVER['REQUEST_URI'] . ': ' . $a['cell'] );
 		}
 
 		// [flex-space] shortcode to add expanding space as a more intuitive way than settign spacebetween and putting things in grouping divs

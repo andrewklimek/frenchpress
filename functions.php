@@ -252,7 +252,7 @@ function frenchpress_widgets_init() {
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
-		'before_sidebar'=> '<div id="%1$s" class="widget-area fffi">',
+		'before_sidebar'=> '<div id="%1$s" class=widget-area>',
 		'after_sidebar' => "</div>\n",
 	]);
 	register_sidebar([
@@ -262,7 +262,7 @@ function frenchpress_widgets_init() {
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
-		'before_sidebar'=> '<div id="%1$s" class="widget-area fffi">',
+		'before_sidebar'=> '<div id="%1$s" class=widget-area>',
 		'after_sidebar' => "</div>\n",
 	]);
 	register_sidebar([
@@ -272,7 +272,7 @@ function frenchpress_widgets_init() {
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
-		'before_sidebar'=> '<div id="%1$s" class="widget-area fffi">',
+		'before_sidebar'=> '<div id="%1$s" class=widget-area>',
 		'after_sidebar' => "</div>\n",
 	]);
 	register_sidebar([
@@ -282,14 +282,14 @@ function frenchpress_widgets_init() {
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
-		'before_sidebar'=> '<div id="%1$s" class="widget-area fffi">',
+		'before_sidebar'=> '<div id="%1$s" class=widget-area>',
 		'after_sidebar' => "</div>\n",
 	]);
 	register_sidebar([
 		'name'          => 'Bottom of Footer',
 		'id'            => 'footer-bottom',
 		'description'   => 'Typical place for copyright, theme info, etc. Shortcode [current_year] is available for copyrights.',
-		'before_widget' => '<aside id="%1$s" class="widget footer-widget fffi %2$s">',
+		'before_widget' => '<aside id="%1$s" class="widget footer-widget %2$s">',
 		'after_widget'  => "</aside>\n",
 		'before_title'  => '<h3 class=widgettitle>',
 		'after_title'   => "</h3>\n",
